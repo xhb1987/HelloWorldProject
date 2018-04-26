@@ -1,0 +1,19 @@
+{
+    "extends": "airbnb",
+    "rules": {
+        "indent": [2, 4, { "SwitchCase": 1 }],
+        "arrow-body-style": ["error", "as-needed"],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
+        "comma-dangle": [0, "never"],
+        "import/no-unresolved": 0,
+        "import/extensions": 0,
+        "global-require": "off",
+        "class-methods-use-this": [2]
+    },
+    "globals": {
+        "window": true,
+        "document": true
+    }
+}
