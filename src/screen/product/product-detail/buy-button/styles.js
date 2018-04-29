@@ -22,10 +22,6 @@ const styles = RNC`
         border-width: 0;
         border-radius: 5;
     }
-
-    buyButton {
-        color: white;
-    }
     `;
 
 export default styles;
