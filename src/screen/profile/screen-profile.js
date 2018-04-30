@@ -1,9 +1,17 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import ProfileInfoContainer from './profile-info/profile-info-container';
+import styles from './styles';
 
-const ScreenProfile = () => (
-    <View>
-        <Text>Profile Screen</Text>
+const ScreenProfile = ({ isLogin, userLogin }) => (
+    <View style={styles.container}>
+        {isLogin ? (
+            <ProfileInfoContainer />
+        ) : (
+            <Button title="Log in" onPress={() => userLogin()}>
+                <Text>Log in</Text>
+            </Button>
+        )}
     </View>
 );
 

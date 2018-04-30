@@ -20,7 +20,13 @@ import ProductOrderContainer from './product/product-order/product-order-contain
 // square
 import SquareContainer from './square/square-container';
 
+// user - login
+import UserLoginContainer from './user-login/user-login-container';
+
 export const registerScreens = (store, provider) => {
+    // user - login
+    Navigation.registerComponent('screen.User.Login', () => UserLoginContainer, store, provider);
+
     // squre
     Navigation.registerComponent('screen.Square', () => SquareContainer, store, provider);
     // product
