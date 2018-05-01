@@ -1,23 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Message from './message';
 
-class Container extends Component {
-    static get navigatorStyle() {
-        return {
-            navBarCustomView: 'screen.MessageHomeContainer.TopBar',
-            navBarComponentAlignment: 'center',
-            navBarCustomViewInitialProps: {
-                title: 'test'
-            }
-        };
-    }
+const Container = props => <Message {...props} />;
 
-    render() {
-        return <Message {...this.props} />;
-    }
-}
+const stateToProps = (state, ownProps) => ({
+    messagesList: state.message.messagesList,
+    navigator: ownProps.navigator
+});
 
-const MessageContainer = connect()(Container);
+const dispatchToProps = () => ({});
+
+const MessageContainer = connect(stateToProps, dispatchToProps)(Container);
 
 export default MessageContainer;

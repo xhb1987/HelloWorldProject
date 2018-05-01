@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { GiftedChat, SystemMessage } from 'react-native-gifted-chat';
-import { Text, View } from 'react-native';
 import {
     sendMessageAction,
     receiveMessageAction,
     loadOldMessageRequestAction,
     loadOldMessageSuccessAction
 } from '../../../state/screen/square/actions';
-import CustomActions from './customActions';
-import CustomView from './customView';
 import Chat from './chat';
-import styles from './styles';
 
 const Container = props => <Chat {...props} />;
 

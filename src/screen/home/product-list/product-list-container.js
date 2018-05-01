@@ -32,14 +32,6 @@ class Container extends Component {
     }
 }
 
-// Container.propTypes = {
-//     productItem: PropTypes.arrayOf(PropTypes.object)
-// };
-
-// Container.defaultProps = {
-//     productItem: [{}]
-// };
-
 const stateToProps = state => ({
     productItem: state.product.products
 });

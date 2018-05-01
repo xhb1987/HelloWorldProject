@@ -1,18 +1,14 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { ScrollView } from 'react-native';
 import ProfileInfoContainer from './profile-info/profile-info-container';
+import UserInfoContainer from './user-info/user-info-container';
 import styles from './styles';
 
-const ScreenProfile = ({ isLogin, userLogin }) => (
-    <View style={styles.container}>
-        {isLogin ? (
-            <ProfileInfoContainer />
-        ) : (
-            <Button title="Log in" onPress={() => userLogin()}>
-                <Text>Log in</Text>
-            </Button>
-        )}
-    </View>
+const ScreenProfile = ({ navigator }) => (
+    <ScrollView style={styles.container}>
+        <UserInfoContainer navigator={navigator} />
+        <ProfileInfoContainer />
+    </ScrollView>
 );
 
 export default ScreenProfile;

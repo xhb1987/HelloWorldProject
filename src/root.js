@@ -69,6 +69,18 @@ export class App {
                 }
             },
             {
+                label: '消息',
+                screen: 'screen.Message',
+                icon: settingsIcon,
+                title: '消息',
+                iconInsets: {
+                    top: 6,
+                    left: 0,
+                    bottom: 10,
+                    right: 0
+                }
+            },
+            {
                 label: '我的',
                 screen: 'screen.Profile',
                 icon: peopleIcon,

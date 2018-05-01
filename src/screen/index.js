@@ -3,6 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import HomeTabBarContainer from './home/tab-bar/tab-bar-container';
 import ScreenHomeContainer from './home/screen-home-container';
 import ScreenProfileContainer from './profile/screen-profile-container';
+import MessageContainer from './message/message-container';
 
 import Modale from './components/modal/modal';
 import LightBoxContainer from './components/light-box/light-box-container';
@@ -11,6 +12,9 @@ import SquareTab from './footer/tabs/square-tab';
 import HomeTab from './footer/tabs/home-tab';
 import MessageTab from './footer/tabs/message-tab';
 import ProfileTab from './footer/tabs/profile-tab';
+
+// message
+import MessageDetailContainer from './message/message-detail/message-detail-container';
 
 // product
 import ProductDetailContainer from './product/product-detail/product-detail-container';
@@ -23,7 +27,26 @@ import SquareContainer from './square/square-container';
 // user - login
 import UserLoginContainer from './user-login/user-login-container';
 
+// user - register
+import UserRegisterContainer from './user-register/user-register-container';
+
 export const registerScreens = (store, provider) => {
+    // message
+    Navigation.registerComponent('screen.Message', () => MessageContainer, store, provider);
+    Navigation.registerComponent(
+        'screen.Message.Detail',
+        () => MessageDetailContainer,
+        store,
+        provider
+    );
+
+    // user - register
+    Navigation.registerComponent(
+        'screen.User.Register',
+        () => UserRegisterContainer,
+        store,
+        provider
+    );
     // user - login
     Navigation.registerComponent('screen.User.Login', () => UserLoginContainer, store, provider);
 

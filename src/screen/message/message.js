@@ -1,19 +1,30 @@
 import React from 'react';
+import { View, FlatList } from 'react-native';
+import { Divider } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import MessageItem from './message-item/message-item';
+import styles from './styles';
 
-const Message = ({ homeTitle }) => (
-    <View>
-        <Text>{homeTitle}</Text>
+const Message = ({ messagesList, navigator }) => (
+    <View style={styles.container}>
+        <FlatList
+            data={messagesList}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => <MessageItem item={item} navigator={navigator} />}
+            ItemSeparatorComponent={() => (
+                <Divider style={{ height: 1.5, backgroundColor: '#f1f1f1' }} />
+            )}
+        />
     </View>
 );
-
 Message.propTypes = {
-    homeTitle: PropTypes.string
+    messagesList: PropTypes.arrayOf(PropTypes.object),
+    navigator: PropTypes.objectOf(PropTypes.any)
 };
 
 Message.defaultProps = {
-    homeTitle: 'Default Title'
+    messagesList: [{}],
+    navigator: {}
 };
 
 export default Message;

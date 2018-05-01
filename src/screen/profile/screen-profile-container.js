@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ScreenProfile from './screen-profile';
 
-const Container = props => <ScreenProfile {...props} />;
+class Container extends Component {
+    static get navigatorStyle() {
+        return {
+            navBarHidden: true
+        };
+    }
 
-const stateToProps = state => ({
-    isLogin: state.user.isLogin
+    render() {
+        return <ScreenProfile {...this.props} />;
+    }
+}
+
+const stateToProps = (state, ownProps) => ({
+    isLogin: state.user.isLogin,
+    navigator: ownProps.navigator
 });
 const dispatchToProps = (dispatch, ownProps) => ({
     userLogin: () => {

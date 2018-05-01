@@ -17,6 +17,7 @@ const styles = RNC`
 
     buttonGroup {
         margin-top: 10px;
+        flex-direction: row;
     }
 
     screenTitle {

@@ -10,7 +10,8 @@
         "import/no-unresolved": 0,
         "import/extensions": 0,
         "global-require": "off",
-        "class-methods-use-this": [2]
+        "class-methods-use-this": [2],
+        "arrow-parens": ["error", "as-needed"]
     },
     "globals": {
         "window": true,

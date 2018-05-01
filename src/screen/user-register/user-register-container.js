@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    userLoginCancelAction,
-    userLogin,
+    userRegisterCode,
+    userRegister,
     userInputChangeAction
 } from '../../state/screen/user/actions';
-import UserLogin from './user-login';
+import UserRegister from './user-register';
 
 class Container extends Component {
     static get navigatorStyle() {
@@ -20,36 +20,24 @@ class Container extends Component {
     }
 
     render() {
-        return <UserLogin {...this.props} />;
+        return <UserRegister {...this.props} />;
     }
 }
 
 const stateToProps = () => ({});
 const dispatchToProps = (dispatch, ownProps) => ({
-    cancelLogin: () => {
-        ownProps.navigator.pop({
-            animated: true,
-            animationType: 'fade'
-        });
-        dispatch(userLoginCancelAction());
-    },
-    login: () => {
+    userRegister: () => {
         ownProps.navigator.popToRoot({
             animated: true,
             animationType: 'fade'
         });
-        dispatch(userLogin());
+        dispatch(userRegister());
     },
-    goToRegister: () => {
-        ownProps.navigator.push({
-            screen: 'screen.User.Register',
-            animationType: 'fade',
-            backButtonHidden: true,
-            title: '注册'
-        });
+    getRegisterCode: () => {
+        dispatch(userRegisterCode());
     },
     userInputChange: (value, type) => dispatch(userInputChangeAction(value, type))
 });
 
-const UserLoginContainer = connect(stateToProps, dispatchToProps)(Container);
-export default UserLoginContainer;
+const UserRegisterContainer = connect(stateToProps, dispatchToProps)(Container);
+export default UserRegisterContainer;

@@ -2,7 +2,14 @@ import {
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILURE,
-    USER_LOGIN_CANCEL
+    USER_LOGIN_CANCEL,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS,
+    USER_REGISTER_FAILURE,
+    USER_REGISTER_CODE_REQUEST,
+    USER_REGISTER_CODE_SUCCESS,
+    USER_REGISTER_CODE_FAILURE,
+    USER_INPUT_CHANGE
 } from './actions';
 
 const initialState = {
@@ -35,11 +42,59 @@ const initialState = {
         }
     ],
     loading: false,
-    error: false
+    sendCodeLoading: true,
+    snedCodeError: false,
+    error: false,
+    userPhone: '',
+    userCode: '',
+    userPassword: '',
+    userPasswordRepeat: '',
+    userLoginPhone: '',
+    userLoginPassword: ''
 };
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case USER_INPUT_CHANGE: {
+            const inputType = action.payload.type;
+            if (inputType === 'phone') {
+                return Object.assign({}, state, { userPhone: action.payload.value });
+            }
+
+            if (inputType === 'code') {
+                return Object.assign({}, state, { userCode: action.payload.value });
+            }
+
+            if (inputType === 'password') {
+                return Object.assign({}, state, { userPassword: action.payload.value });
+            }
+
+            if (inputType === 'passwordRepeat') {
+                return Object.assign({}, state, { userPasswordRepeat: action.payload.value });
+            }
+
+            if (inputType === 'loginPhone') {
+                return Object.assign({}, state, { userLoginPhone: action.payload.value });
+            }
+
+            if (inputType === 'loginPassword') {
+                return Object.assign({}, state, { userLoginPassword: action.payload.value });
+            }
+            return state;
+        }
+
+        case USER_REGISTER_REQUEST:
+            return Object.assign({}, state, { loading: true });
+        case USER_REGISTER_SUCCESS:
+            return Object.assign({}, state, { loading: false, error: false });
+        case USER_REGISTER_FAILURE:
+            return Object.assign({}, state, { loading: false, error: true });
+        case USER_REGISTER_CODE_REQUEST:
+            return Object.assign({}, state, { sendCodeLoading: true });
+        case USER_REGISTER_CODE_SUCCESS:
+            return Object.assign({}, state, { sendCodeLoading: false, snedCodeError: false });
+        case USER_REGISTER_CODE_FAILURE:
+            return Object.assign({}, state, { sendCodeLoading: false, snedCodeError: true });
         case USER_LOGIN_CANCEL:
             return Object.assign({}, state, { loading: false, error: false, isLogin: false });
         case USER_LOGIN_REQUEST:

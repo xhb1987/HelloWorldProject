@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { GiftedChat, Actions, Bubble, SystemMessage } from 'react-native-gifted-chat';
-import CustomActions from './customActions';
-import CustomView from './customView';
+import { GiftedChat, Bubble, SystemMessage } from 'react-native-gifted-chat';
 import styles from './styles';
 
 export default class Chat extends Component {
