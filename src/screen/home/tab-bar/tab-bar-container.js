@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
+import {
+    cityPullRequest,
+    villagePullRequest,
+    citySelectAction
+} from '../../../state/screen/home/actions';
 import HomeTabBar from './tab-bar';
 
 class Container extends Component {
@@ -9,12 +14,29 @@ class Container extends Component {
         this.openOption = this.openOption.bind(this);
     }
 
-    openOption() {
+    componentDidMount() {
+        this.props.getCityList();
+        // this.props.getVillageList();
+    }
+
+    openOption(optionType) {
+        let contentList = [];
+        let boxTitle = '';
+
+        if (optionType === 'city') {
+            contentList = this.props.cityList;
+            boxTitle = '选择城市';
+        }
+
+        if (optionType === 'village') {
+            contentList = this.props.villageList;
+            boxTitle = '选择小区';
+        }
         Navigation.showLightBox({
             screen: 'screen.Component.LightBox',
             passProps: {
-                title: this.props.homeTitle,
-                content: [1, 2, 3, 4, 5],
+                title: boxTitle,
+                content: contentList,
                 onClose: Navigation.dismissLightBox
             },
             style: {
@@ -29,8 +51,17 @@ class Container extends Component {
     }
 }
 const stateToProps = state => ({
-    homeTitle: state.home.homeTitle
+    homeTitle: state.home.homeTitle,
+    cityList: state.home.cityList,
+    villageList: state.home.villageList,
+    city: state.home.selectedCity,
+    village: state.home.selectedVillage
 });
 
-const HomeTabBarContainer = connect(stateToProps)(Container);
+const dispatchToProps = dispatch => ({
+    getCityList: () => dispatch(cityPullRequest()),
+    getVillageList: () => dispatch(villagePullRequest())
+});
+
+const HomeTabBarContainer = connect(stateToProps, dispatchToProps)(Container);
 export default HomeTabBarContainer;

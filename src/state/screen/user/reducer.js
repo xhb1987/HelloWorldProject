@@ -50,7 +50,8 @@ const initialState = {
     userPassword: '',
     userPasswordRepeat: '',
     userLoginPhone: '',
-    userLoginPassword: ''
+    userLoginPassword: '',
+    sessionToken: ''
 };
 
 const userReducer = (state = initialState, action) => {

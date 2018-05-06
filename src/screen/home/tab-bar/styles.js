@@ -1,20 +1,15 @@
-import { StyleSheet } from 'react-native';
+import RNC from 'react-native-css';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-        // backgroundColor: 'yellow'
-    },
-    button: {
-        alignSelf: 'center'
-        // backgroundColor: 'green'
-    },
-    text: {
-        alignSelf: 'center',
-        color: 'black'
+const styles = RNC`
+    container {
+        flex-direction: row;
+        height: 50px;
     }
-});
+
+    button: {
+        text-align: center;
+        color: black
+    }
+    `;
 
 export default styles;

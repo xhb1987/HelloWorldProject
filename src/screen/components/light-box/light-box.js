@@ -2,18 +2,21 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import styles from './styles';
 
-const LightBox = ({ title, content, onClose }) => (
+const LightBox = ({ title, content, onClose, selectCity }) => (
     <View style={styles.container}>
         <View style={{ flex: 8 }}>
             <Text style={styles.title}>{title}</Text>
             {content.map(item => (
-                <Text key={item} style={styles.content}>
-                    {item}
-                </Text>
+                <Button
+                    key={item.cityName}
+                    title={item.cityName}
+                    style={styles.content}
+                    onPress={() => {
+                        selectCity({ cityName: item.cityName, cityID: item.cityID });
+                        onClose();
+                    }}
+                />
             ))}
-        </View>
-        <View style={{ flex: 1 }}>
-            <Button title="Close" onPress={() => onClose()} />
         </View>
     </View>
 );

@@ -8,11 +8,6 @@ import MessageContainer from './message/message-container';
 import Modale from './components/modal/modal';
 import LightBoxContainer from './components/light-box/light-box-container';
 
-import SquareTab from './footer/tabs/square-tab';
-import HomeTab from './footer/tabs/home-tab';
-import MessageTab from './footer/tabs/message-tab';
-import ProfileTab from './footer/tabs/profile-tab';
-
 // message
 import MessageDetailContainer from './message/message-detail/message-detail-container';
 
@@ -20,6 +15,10 @@ import MessageDetailContainer from './message/message-detail/message-detail-cont
 import ProductDetailContainer from './product/product-detail/product-detail-container';
 import ProductDetailTabBarContainer from './product/product-detail/tab-bar/tab-bar-container';
 import ProductOrderContainer from './product/product-order/product-order-container';
+
+// product publish
+import ProductPublishContainer from './product-publish/product-publish-container';
+import CameraScreenContainer from './product-publish/camera-screen/camera-screen-container';
 
 // square
 import SquareContainer from './square/square-container';
@@ -31,6 +30,19 @@ import UserLoginContainer from './user-login/user-login-container';
 import UserRegisterContainer from './user-register/user-register-container';
 
 export const registerScreens = (store, provider) => {
+    // product publish
+    Navigation.registerComponent(
+        'screen.ProductPublish',
+        () => ProductPublishContainer,
+        store,
+        provider
+    );
+    Navigation.registerComponent(
+        'screen.ProductPublish.CameraScreen',
+        () => CameraScreenContainer,
+        store,
+        provider
+    );
     // message
     Navigation.registerComponent('screen.Message', () => MessageContainer, store, provider);
     Navigation.registerComponent(
@@ -85,12 +97,6 @@ export const registerScreens = (store, provider) => {
     Navigation.registerComponent('screen.Home.TopBar', () => HomeTabBarContainer, store, provider);
     Navigation.registerComponent('screen.Home', () => ScreenHomeContainer, store, provider);
     Navigation.registerComponent('screen.Profile', () => ScreenProfileContainer, store, provider);
-
-    // tabs
-    Navigation.registerComponent('footer.Tabs.HomeTab', () => HomeTab, store, provider);
-    Navigation.registerComponent('footer.Tabs.SquareTab', () => SquareTab, store, provider);
-    Navigation.registerComponent('footer.Tabs.MessageTab', () => MessageTab, store, provider);
-    Navigation.registerComponent('footer.Tabs.ProfileTab', () => ProfileTab, store, provider);
 };
 
 // export const registerScreens = (store, provider) => {

@@ -1,23 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Button, Text } from 'react-native';
 import styles from './styles';
 
-const HomeTabBar = ({ homeTitle, openOption }) => (
+const HomeTabBar = ({ city, village, openOption }) => (
     <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={() => openOption()}>
-            <Text style={styles.text}>{homeTitle}</Text>
+        <TouchableOpacity style={styles.button}>
+            <Button title={city.cityName} style={styles.text} onPress={() => openOption('city')} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+            <Button
+                title={village.villageName}
+                style={styles.text}
+                onPress={() => openOption('village')}
+            />
         </TouchableOpacity>
     </View>
 );
 
 HomeTabBar.propTypes = {
-    homeTitle: PropTypes.string,
+    city: PropTypes.objectOf(PropTypes.any),
+    village: PropTypes.objectOf(PropTypes.any),
     openOption: PropTypes.func
 };
 
 HomeTabBar.defaultProps = {
-    homeTitle: 'test title',
+    city: {
+        cityName: '城市'
+    },
+    village: {
+        villageName: '小区'
+    },
     openOption: () => {}
 };
 

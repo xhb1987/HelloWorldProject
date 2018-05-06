@@ -3,7 +3,7 @@ import { View, KeyboardAvoidingView } from 'react-native';
 import { FormLabel, FormInput, Button, Text } from 'react-native-elements';
 import styles from './styles';
 
-const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange }) => (
+const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) => (
     <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
         <FormLabel>用户名</FormLabel>
         <FormInput
@@ -16,7 +16,6 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange }) => (
         <FormLabel>密码</FormLabel>
         <FormInput
             containerStyle={styles.inputContainer}
-            containerStyle={styles.inputContainer}
             secureTextEntry={true}
             onEndEditing={e => {
                 userInputChange(e.nativeEvent.text, 'password');
@@ -24,7 +23,7 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange }) => (
         />
 
         <View style={styles.buttonGroup}>
-            <Button raised title="登陆" onPress={() => login()} backgroundColor="red" />
+            <Button raised title="登陆" onPress={() => login(user)} backgroundColor="red" />
             <Button
                 raised
                 title="注册"

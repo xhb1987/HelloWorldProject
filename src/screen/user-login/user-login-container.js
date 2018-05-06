@@ -5,7 +5,9 @@ import {
     userLogin,
     userInputChangeAction
 } from '../../state/screen/user/actions';
+import * as selectors from '../../state/selectors';
 import UserLogin from './user-login';
+import { getUserLoginPassword } from '../../state/screen/user/selectors';
 
 class Container extends Component {
     static get navigatorStyle() {
@@ -24,7 +26,9 @@ class Container extends Component {
     }
 }
 
-const stateToProps = () => ({});
+const stateToProps = state => ({
+    user: selectors.getUserLogInfo(state)
+});
 const dispatchToProps = (dispatch, ownProps) => ({
     cancelLogin: () => {
         ownProps.navigator.pop({
@@ -33,12 +37,12 @@ const dispatchToProps = (dispatch, ownProps) => ({
         });
         dispatch(userLoginCancelAction());
     },
-    login: () => {
+    login: user => {
         ownProps.navigator.popToRoot({
             animated: true,
             animationType: 'fade'
         });
-        dispatch(userLogin());
+        dispatch(userLogin(user));
     },
     goToRegister: () => {
         ownProps.navigator.push({

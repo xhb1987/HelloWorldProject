@@ -18,7 +18,6 @@ let homeNavigator;
 class Container extends Component {
     constructor(props) {
         super(props);
-        ({ homeTitle } = this.props);
         homeNavigator = this.props.navigator;
         this.state = {
             index: 0,
@@ -36,7 +35,6 @@ class Container extends Component {
             navBarComponentAlignment: 'center',
             navBarNoBorder: true,
             navBarCustomViewInitialProps: {
-                title: homeTitle,
                 navigator: homeNavigator
             }
         };
@@ -87,7 +85,8 @@ Container.defaultProps = {
 const stateToProps = state => ({
     home: state.home.home,
     homeTitle: state.home.homeTitle,
-    productItem: state.product.products
+    productItem: state.product.products,
+    city: state.home.selectedCity
 });
 
 const dispatchToProps = () => ({});

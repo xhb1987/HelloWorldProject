@@ -7,6 +7,8 @@ import makeStore from './store';
 import { registerScreens } from './screen/index';
 const Icon = require('react-native-vector-icons/Ionicons');
 
+// global.self = global;
+
 const store = makeStore();
 registerScreens(store, Provider);
 
@@ -61,6 +63,18 @@ export class App {
                 screen: 'screen.Square',
                 icon: settingsIcon,
                 title: '广场',
+                iconInsets: {
+                    top: 6,
+                    left: 0,
+                    bottom: 10,
+                    right: 0
+                }
+            },
+            {
+                label: '发布',
+                screen: 'screen.ProductPublish',
+                icon: settingsIcon,
+                title: '发布',
                 iconInsets: {
                     top: 6,
                     left: 0,

@@ -1,4 +1,9 @@
-import { PRODUCT_SELECT } from './actions';
+import {
+    PRODUCT_SELECT,
+    PRODUCT_PUBLISH_STORE,
+    PRODUCT_INPUT_CHANGE,
+    PRODUCT_TAKE_IMAGE
+} from './actions';
 
 const initialState = {
     products: [
@@ -83,11 +88,43 @@ const initialState = {
             ]
         }
     ],
-    product: {}
+    product: {},
+    productToPublish: {
+        title: '',
+        discreption: '',
+        images: []
+    }
 };
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PRODUCT_TAKE_IMAGE: {
+            const stateImages = state.productToPublish.images.slice();
+            stateImages.push(action.payload);
+            return Object.assign({}, state, {
+                productToPublish: { ...state.productToPublish, images: stateImages }
+            });
+        }
+        case PRODUCT_INPUT_CHANGE: {
+            const inputType = action.payload.type;
+            if (inputType === 'title') {
+                return Object.assign({}, state, {
+                    productToPublish: { ...state.productToPublish, title: action.payload.value }
+                });
+            }
+
+            if (inputType === 'description') {
+                return Object.assign({}, state, {
+                    productToPublish: {
+                        ...state.productToPublish,
+                        discreption: action.payload.value
+                    }
+                });
+            }
+            return state;
+        }
+        case PRODUCT_PUBLISH_STORE:
+            return Object.assign({}, state, { productToPublish: action.payload });
         case PRODUCT_SELECT:
             return Object.assign({}, state, { product: action.payload });
         default:

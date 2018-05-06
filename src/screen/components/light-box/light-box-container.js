@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { citySelectAction } from '../../../state/screen/home/actions';
 import LightBox from './light-box';
 
 class Container extends Component {
@@ -18,7 +19,9 @@ class Container extends Component {
 }
 
 const stateToProps = () => ({});
-const dispatchToProps = () => ({});
+const dispatchToProps = dispatch => ({
+    selectCity: city => dispatch(citySelectAction(city))
+});
 
 const LightBoxContainer = connect(stateToProps, dispatchToProps)(Container);
 export default LightBoxContainer;
