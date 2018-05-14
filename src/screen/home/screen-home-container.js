@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
+import { Button, SearchBar } from 'react-native-elements';
+import { ListView, View, TouchableOpacity, Animated } from 'react-native';
 import { TabBar, SceneMap } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 
@@ -22,8 +23,8 @@ class Container extends Component {
         this.state = {
             index: 0,
             routes: [
-                { key: 'sell', title: '求购' },
-                { key: 'buy', title: '出售' },
+                { key: 'sell', title: '转让' },
+                { key: 'buy', title: '求购' },
                 { key: 'daigou', title: '代购' }
             ]
         };
@@ -34,6 +35,8 @@ class Container extends Component {
             navBarCustomView: 'screen.Home.TopBar',
             navBarComponentAlignment: 'center',
             navBarNoBorder: true,
+            tabBarHidden: true,
+            tabBarTranslucent: true,
             navBarCustomViewInitialProps: {
                 navigator: homeNavigator
             }
@@ -41,18 +44,109 @@ class Container extends Component {
     }
 
     _handleIndexChange = index => this.setState({ index });
-    _renderHeader = props => (
-        <TabBar
-            {...props}
-            style={{ backgroundColor: 'white' }}
-            labelStyle={{ color: 'black' }}
-            indicatorStyle={{ backgroundColor: 'red' }}
-        />
-    );
+
+    _renderHeader = props => {
+        const inputRange = props.navigationState.routes.map((x, i) => i);
+
+        return (
+            <View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        borderBottomWidth: 1,
+                        borderColor: '#f0f0f0',
+                        shadowColor: '#f0f0f0',
+                        shadowOffset: {
+                            width: 1,
+                            height: 2
+                        },
+                        shadowRadius: 1.5,
+                        shadowOpacity: 1,
+                        marginBottom: 2
+                    }}
+                >
+                    {props.navigationState.routes.map((route, i) => {
+                        const color = props.position.interpolate({
+                            inputRange,
+                            outputRange: inputRange.map(
+                                inputIndex => (inputIndex === i ? '#ed3349' : '#888888')
+                            )
+                        });
+
+                        const backgroundColor = props.position.interpolate({
+                            inputRange,
+                            outputRange: inputRange.map(
+                                inputIndex => (inputIndex === i ? '#ed3349' : '#fff')
+                            )
+                        });
+
+                        const opacity = props.position.interpolate({
+                            inputRange,
+                            outputRange: inputRange.map(inputIndex => (inputIndex === i ? 1 : 0))
+                        });
+
+                        return (
+                            <TouchableOpacity
+                                key={i}
+                                style={{ flex: 1, alignItems: 'center', maxWidth: 70 }}
+                                onPress={() => this.setState({ index: i })}
+                            >
+                                <Animated.Text
+                                    style={[
+                                        {
+                                            fontSize: 18,
+                                            fontWeight: 'bold',
+                                            marginBottom: 5,
+                                            marginHorizontal: 10
+                                        },
+                                        { color }
+                                    ]}
+                                >
+                                    {route.title}
+                                </Animated.Text>
+                                <Animated.View
+                                    style={[
+                                        { height: 2, backgroundColor: 'red', width: 30 },
+                                        { backgroundColor },
+                                        { opacity }
+                                    ]}
+                                />
+                            </TouchableOpacity>
+                        );
+                    })}
+                </View>
+                <View style={{ marginTop: 5 }}>
+                    <Button
+                        title="飞科剃须刀"
+                        containerViewStyle={{
+                            justifyContent: 'flex-start'
+                        }}
+                        textStyle={{
+                            alignContent: 'flex-start',
+                            color: '#c8c8c8',
+                            justifyContent: 'flex-start',
+                            alignItems: 'flex-start'
+                        }}
+                        leftIcon={{
+                            name: 'search',
+                            alignContent: 'flex-start',
+                            color: '#c8c8c8',
+                            justifyContent: 'flex-start',
+                            alignItems: 'flex-start'
+                        }}
+                        rounded={true}
+                        backgroundColor={'#efefef'}
+                        buttonStyle={{ padding: 5 }}
+                    />
+                </View>
+            </View>
+        );
+    };
 
     _renderScene = SceneMap({
         sell: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
-        buy: () => <BuyListContainer propsNavigatorObject={homeNavigator} />,
+        buy: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
         daigou: () => <DaigouListContainer />
     });
 
@@ -82,14 +176,15 @@ Container.defaultProps = {
     productItem: [{}]
 };
 
-const stateToProps = state => ({
+const stateToProps = (state, ownProps) => ({
     home: state.home.home,
     homeTitle: state.home.homeTitle,
     productItem: state.product.products,
-    city: state.home.selectedCity
+    city: state.home.selectedCity,
+    navigator: ownProps.navigator
 });
 
-const dispatchToProps = () => ({});
+const dispatchToProps = dispatch => ({});
 
 const ScreenHomeContainer = connect(stateToProps, dispatchToProps)(Container);
 

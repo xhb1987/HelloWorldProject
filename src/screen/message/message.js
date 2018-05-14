@@ -3,18 +3,22 @@ import { View, FlatList } from 'react-native';
 import { Divider } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import MessageItem from './message-item/message-item';
+import TabContainer from '../tabs/tabs-container';
 import styles from './styles';
 
 const Message = ({ messagesList, navigator }) => (
-    <View style={styles.container}>
-        <FlatList
-            data={messagesList}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => <MessageItem item={item} navigator={navigator} />}
-            ItemSeparatorComponent={() => (
-                <Divider style={{ height: 1.5, backgroundColor: '#f1f1f1' }} />
-            )}
-        />
+    <View style={styles.viewContainer}>
+        <View style={styles.container}>
+            <FlatList
+                data={messagesList}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => <MessageItem item={item} navigator={navigator} />}
+                ItemSeparatorComponent={() => (
+                    <Divider style={{ height: 1.5, backgroundColor: '#f1f1f1' }} />
+                )}
+            />
+        </View>
+        <TabContainer navigator={navigator} />
     </View>
 );
 Message.propTypes = {

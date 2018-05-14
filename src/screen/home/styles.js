@@ -1,8 +1,10 @@
 import RNC from 'react-native-css';
+import { Dimensions } from 'react-native';
 
 const styles = RNC`
-    container {
-        background-color: #f1f1f1;
+    viewContainer {
+        flex: 1;
+        height: ${Dimensions.get('window').height};
     }
     slider: {
         flex: 1;
@@ -10,8 +12,10 @@ const styles = RNC`
         align-items: center;
         background-color: #92BBD9;
     }
-    wrapper: {
-
+    indicator: {
+        height: 5;
+        width: 20;
+        background-color: #92BBD9;
     }
 
     text: {
@@ -21,8 +25,14 @@ const styles = RNC`
     }
 
     tabBar: {
+        flex-direction: row;
         background-color: white;
         color: black;
+    }
+
+    tabItem: {
+        flex: 1;
+        align-item: center;
     }
 
     indicator: {

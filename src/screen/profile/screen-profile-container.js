@@ -6,7 +6,9 @@ import ScreenProfile from './screen-profile';
 class Container extends Component {
     static get navigatorStyle() {
         return {
-            navBarHidden: true
+            navBarHidden: true,
+            tabBarHidden: true,
+            tabBarTranslucent: true
         };
     }
 

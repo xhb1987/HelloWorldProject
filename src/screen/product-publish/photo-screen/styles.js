@@ -8,25 +8,20 @@ const styles = RNC`
     }
     cameraRollContainer {
         flex: 1;
-        height: 300;
+        height: ${Dimensions.get('window').height * 0.3};
     }
     imageContainer {
+        flex: 1;
         margin: 10px;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
     }
 
     image {
-        height: 150px;
+        height: ${Dimensions.get('window').height * 0.3};
         width: 100px;
         margin-right: 20px;
     }
-
-    capture {
-        flex: 0;
-        background-color: #fff;
-        padding: 15;
+    publishContainer {
+        flex: 1;
     }
     `;
 

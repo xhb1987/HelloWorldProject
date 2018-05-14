@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ProductPublish from './product-publish';
-import { productInputChangeAction } from '../../state/screen/product/actions';
+import PhotoScreen from './photo-screen';
 
 class Container extends Component {
     static get navigatorStyle() {
@@ -16,7 +15,7 @@ class Container extends Component {
     }
 
     render() {
-        return <ProductPublish {...this.props} />;
+        return <PhotoScreen {...this.props} />;
     }
 }
 
@@ -25,14 +24,13 @@ const stateToProps = state => ({
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
-    productInputChange: (value, type) => dispatch(productInputChangeAction(value, type)),
-    goToPhotoScreen: () => {
+    goToTakePicature: () => {
         ownProps.navigator.push({
-            screen: 'screen.ProductPublish.PhotoScreen'
+            screen: 'screen.ProductPublish.CameraScreen'
         });
     }
 });
 
-const ProductPublishContainer = connect(stateToProps, dispatchToProps)(Container);
+const PhotoScreenContainer = connect(stateToProps, dispatchToProps)(Container);
 
-export default ProductPublishContainer;
+export default PhotoScreenContainer;

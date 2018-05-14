@@ -22,18 +22,16 @@ class Container extends Component {
     }
 
     render() {
-        return (
-            <ProductList
-                {...this.props}
-                products={this.props.products}
-                onProductPress={this.goToProductDetail}
-            />
-        );
+        return this.props.products.length > 0 ? (
+            <ProductList {...this.props} onProductPress={this.goToProductDetail} />
+        ) : null;
     }
 }
 
 const stateToProps = state => ({
-    productItem: state.product.products
+    products: state.product.products,
+    clientConfig: state.home.clientConfig,
+    tags: state.home.tags
 });
 
 const dispatchToProps = dispatch => ({

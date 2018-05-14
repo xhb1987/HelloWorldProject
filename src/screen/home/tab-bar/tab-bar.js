@@ -5,16 +5,16 @@ import styles from './styles';
 
 const HomeTabBar = ({ city, village, openOption }) => (
     <View style={styles.container}>
-        <TouchableOpacity style={styles.button}>
-            <Button title={city.cityName} style={styles.text} onPress={() => openOption('city')} />
+        <TouchableOpacity style={styles.button} onPress={() => openOption('city')}>
+            <Text style={styles.text}>{city.cityName}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        {/* <TouchableOpacity style={styles.button}>
             <Button
                 title={village.villageName}
                 style={styles.text}
                 onPress={() => openOption('village')}
             />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
     </View>
 );
 

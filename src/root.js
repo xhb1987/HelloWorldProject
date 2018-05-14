@@ -7,7 +7,9 @@ import makeStore from './store';
 import { registerScreens } from './screen/index';
 const Icon = require('react-native-vector-icons/Ionicons');
 
-// global.self = global;
+if (!global.self) {
+    global.self = global;
+}
 
 const store = makeStore();
 registerScreens(store, Provider);
@@ -28,11 +30,11 @@ export class App {
     populateIcons = function() {
         return new Promise((resolve, reject) => {
             Promise.all([
-                Icon.getImageSource('ios-settings', 35),
-                Icon.getImageSource('ios-settings-outline', 35),
-                Icon.getImageSource('ios-people', 35),
-                Icon.getImageSource('ios-navigate-outline', 35),
-                Icon.getImageSource('ios-navigate', 35)
+                Icon.getImageSource('ios-settings', 40),
+                Icon.getImageSource('ios-settings-outline', 40),
+                Icon.getImageSource('ios-people', 40),
+                Icon.getImageSource('ios-navigate-outline', 40),
+                Icon.getImageSource('ios-navigate', 40)
             ]).then(values => {
                 settingsIcon = values[0];
                 settingsOutlineIcon = values[1];
@@ -47,77 +49,35 @@ export class App {
     startApp() {
         const tabs = [
             {
-                label: '首页',
-                screen: 'screen.Home',
-                icon: settingsIcon,
-                title: '首页',
-                iconInsets: {
-                    top: 6,
-                    left: 0,
-                    bottom: 10,
-                    right: 0
-                }
+                screen: 'screen.Home'
             },
             {
-                label: '广场',
-                screen: 'screen.Square',
-                icon: settingsIcon,
-                title: '广场',
-                iconInsets: {
-                    top: 6,
-                    left: 0,
-                    bottom: 10,
-                    right: 0
-                }
+                screen: 'screen.Square'
             },
             {
-                label: '发布',
-                screen: 'screen.ProductPublish',
-                icon: settingsIcon,
-                title: '发布',
-                iconInsets: {
-                    top: 6,
-                    left: 0,
-                    bottom: 10,
-                    right: 0
-                }
+                screen: 'screen.ProductPublish'
             },
             {
-                label: '消息',
-                screen: 'screen.Message',
-                icon: settingsIcon,
-                title: '消息',
-                iconInsets: {
-                    top: 6,
-                    left: 0,
-                    bottom: 10,
-                    right: 0
-                }
+                screen: 'screen.Message'
             },
             {
-                label: '我的',
-                screen: 'screen.Profile',
-                icon: peopleIcon,
-                title: '我的',
-                iconInsets: {
-                    top: 6,
-                    left: 0,
-                    bottom: 10,
-                    right: 0
-                }
+                screen: 'screen.Profile'
             }
         ];
         Navigation.startTabBasedApp({
             tabs,
             tabsStyle: {
-                tabFontFamilay: 'BioRhyme-Bold',
-                tabBarTextFontSize: 12,
-                tabBarSelectedButtonColor: '#ff7878',
-                tabBarLabelColor: 'black',
-                tabBarSelectedLabelColor: '#ff7878'
+                tabBarHidden: true,
+                tabBarTranslucent: true,
+                initialTabIndex: 4
             },
+            appStyle: {},
             animationType: 'slide-down'
         });
+        // Navigation.startSingleScreenApp({
+        //     screen: { screen: 'screen.Home' },
+        //     animationType: 'fade'
+        // });
     }
 }
 

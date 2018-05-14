@@ -4,9 +4,9 @@ import styles from './styles';
 
 import ProductListContainer from '../product-list/product-list-container';
 
-const SellList = ({ products, navigator }) => (
+const SellList = ({ navigator }) => (
     <View style={styles.container}>
-        <ProductListContainer products={products} propsNavigatorObject={navigator} />
+        <ProductListContainer propsNavigatorObject={navigator} />
     </View>
 );
 

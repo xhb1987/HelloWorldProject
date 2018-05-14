@@ -15,7 +15,7 @@ class Container extends Component {
     }
 
     componentDidMount() {
-        this.props.getCityList();
+        // this.props.getCityList();
         // this.props.getVillageList();
     }
 

@@ -1,106 +1,74 @@
+import lodash from 'lodash';
 import {
     PRODUCT_SELECT,
     PRODUCT_PUBLISH_STORE,
     PRODUCT_INPUT_CHANGE,
-    PRODUCT_TAKE_IMAGE
+    PRODUCT_TAKE_IMAGE,
+    PRODUCT_IMAGE_SELECT,
+    PRODUCT_PULL_REQUEST,
+    PRODUCT_PULL_SUCCESS,
+    PRODUCT_PULL_FAILURE
 } from './actions';
 
 const initialState = {
-    products: [
-        {
-            id: '0',
-            title: '商品 1',
-            price: '100.00',
-            productDescription: '这是商品 1',
-            user: {
-                name: '用户1',
-                address: '地址1'
-            },
-            tags: [
-                {
-                    id: 0,
-                    name: '数码'
-                },
-                {
-                    id: 1,
-                    name: '手机'
-                }
-            ]
-        },
-        {
-            id: '1',
-            title: '商品 2',
-            price: '200.00',
-            productDescription: '这是商品 2',
-            user: {
-                name: '用户2',
-                address: '地址2'
-            },
-            tags: [
-                {
-                    id: 0,
-                    name: '服装'
-                },
-                {
-                    id: 1,
-                    name: '女士'
-                }
-            ]
-        },
-        {
-            id: '3',
-            title: '商品 3',
-            price: '300.00',
-            productDescription: '这是商品 3',
-            user: {
-                name: '用户3',
-                address: '地址3'
-            },
-            tags: [
-                {
-                    id: 0,
-                    name: '服装'
-                },
-                {
-                    id: 1,
-                    name: '女士'
-                }
-            ]
-        },
-        {
-            id: '4',
-            title: '商品 4',
-            price: '400.00',
-            productDescription: '这是商品 4',
-            user: {
-                name: '用户4',
-                address: '地址4'
-            },
-            tags: [
-                {
-                    id: 0,
-                    name: '服装'
-                },
-                {
-                    id: 1,
-                    name: '女士'
-                }
-            ]
-        }
-    ],
+    products: [],
     product: {},
+    pageSize: 20,
+    pageNo: 1,
+    totalCount: 0,
     productToPublish: {
         title: '',
         discreption: '',
         images: []
-    }
+    },
+    loading: false,
+    error: false
 };
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PRODUCT_PULL_REQUEST:
+            return Object.assign({}, state, { loading: true });
+        case PRODUCT_PULL_SUCCESS: {
+            const productResponseData = action.payload;
+            return Object.assign({}, state, {
+                pageSize: productResponseData.pageSize,
+                pageNo: productResponseData.pageNo,
+                totalCount: productResponseData.totalCount,
+                products: productResponseData.resultList || []
+            });
+        }
+        case PRODUCT_PULL_FAILURE:
+            return Object.assign({}, state, { loading: false, error: false });
+        case PRODUCT_IMAGE_SELECT: {
+            const stateImages = state.productToPublish.images.slice();
+            const image = { uri: action.payload.current.uri };
+            let isContained = false;
+            if (stateImages.length < 10) {
+                lodash.map(stateImages, img => {
+                    if (img.uri === image.uri) {
+                        isContained = true;
+                    }
+                });
+                if (!isContained) {
+                    stateImages.push(image);
+                } else {
+                    lodash.remove(stateImages, img => {
+                        return img.uri === image.uri;
+                    });
+                }
+            }
+
+            return Object.assign({}, state, {
+                productToPublish: { ...state.productToPublish, images: stateImages }
+            });
+        }
         case PRODUCT_TAKE_IMAGE: {
             const stateImages = state.productToPublish.images.slice();
-            stateImages.push(action.payload);
+            if (stateImages.length < 10) {
+                stateImages.push({ uri: action.payload.uri });
+            }
+
             return Object.assign({}, state, {
                 productToPublish: { ...state.productToPublish, images: stateImages }
             });

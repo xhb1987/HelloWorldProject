@@ -5,22 +5,13 @@ const styles = RNC`
     container {
         flex: 1;
         flex-direction: column;
-    }
-    cameraRollContainer {
-        flex: 1;
-        height: 300;
-    }
-    imageContainer {
-        margin: 10px;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
+        background-color: black
     }
 
-    image {
-        height: 150px;
-        width: 100px;
-        margin-right: 20px;
+    preview {
+        flex: 1;
+        justify-content: flex-end;
+        align-items: center;
     }
 
     capture {
