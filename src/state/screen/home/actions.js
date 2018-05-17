@@ -21,8 +21,10 @@ export const TAG_PULL_SUCCESS = 'TAG_PULL_SUCCESS';
 export const TAG_PULL_FAILURE = 'TAG_PULL_FAILURE';
 
 export const CITY_SELECT = 'CITY_SELECT';
-
+export const VILLAGE_SELECT = 'VILLAGE_SELECT';
 export const ACTIVE_TAB_TOGGLE = 'ACTIVE_TAB_TOGGLE';
+
+export const ACTIVE_CITY_TAB_TOGGLE = 'ACTIVE_CITY_TAB_TOGGLE';
 
 export const activeTabToggleAction = tabName => ({
     type: ACTIVE_TAB_TOGGLE,
@@ -71,7 +73,11 @@ export const citySelectAction = city => ({
     payload: city,
     meta: {}
 });
-
+export const villageSelectAction = village => ({
+    type: VILLAGE_SELECT,
+    payload: village,
+    meta: {}
+});
 const villagePullSuccessAction = response => ({
     type: VILLAGE_PULL_SUCCESS,
     payload: response,
@@ -79,7 +85,7 @@ const villagePullSuccessAction = response => ({
 });
 
 const villagePullFailureAction = e => ({
-    type: VILLAGE_PULL_REQUEST,
+    type: VILLAGE_PULL_FAILURE,
     payload: e,
     meta: {}
 });
@@ -121,12 +127,12 @@ export const cityPullRequest = () => {
     };
 };
 
-export const villagePullRequest = () => {
+export const villagePullRequest = city => {
     return dispatch => {
         const requestUrl = 'http://39.105.23.168:8080/neighbors-web/userservice/getvillage';
 
         dispatch(villagePullRequestAction);
-        const result = fetchPost(requestUrl, {});
+        const result = fetchPost(requestUrl, { queryParams: { cityID: city.cityID } });
 
         return result
             .then(response => dispatch(villagePullSuccessAction(response)))
@@ -155,3 +161,9 @@ export const getTagRequest = () => {
             .catch(e => dispatch(tagPullFailureAction(e)));
     };
 };
+
+export const cityTabToggleAction = activeTab => ({
+    type: ACTIVE_CITY_TAB_TOGGLE,
+    payload: activeTab,
+    meta: {}
+});

@@ -3,30 +3,14 @@ import lodash from 'lodash';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, Alert, ScrollView, Image } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import Tag from '../../../components/tag/tag';
+import { stringToArray, findTagName } from '../../../../util/utils';
 import styles from './styles';
 
 const images = [
     { key: '1', title: 'Image 1', value: 'Test' },
     { key: '2', title: 'Image 2', value: 'Test' }
 ];
-
-const stringToArray = str => {
-    const matchs = str.match(/\[(.*)\]/);
-    let strArray = [];
-    if (matchs) {
-        strArray = matchs[1].split(',');
-    }
-
-    return strArray;
-};
-
-const findTagName = (tags, tag) => {
-    const label = lodash.find(tags, t => {
-        return t.labelID === parseInt(tag, 10);
-    });
-
-    return label ? label.labelName : '';
-};
 
 const Card = ({ item, clientConfig, onPressCallback, tags }) => (
     <TouchableOpacity
@@ -67,9 +51,7 @@ const Card = ({ item, clientConfig, onPressCallback, tags }) => (
             <Text style={styles.title}>{item.commodityTitle}</Text>
             <View style={styles.tagContainer}>
                 {stringToArray(item.labels).map(tag => (
-                    <Text style={styles.tagItem} key={tag}>
-                        {findTagName(tags, tag)}
-                    </Text>
+                    <Tag key={tag} contant={findTagName(tags, tag)} />
                 ))}
             </View>
         </View>

@@ -1,37 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, Button, Text } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
+import { Icon } from 'react-native-elements';
 import styles from './styles';
 
-const HomeTabBar = ({ city, village, openOption }) => (
-    <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={() => openOption('city')}>
-            <Text style={styles.text}>{city.cityName}</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.button}>
-            <Button
-                title={village.villageName}
-                style={styles.text}
-                onPress={() => openOption('village')}
-            />
-        </TouchableOpacity> */}
-    </View>
+const HomeTabBar = ({ showModal, homeTitle }) => (
+    <TouchableOpacity
+        style={{ flexDirection: 'row', justifyContent: 'center' }}
+        onPress={() => showModal()}
+    >
+        <Text style={styles.text}>{homeTitle}</Text>
+        <Icon
+            name="chevron-down"
+            type="evilicon"
+            color="#666"
+            size={18}
+            containerStyle={{ marginLeft: -3, height: 16 }}
+        />
+    </TouchableOpacity>
 );
-
-HomeTabBar.propTypes = {
-    city: PropTypes.objectOf(PropTypes.any),
-    village: PropTypes.objectOf(PropTypes.any),
-    openOption: PropTypes.func
-};
-
-HomeTabBar.defaultProps = {
-    city: {
-        cityName: '城市'
-    },
-    village: {
-        villageName: '小区'
-    },
-    openOption: () => {}
-};
 
 export default HomeTabBar;

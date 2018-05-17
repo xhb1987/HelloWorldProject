@@ -1,6 +1,5 @@
 import { Navigation } from 'react-native-navigation';
 
-import AdContainer from './ad/ad-container';
 import HomeTabBarContainer from './home/tab-bar/tab-bar-container';
 import ScreenHomeContainer from './home/screen-home-container';
 import ScreenProfileContainer from './profile/screen-profile-container';
@@ -8,6 +7,8 @@ import MessageContainer from './message/message-container';
 
 import Modale from './components/modal/modal';
 import LightBoxContainer from './components/light-box/light-box-container';
+
+import VillageContainer from './village/village-container';
 
 // message
 import MessageDetailContainer from './message/message-detail/message-detail-container';
@@ -108,13 +109,13 @@ export const registerScreens = (store, provider) => {
         provider
     );
 
+    // home - village selection modal
+    Navigation.registerComponent('modal.Village', () => VillageContainer, store, provider);
+
     // home
     Navigation.registerComponent('screen.Home.TopBar', () => HomeTabBarContainer, store, provider);
     Navigation.registerComponent('screen.Home', () => ScreenHomeContainer, store, provider);
     Navigation.registerComponent('screen.Profile', () => ScreenProfileContainer, store, provider);
-
-    // Ad screen
-    Navigation.registerComponent('screen.Ad', () => AdContainer, store, provider);
 };
 
 // export const registerScreens = (store, provider) => {

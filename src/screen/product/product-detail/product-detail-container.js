@@ -8,13 +8,7 @@ class Container extends Component {
         return {
             navBarTranslucent: true,
             tabBarHidden: true,
-            drawUnderTabBar: true,
-            navBarButtonColor: '#123456',
-            navBarTextColor: '#000000',
-            collapsingToolBarCollapsedColor: '#0f2362',
-            navBarBackgroundColor: '#ffffff',
-            navBarCustomView: 'screen.Product.Detail.TabBar',
-            navBarComponentAlignment: 'center'
+            navBarHidden: true
         };
     }
     constructor(props) {
@@ -51,7 +45,9 @@ const stateToProps = state => ({
     product: state.product.products
 });
 
-const dispatchToProps = () => ({});
+const dispatchToProps = (dispatch, ownProps) => ({
+    goBack: () => ownProps.navigator.pop()
+});
 
 const ProductDetailContainer = connect(stateToProps, dispatchToProps)(Container);
 

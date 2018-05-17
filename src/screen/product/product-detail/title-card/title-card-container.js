@@ -5,8 +5,8 @@ import TitleCard from './title-card';
 const Container = props => <TitleCard {...props} />;
 
 const stateToProps = state => ({
-    productTitle: state.product.product.title,
-    price: state.product.product.price
+    product: state.product.product,
+    tags: state.home.tags
 });
 
 const dispatchToProps = () => ({});

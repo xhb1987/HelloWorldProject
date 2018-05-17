@@ -1,16 +1,14 @@
 import RNC from 'react-native-css';
 
 const styles = RNC`
-
-    button: {
-        text-align: center;
-        color: black;
+    tabContainer: {
         flex-direction: row;
     }
 
-    text {
-        color: #666;
-        font-size: 15;
+    tab {
+        flex: 1;
+        height: 50px;
+        background-color: black;
     }
     `;
 

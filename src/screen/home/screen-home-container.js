@@ -32,14 +32,9 @@ class Container extends Component {
 
     static get navigatorStyle() {
         return {
-            navBarCustomView: 'screen.Home.TopBar',
-            navBarComponentAlignment: 'center',
-            navBarNoBorder: true,
+            navBarHidden: true,
             tabBarHidden: true,
-            tabBarTranslucent: true,
-            navBarCustomViewInitialProps: {
-                navigator: homeNavigator
-            }
+            tabBarTranslucent: true
         };
     }
 
@@ -116,7 +111,28 @@ class Container extends Component {
                         );
                     })}
                 </View>
-                <View style={{ marginTop: 5 }}>
+                <SearchBar
+                    round
+                    lightTheme
+                    style={{ borderWidth: 0 }}
+                    inputStyle={{
+                        backgroundColor: '#efefef',
+                        color: '#bbbbbb',
+                        height: 35,
+                        paddingLeft: 30,
+                        margin: 5
+                    }}
+                    containerStyle={{
+                        marginHorizontal: 8,
+                        borderTopWidth: 0,
+                        borderBottomWidth: 0,
+                        backgroundColor: 'white'
+                    }}
+                    placeholder="飞科剃须刀"
+                    placeholderTextColor="#bbbbbb"
+                />
+                {/* <View style={{ marginTop: 5 }}>
+
                     <Button
                         title="飞科剃须刀"
                         containerViewStyle={{
@@ -139,7 +155,7 @@ class Container extends Component {
                         backgroundColor={'#efefef'}
                         buttonStyle={{ padding: 5 }}
                     />
-                </View>
+                </View> */}
             </View>
         );
     };
