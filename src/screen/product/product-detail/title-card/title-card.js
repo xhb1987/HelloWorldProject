@@ -1,21 +1,69 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { View, StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import Tag from '../../../components/tag/tag';
+import { stringToArray, findTagName } from '../../../../util/utils';
 
-const TitleCard = ({ product }) => (
+const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+        minHeight: 100
+    },
+    title: {
+        marginBottom: 10,
+        minHeight: 30,
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    footerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    tagContainer: {
+        flexDirection: 'row'
+    },
+    priceContainer: {
+        flexDirection: 'row',
+        alignItems: 'flex-end'
+    },
+    price: {
+        color: '#ed3349',
+        fontSize: 18
+    },
+    oldPriceTitle: {
+        color: '#afafaf',
+        fontSize: 14,
+        marginLeft: 5
+    },
+    oldPrice: {
+        textDecorationLine: 'line-through'
+    }
+});
+
+const TitleCard = ({ product, tags }) => (
     <View style={styles.container}>
-        <Text h4 style={styles.title}>
-            {product.commodityTitle}
-        </Text>
-        <Text style={styles.price}>{product.nowPrice}</Text>
-        <Text>全新价：{product.oldPrice}</Text>
+        <Text style={styles.title}>{product.commodityTitle}</Text>
+        <View style={styles.footerContainer}>
+            <View style={styles.tagContainer}>
+                {stringToArray(product.labels).map(tag => (
+                    <Tag key={tag} contant={findTagName(tags, tag)} />
+                ))}
+            </View>
+            <View style={styles.priceContainer}>
+                <Text style={styles.price}>¥ {product.nowPrice}</Text>
+                <Text style={styles.oldPriceTitle}>
+                    全新价：<Text style={styles.oldPrice}>
+                        ¥ {product.oldPrice}
+                    </Text>
+                </Text>
+            </View>
+        </View>
     </View>
 );
 
 TitleCard.propTypes = {
-    product: PropTypes.objectOf(PropTypes.any)
+    product: PropTypes.objectOf(PropTypes.any),
+    tags: PropTypes.arrayOf(PropTypes.any)
 };
 
 TitleCard.defaultProps = {
@@ -23,7 +71,8 @@ TitleCard.defaultProps = {
         title: 'default product title',
         nowPrice: 0,
         oldPrice: 0
-    }
+    },
+    tags: []
 };
 
 export default TitleCard;

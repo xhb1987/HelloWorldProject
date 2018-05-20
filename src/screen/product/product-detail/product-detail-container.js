@@ -11,22 +11,9 @@ class Container extends Component {
             navBarHidden: true
         };
     }
-    constructor(props) {
-        super(props);
-        this.productOrderCallback = this.productOrderCallback.bind(this);
-    }
-
-    productOrderCallback() {
-        this.props.navigator.push({
-            screen: 'screen.Product.Order',
-            animationType: 'slide-up',
-            title: 'test title',
-            backButtonTitle: ''
-        });
-    }
 
     render() {
-        return <ProductDetail {...this.props} productOrderCallback={this.productOrderCallback} />;
+        return <ProductDetail {...this.props} />;
     }
 }
 
@@ -42,13 +29,17 @@ Container.defaultProps = {
 
 const stateToProps = state => ({
     productTitle: state.product.product.title,
-    product: state.product.products
+    product: state.product.product,
+    tags: state.home.tags,
+    clientConfig: state.home.clientConfig
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
     goBack: () => ownProps.navigator.pop()
 });
 
-const ProductDetailContainer = connect(stateToProps, dispatchToProps)(Container);
+const ProductDetailContainer = connect(stateToProps, dispatchToProps)(
+    Container
+);
 
 export default ProductDetailContainer;

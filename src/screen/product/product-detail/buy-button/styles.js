@@ -7,20 +7,31 @@ const styles = RNC`
         background-color: white;
         padding: 10px;
         width: ${Dimensions.get('window').width}
-        align-items: flex-end;
-        height: ${Dimensions.get('window').height * 0.08}
+        height: ${Dimensions.get('window').height * 0.1}
     }
 
     userContainer {
         flex: 1;
     }
 
-    buyButtonContainer {
-        background-color: red;
+    buttonContainer {
+        flex: 3;
+        flex-direction: row
+    }
+
+    button {
         flex: 1;
         max-width: 100;
         border-width: 0;
         border-radius: 5;
+    }
+
+    buyButton {
+        background-color: '#ed3349';
+    }
+
+    talkButton {
+        background-color: '#ffc12c';
     }
     `;
 

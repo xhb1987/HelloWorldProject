@@ -1,29 +1,68 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import {
+    ScrollView,
+    View,
+    KeyboardAvoidingView
+} from 'react-native';
+import { Divider } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import CustomHeader from '../../components/header/header';
-import TitleCardContainer from './title-card/title-card-container';
-import DetailCardContainer from './detail-card/detail-card-container';
+import UserCard from './user-card/user-card';
+import TitleCard from './title-card/title-card';
+import DetailCard from './detail-card/detail-card';
+import Messages from './messages/messages';
 import BuyButtonContainer from './buy-button/buy-button-container';
 import styles from './styles';
 
-const ProductDetail = ({ productOrderCallback, goBack }) => (
-    <View style={styles.container}>
-        <CustomHeader title="宝贝详情" leftButtonPress={goBack} />
+const ProductDetail = ({
+    goBack,
+    product,
+    tags,
+    clientConfig
+}) => (
+    <KeyboardAvoidingView
+        behavior="padding"
+        enabled
+        style={styles.container}
+    >
+        <CustomHeader
+            title="宝贝详情"
+            leftButtonPress={goBack}
+        />
         <ScrollView>
-            <TitleCardContainer />
-            <DetailCardContainer />
+            <UserCard product={product} />
+            <TitleCard
+                product={product}
+                tags={tags}
+            />
+            <Divider
+                style={{
+                    backgroundColor: '#f0f0f0',
+                    height: 10
+                }}
+            />
+            <DetailCard
+                product={product}
+                clientConfig={clientConfig}
+            />
+            <Messages />
         </ScrollView>
-        <BuyButtonContainer productOrderCallback={productOrderCallback} />
-    </View>
+        <BuyButtonContainer />
+    </KeyboardAvoidingView>
 );
 
 ProductDetail.propTypes = {
-    productOrderCallback: PropTypes.func
+    goBack: PropTypes.func,
+    product: PropTypes.objectOf(PropTypes.any),
+    tags: PropTypes.arrayOf(PropTypes.any),
+    clientConfig: PropTypes.string
 };
 
 ProductDetail.defaultProps = {
-    productOrderCallback: () => {}
+    goBack: () => {},
+    product: {},
+    tags: [],
+    clientConfig: ''
 };
 
 export default ProductDetail;
