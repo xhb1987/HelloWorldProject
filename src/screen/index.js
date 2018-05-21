@@ -1,6 +1,6 @@
 import { Navigation } from 'react-native-navigation';
 
-import HomeTabBarContainer from './home/tab-bar/tab-bar-container';
+import HomeTabBarContainer from '../screen/components/tab-bar/tab-bar-container';
 import ScreenHomeContainer from './home/screen-home-container';
 import ScreenProfileContainer from './profile/screen-profile-container';
 import MessageContainer from './message/message-container';
@@ -33,7 +33,10 @@ import UserLoginContainer from './user-login/user-login-container';
 // user - register
 import UserRegisterContainer from './user-register/user-register-container';
 
-export const registerScreens = (store, provider) => {
+export const registerScreens = (
+    store,
+    provider
+) => {
     // product publish
     Navigation.registerComponent(
         'screen.ProductPublish',
@@ -60,7 +63,12 @@ export const registerScreens = (store, provider) => {
         provider
     );
     // message
-    Navigation.registerComponent('screen.Message', () => MessageContainer, store, provider);
+    Navigation.registerComponent(
+        'screen.Message',
+        () => MessageContainer,
+        store,
+        provider
+    );
     Navigation.registerComponent(
         'screen.Message.Detail',
         () => MessageDetailContainer,
@@ -76,10 +84,20 @@ export const registerScreens = (store, provider) => {
         provider
     );
     // user - login
-    Navigation.registerComponent('screen.User.Login', () => UserLoginContainer, store, provider);
+    Navigation.registerComponent(
+        'screen.User.Login',
+        () => UserLoginContainer,
+        store,
+        provider
+    );
 
     // squre
-    Navigation.registerComponent('screen.Square', () => SquareContainer, store, provider);
+    Navigation.registerComponent(
+        'screen.Square',
+        () => SquareContainer,
+        store,
+        provider
+    );
     // product
     Navigation.registerComponent(
         'screen.Product.Order',
@@ -101,7 +119,12 @@ export const registerScreens = (store, provider) => {
     );
 
     // component
-    Navigation.registerComponent('screen.Component.Modal', () => Modale, store, provider);
+    Navigation.registerComponent(
+        'screen.Component.Modal',
+        () => Modale,
+        store,
+        provider
+    );
     Navigation.registerComponent(
         'screen.Component.LightBox',
         () => LightBoxContainer,
@@ -110,12 +133,32 @@ export const registerScreens = (store, provider) => {
     );
 
     // home - village selection modal
-    Navigation.registerComponent('modal.Village', () => VillageContainer, store, provider);
+    Navigation.registerComponent(
+        'modal.Village',
+        () => VillageContainer,
+        store,
+        provider
+    );
 
     // home
-    Navigation.registerComponent('screen.Home.TopBar', () => HomeTabBarContainer, store, provider);
-    Navigation.registerComponent('screen.Home', () => ScreenHomeContainer, store, provider);
-    Navigation.registerComponent('screen.Profile', () => ScreenProfileContainer, store, provider);
+    Navigation.registerComponent(
+        'screen.Home.TopBar',
+        () => HomeTabBarContainer,
+        store,
+        provider
+    );
+    Navigation.registerComponent(
+        'screen.Home',
+        () => ScreenHomeContainer,
+        store,
+        provider
+    );
+    Navigation.registerComponent(
+        'screen.Profile',
+        () => ScreenProfileContainer,
+        store,
+        provider
+    );
 };
 
 // export const registerScreens = (store, provider) => {

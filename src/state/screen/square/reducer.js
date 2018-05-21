@@ -3,7 +3,8 @@ import {
     SEND_MESSAGE,
     RECEIVE_MESSAGE,
     LOAD_OLD_MESSAGE_REQUEST,
-    LOAD_OLD_MESSAGE_SUCCESS
+    LOAD_OLD_MESSAGE_SUCCESS,
+    TOGGLE_FAB_BUTTON
 } from './actions';
 
 const initialState = {
@@ -30,7 +31,7 @@ const initialState = {
         },
         {
             _id: Math.round(Math.random() * 1000000),
-            text: '中信领航',
+            text: '',
             createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
             system: true
         }
@@ -63,11 +64,14 @@ const initialState = {
     ],
     loadEarlier: true,
     typingText: null,
-    isLoadingEarlier: false
+    isLoadingEarlier: false,
+    toggleTextInput: false
 };
 
 const squareReducer = (state = initialState, action) => {
     switch (action.type) {
+        case TOGGLE_FAB_BUTTON:
+            return Object.assign({}, state, { toggleTextInput: action.payload });
         case LOAD_OLD_MESSAGE_SUCCESS:
             return Object.assign({}, state, {
                 loadEarlier: false,

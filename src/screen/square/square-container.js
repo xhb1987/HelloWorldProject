@@ -1,31 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { toggleFabButtonAction } from '../../state/screen/square/actions';
 import Square from './square';
 
-let homeTitle = '';
-let homeNavigator;
-
 class Container extends Component {
-    constructor(props) {
-        super(props);
-        ({ homeTitle } = this.props);
-        homeNavigator = this.props.navigator;
-    }
-
     static get navigatorStyle() {
         return {
-            navBarCustomView: 'screen.Home.TopBar',
-            navBarComponentAlignment: 'center',
-            navBarCustomViewInitialProps: {
-                title: homeTitle,
-                navigator: homeNavigator
-            }
+            navBarHidden: true,
+            tabBarHidden: true,
+            tabBarTranslucent: true
         };
     }
 
     render() {
-        return <Square {...this.props} propsNavigatorObject={this.props.navigator} />;
+        return <Square {...this.props} />;
     }
 }
 
@@ -39,11 +28,15 @@ Container.defaultProps = {
     navigator: {}
 };
 
-const stateToProps = state => ({
-    homeTitle: state.home.homeTitle
+const stateToProps = (state, ownProps) => ({
+    homeTitle: state.home.homeTitle,
+    navigator: ownProps.navigator,
+    toggleTextInput: state.square.toggleTextInput
 });
 
-const dispatchToProps = () => ({});
+const dispatchToProps = (dispatch, ownProps) => ({
+    toggleFabButton: toggleValue => dispatch(toggleFabButtonAction(toggleValue))
+});
 
 const SquareContainer = connect(stateToProps, dispatchToProps)(Container);
 

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-
-import { GiftedChat, Bubble, SystemMessage } from 'react-native-gifted-chat';
+import moment from 'moment';
+import { GiftedChat, Bubble, SystemMessage, MessageText } from 'react-native-gifted-chat';
+import CustomAvatar from './customAvartar';
+import CustomBubble from './customBubble';
+import CustomInputToolBar from './customInputToolBar';
 import styles from './styles';
 
 export default class Chat extends Component {
@@ -21,7 +24,11 @@ export default class Chat extends Component {
         this.renderSystemMessage = this.renderSystemMessage.bind(this);
         this.renderFooter = this.renderFooter.bind(this);
         this.onLoadEarlier = this.onLoadEarlier.bind(this);
-
+        this.renderMessageText = this.renderMessageText.bind(this);
+        this.renderTime = this.renderTime.bind(this);
+        this.renderTicks = this.renderTicks.bind(this);
+        this.renderInputToolbar = this.renderInputToolbar.bind(this);
+        this.renderAvatar = this.renderAvatar.bind(this);
         this._isAlright = null;
     }
 
@@ -32,6 +39,7 @@ export default class Chat extends Component {
                 messages: this.props.messages
             };
         });
+        console.log(moment.locales());
     }
 
     componentWillUnmount() {
@@ -100,17 +108,33 @@ export default class Chat extends Component {
         };
         this.props.receiveMessage(receiveText);
     }
-    renderBubble(props) {
+    renderMessageText(props) {
         return (
-            <Bubble
+            <MessageText
                 {...props}
-                wrapperStyle={{
-                    left: {
-                        backgroundColor: '#f0f0f0'
+                textStyle={{
+                    right: {
+                        color: 'black',
+                        alignItems: 'center',
+                        marginBottom: 0,
+                        marginTop: 0,
+                        lineHeight: null
                     }
                 }}
             />
         );
+    }
+
+    renderTime(props) {
+        return null;
+    }
+
+    renderTicks(props) {
+        return null;
+    }
+
+    renderBubble(props) {
+        return <CustomBubble {...props} />;
     }
 
     renderSystemMessage(props) {
@@ -138,20 +162,46 @@ export default class Chat extends Component {
         return null;
     }
 
+    renderInputToolbar(props) {
+        return this.props.toggleTextInput ? <CustomInputToolBar {...props} /> : null;
+    }
+
+    renderAvatar(props) {
+        return <CustomAvatar {...props} />;
+    }
+
     render() {
         return (
             <GiftedChat
+                bottomOffset={-10}
                 messages={this.props.messages}
                 onSend={this.onSend}
-                loadEarlier={this.props.loadEarlier}
-                onLoadEarlier={this.onLoadEarlier}
-                isLoadingEarlier={this.props.isLoadingEarlier}
                 user={{
                     _id: 1 // sent messages should have same user._id
                 }}
+                renderAvatarOnTop={true}
                 renderBubble={this.renderBubble}
                 renderSystemMessage={this.renderSystemMessage}
                 renderFooter={this.renderFooter}
+                renderMessageText={this.renderMessageText}
+                renderTime={this.renderTime}
+                renderTicks={this.renderTicks}
+                renderInputToolbar={this.renderInputToolbar}
+                showUserAvatar={true}
+                renderAvatarOnTop={true}
+                listViewProps={
+                    this.props.toggleTextInput
+                        ? {
+                              style: { marginBottom: 10, backgroundColor: '#f0f0f0' }
+                          }
+                        : {
+                              style: { marginBottom: -45, backgroundColor: '#f0f0f0' }
+                          }
+                }
+                locale="zh-cn"
+                timeFormat="LT"
+                dateFormat="dddd HH:mm"
+                renderAvatar={this.renderAvatar}
             />
         );
     }

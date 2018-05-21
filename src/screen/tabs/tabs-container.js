@@ -6,7 +6,10 @@ import Tab from './tabs';
 
 class Container extends Component {
     componentDidMount() {
-        this.props.goToIndex();
+        // for square page hide and show tab
+        if (this.props.activeTab !== 'square') {
+            this.props.goToIndex();
+        }
     }
     render() {
         return <Tab {...this.props} />;

@@ -26,7 +26,8 @@ const stateToProps = state => ({
     old_messages: state.square.old_messages,
     loadEarlier: state.square.loadEarlier,
     typingText: state.square.typingText,
-    isLoadingEarlier: state.square.isLoadingEarlier
+    isLoadingEarlier: state.square.isLoadingEarlier,
+    toggleTextInput: state.square.toggleTextInput
 });
 
 const dispatchToProps = dispatch => ({

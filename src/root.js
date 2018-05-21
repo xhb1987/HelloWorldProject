@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 import makeStore from './store';
 // import { App } from './component/index';
 import { registerScreens } from './screen/index';
+require('moment/locale/zh-cn.js');
 const Icon = require('react-native-vector-icons/Ionicons');
 
 if (!global.self) {
