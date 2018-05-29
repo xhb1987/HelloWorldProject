@@ -100,14 +100,28 @@ const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, act
             style={[styles.tabButtonContainer, styles.tabButtonSmall]}
             onPress={() => goToIndex()}
         >
-            <Image style={styles.tabImage} source={require('../../asset/icon/index.png')} />
+            <Image
+                style={styles.tabImage}
+                source={
+                    activeTab === 'index'
+                        ? require('../../asset/icon/index-selected.png')
+                        : require('../../asset/icon/index.png')
+                }
+            />
             <Text style={{ flex: 1, textAlign: 'center' }}>首页</Text>
         </TouchableOpacity>
         <TouchableOpacity
             style={[styles.tabButtonContainer, styles.tabButtonSideLeft]}
             onPress={() => goToSquare()}
         >
-            <Image style={styles.tabImage} source={require('../../asset/icon/square.png')} />
+            <Image
+                style={styles.tabImage}
+                source={
+                    activeTab === 'square'
+                        ? require('../../asset/icon/square-selected.png')
+                        : require('../../asset/icon/square.png')
+                }
+            />
             <Text style={{ flex: 1, textAlign: 'center' }}>广场</Text>
         </TouchableOpacity>
         <TouchableHighlight
@@ -121,14 +135,28 @@ const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, act
             style={[styles.tabButtonContainer, styles.tabButtonSideRight]}
             onPress={() => goToMessage()}
         >
-            <Image style={styles.tabImage} source={require('../../asset/icon/message.png')} />
+            <Image
+                style={styles.tabImage}
+                source={
+                    activeTab === 'message'
+                        ? require('../../asset/icon/message-selected.png')
+                        : require('../../asset/icon/message.png')
+                }
+            />
             <Text style={{ flex: 1, textAlign: 'center' }}>消息</Text>
         </TouchableOpacity>
         <TouchableOpacity
             style={[styles.tabButtonContainer, styles.tabButtonSmall]}
             onPress={() => goToProfile()}
         >
-            <Image style={styles.tabImage} source={require('../../asset/icon/profile.png')} />
+            <Image
+                style={styles.tabImage}
+                source={
+                    activeTab === 'profile'
+                        ? require('../../asset/icon/profile-selected.png')
+                        : require('../../asset/icon/profile.png')
+                }
+            />
             <Text style={{ flex: 1, textAlign: 'center' }}>我的</Text>
         </TouchableOpacity>
     </View>

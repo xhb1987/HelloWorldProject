@@ -50,19 +50,24 @@ export class App {
     startApp() {
         const tabs = [
             {
-                screen: 'screen.Home'
+                screen: 'screen.Home',
+                icon: settingsIcon
             },
             {
-                screen: 'screen.Square'
+                screen: 'screen.Square',
+                icon: settingsIcon
             },
             {
-                screen: 'screen.ProductPublish'
+                screen: 'screen.ProductPublish',
+                icon: settingsIcon
             },
             {
-                screen: 'screen.Message'
+                screen: 'screen.Message',
+                icon: settingsIcon
             },
             {
-                screen: 'screen.Profile'
+                screen: 'screen.Profile',
+                icon: settingsIcon
             }
         ];
         Navigation.startTabBasedApp({

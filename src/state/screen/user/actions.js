@@ -110,7 +110,7 @@ export const userLoginCancelAction = () => ({
 export const userLogin = user => {
     return dispatch => {
         dispatch(userLoginRequestAction());
-        const result = fetchPost('http://39.105.23.168:8080/neighbors-web/userservice/loginbypwd', {
+        const result = fetchPost('userservice/loginbypwd', {
             mobile: user.phone,
             loginPWD: user.password,
             loginType: 1
@@ -124,7 +124,7 @@ export const userLogin = user => {
 export const userLogout = () => {
     return dispatch => {
         dispatch(userLogoutRequestAction());
-        const result = fetchPost('http://39.105.23.168:8080/neighbors-web/userservice/logout');
+        const result = fetchPost('userservice/logout');
         return result
             .then(res => dispatch(userLogoutSuccessAction(res)))
             .catch(e => dispatch(userLogoutFailureAction(e)));

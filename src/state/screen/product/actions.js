@@ -63,7 +63,7 @@ export const productPublishStoreAction = product => ({
 export const productPull = () => {
     return (dispatch, getState) => {
         const state = getState();
-        const url = 'http://39.105.23.168:8080/neighbors-web/userservice/getcommodity';
+        const url = 'userservice/getcommodity';
         dispatch(productPullRequestAction());
         const villageId = 1;
         const result = fetchPost(url, {

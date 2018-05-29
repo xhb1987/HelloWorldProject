@@ -2,7 +2,7 @@ import fetchData from './fetch';
 
 const fetchPost = (url, data) => {
     return new Promise((resolve, reject) => {
-        fetch(url, {
+        fetchData(url, {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

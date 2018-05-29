@@ -116,7 +116,7 @@ const cityPullFailureAction = e => ({
 
 export const cityPullRequest = () => {
     return dispatch => {
-        const requestUrl = 'http://39.105.23.168:8080/neighbors-web/userservice/getcity';
+        const requestUrl = 'userservice/getcity';
 
         dispatch(cityPullRequestAction);
         const result = fetchPost(requestUrl, { pageNo: 1, pageSize: 10 });
@@ -129,7 +129,7 @@ export const cityPullRequest = () => {
 
 export const villagePullRequest = city => {
     return dispatch => {
-        const requestUrl = 'http://39.105.23.168:8080/neighbors-web/userservice/getvillage';
+        const requestUrl = 'userservice/getvillage';
 
         dispatch(villagePullRequestAction);
         const result = fetchPost(requestUrl, { queryParams: { cityID: city.cityID } });
@@ -142,7 +142,7 @@ export const villagePullRequest = city => {
 
 export const getClientConfigRequest = () => {
     return dispatch => {
-        const requestUrl = 'http://39.105.23.168:8080/neighbors-web/userservice/getclientconfig';
+        const requestUrl = 'userservice/getclientconfig';
         dispatch(clientConfigRequestAction());
         const result = fetchPost(requestUrl, {});
         return result
@@ -153,7 +153,7 @@ export const getClientConfigRequest = () => {
 
 export const getTagRequest = () => {
     return dispatch => {
-        const requestUrl = 'http://39.105.23.168:8080/neighbors-web/userservice/getlabeltypes';
+        const requestUrl = 'userservice/getlabeltypes';
         dispatch(tagPullRequestAction());
         const result = fetchPost(requestUrl, {});
         return result

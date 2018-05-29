@@ -1,9 +1,11 @@
+import config from '../config';
+
 const fetchData = (url, opts) => {
     let requestUrl = url;
     if (opts && opts.data) {
         requestUrl += opts.data.join('&');
     }
-
+    requestUrl = config.baseUrl + requestUrl;
     let timeoutId = null;
 
     return new Promise((resolve, reject) => {

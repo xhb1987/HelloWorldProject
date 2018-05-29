@@ -1,5 +1,6 @@
 package com.helloworldproject;
 
+import org.reactnative.camera.RNCameraPackage;
 import android.app.Notification;
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -45,6 +46,7 @@ public class MainApplication extends NavigationApplication {
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
+                new RNCameraPackage(),
                 new DplusReactPackage()
         );
     }
@@ -66,7 +68,7 @@ public class MainApplication extends NavigationApplication {
         SoLoader.init(this, false);
         RNUMConfigure.init(this, "5ae31695f43e4839f1000064", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
                 "2ff180aff55552a3d58c4802b2b85d9e");
-        initUpush();
+        // initUpush();
     }
 
     private void initUpush() {
