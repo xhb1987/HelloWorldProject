@@ -1,10 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import CameraRollPicker from 'react-native-camera-roll-picker';
-import styles from './styles';
+
+const styles = StyleSheet.create({});
 
 const CameraRoll = ({ selectImage }) => (
-    <View style={styles.container}>
+    <View>
         <CameraRollPicker
             maximum={10}
             scrollRenderAheadDistance={800}

@@ -10,6 +10,21 @@ export const PRODUCT_PULL_REQUEST = 'PRODUCT_PULL_REQUEST';
 export const PRODUCT_PULL_SUCCESS = 'PRODUCT_PULL_SUCCESS';
 export const PRODUCT_PULL_FAILURE = 'PRODUCT_PULL_SUCCESS';
 
+export const PRODUCT_OPTION = 'PRODUCT_OPTION';
+export const PRODUCT_OPTION_SELECT = 'PRODUCT_OPTION_SELECT';
+
+export const productOptionSelectAction = (type, option) => ({
+    type: PRODUCT_OPTION_SELECT,
+    payload: { optionType: type, optionSelected: option },
+    meta: {}
+});
+
+export const productOptionAction = active => ({
+    type: PRODUCT_OPTION,
+    payload: active,
+    meta: {}
+});
+
 const productPullRequestAction = () => ({
     type: PRODUCT_PULL_REQUEST,
     payload: {},

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { productImageSelectAction } from '../../../state/screen/product/actions';
 import PhotoScreen from './photo-screen';
 
 class Container extends Component {
     static get navigatorStyle() {
         return {
-            navBarTranslucent: true,
-            tabBarHidden: false,
-            drawUnderTabBar: true,
-            navBarButtonColor: '#123456',
-            navBarTextColor: '#000000',
-            navBarBackgroundColor: '#ffffff'
+            navBarHidden: true,
+            tabBarHidden: true,
+            tabBarTranslucent: true
         };
     }
 
@@ -28,7 +26,11 @@ const dispatchToProps = (dispatch, ownProps) => ({
         ownProps.navigator.push({
             screen: 'screen.ProductPublish.CameraScreen'
         });
-    }
+    },
+    goBack: () => {
+        ownProps.navigator.pop();
+    },
+    selectImage: (images, currentImage) => dispatch(productImageSelectAction(images, currentImage))
 });
 
 const PhotoScreenContainer = connect(stateToProps, dispatchToProps)(Container);

@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
 import ProductPublish from './product-publish';
-import { productInputChangeAction } from '../../state/screen/product/actions';
+import { productInputChangeAction, productOptionAction } from '../../state/screen/product/actions';
 
 class Container extends Component {
     static get navigatorStyle() {
         return {
-            navBarTranslucent: true,
-            tabBarHidden: false,
-            drawUnderTabBar: true,
-            navBarButtonColor: '#123456',
-            navBarTextColor: '#000000',
-            navBarBackgroundColor: '#ffffff'
+            navBarHidden: true,
+            tabBarHidden: true,
+            tabBarTranslucent: true
         };
     }
 
@@ -29,6 +27,21 @@ const dispatchToProps = (dispatch, ownProps) => ({
     goToPhotoScreen: () => {
         ownProps.navigator.push({
             screen: 'screen.ProductPublish.PhotoScreen'
+        });
+    },
+    cancel: () => Navigation.dismissModal({ animationType: 'slide-down' }),
+    showSelections: type => {
+        dispatch(productOptionAction(type));
+        Navigation.showLightBox({
+            screen: 'lightBox.ProductPublish.Selections',
+            backgroundBlur: 'light',
+            backgroundColor: '#ff000080',
+            apBackgroundToDismiss: true
+        });
+    },
+    openCategory: () => {
+        ownProps.navigator.push({
+            screen: 'modal.Category'
         });
     }
 });

@@ -4,7 +4,10 @@ import {
     RECEIVE_MESSAGE,
     LOAD_OLD_MESSAGE_REQUEST,
     LOAD_OLD_MESSAGE_SUCCESS,
-    TOGGLE_FAB_BUTTON
+    TOGGLE_FAB_BUTTON,
+    TOGGLE_ACTION_SHEET,
+    SQUARE_TAKE_IMAGE,
+    SQUARE_PICK_IMAGE
 } from './actions';
 
 const initialState = {
@@ -65,11 +68,19 @@ const initialState = {
     loadEarlier: true,
     typingText: null,
     isLoadingEarlier: false,
-    toggleTextInput: false
+    toggleTextInput: false,
+    toggleActionSheet: false,
+    image: { uri: '' }
 };
 
 const squareReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SQUARE_PICK_IMAGE:
+            return Object.assign({}, state, { image: { url: action.payload.current.uri } });
+        case SQUARE_TAKE_IMAGE:
+            return Object.assign({}, state, { image: { uri: action.payload.uri } });
+        case TOGGLE_ACTION_SHEET:
+            return Object.assign({}, state, { toggleActionSheet: action.payload });
         case TOGGLE_FAB_BUTTON:
             return Object.assign({}, state, { toggleTextInput: action.payload });
         case LOAD_OLD_MESSAGE_SUCCESS:

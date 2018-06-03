@@ -5,7 +5,8 @@ import {
     sendMessageAction,
     receiveMessageAction,
     loadOldMessageRequestAction,
-    loadOldMessageSuccessAction
+    loadOldMessageSuccessAction,
+    toggleActionSheetAction
 } from '../../../state/screen/square/actions';
 import Chat from './chat';
 
@@ -27,14 +28,16 @@ const stateToProps = state => ({
     loadEarlier: state.square.loadEarlier,
     typingText: state.square.typingText,
     isLoadingEarlier: state.square.isLoadingEarlier,
-    toggleTextInput: state.square.toggleTextInput
+    toggleTextInput: state.square.toggleTextInput,
+    toggleActionSheet: state.square.toggleActionSheet
 });
 
 const dispatchToProps = dispatch => ({
     sendMessage: messages => dispatch(sendMessageAction(messages)),
     receiveMessage: messages => dispatch(receiveMessageAction(messages)),
     loadOldMessageRequest: () => dispatch(loadOldMessageRequestAction()),
-    loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages))
+    loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages)),
+    togglePicsActionSheet: () => dispatch(toggleActionSheetAction())
 });
 
 const ChatContainer = connect(stateToProps, dispatchToProps)(Container);

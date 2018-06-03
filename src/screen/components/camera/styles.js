@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 
 const styles = RNC`
     container {
-        height: 800;
+        flex: 1;
         flex-direction: column;
         background-color: black
     }

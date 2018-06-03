@@ -77,7 +77,11 @@ export class App {
                 tabBarTranslucent: true,
                 initialTabIndex: 4
             },
-            appStyle: {},
+            appStyle: {
+                tabBarHidden: true,
+                tabBarTranslucent: true,
+                initialTabIndex: 4
+            },
             animationType: 'slide-down'
         });
         // Navigation.startSingleScreenApp({

@@ -7,7 +7,9 @@ import {
     PRODUCT_IMAGE_SELECT,
     PRODUCT_PULL_REQUEST,
     PRODUCT_PULL_SUCCESS,
-    PRODUCT_PULL_FAILURE
+    PRODUCT_PULL_FAILURE,
+    PRODUCT_OPTION,
+    PRODUCT_OPTION_SELECT
 } from './actions';
 
 const initialState = {
@@ -19,7 +21,20 @@ const initialState = {
     productToPublish: {
         title: '',
         discreption: '',
-        images: []
+        images: [],
+        category: '',
+        usage: '',
+        district: ''
+    },
+    productOptionActive: '',
+    productCategoryOption: ['手机', '婴儿用品'],
+    productUsageOption: {
+        title: '选择新旧程度',
+        options: ['全新', '95新', '9成新', '8成新', '7成新', '7成一下']
+    },
+    productDistrictOption: {
+        title: '选择地点',
+        options: ['大陆', '香港', '澳门', '台湾', '国外']
     },
     loading: false,
     error: false
@@ -27,6 +42,15 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PRODUCT_OPTION_SELECT:
+            return Object.assign({}, state, {
+                productToPublish: {
+                    ...state.productToPublish,
+                    [action.payload.optionType]: action.payload.optionSelected
+                }
+            });
+        case PRODUCT_OPTION:
+            return Object.assign({}, state, { productOptionActive: action.payload });
         case PRODUCT_PULL_REQUEST:
             return Object.assign({}, state, { loading: true });
         case PRODUCT_PULL_SUCCESS: {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
 import PropTypes from 'prop-types';
 import { activeTabToggleAction } from '../../state/screen/home/actions';
 import Tab from './tabs';
@@ -34,10 +35,7 @@ const dispatchToProps = (dispatch, ownProps) => ({
         dispatch(activeTabToggleAction('square'));
     },
     goToPublish: () => {
-        ownProps.navigator.switchToTab({
-            tabIndex: 2
-        });
-        dispatch(activeTabToggleAction('publish'));
+        Navigation.showModal({ screen: 'screen.ProductPublish' });
     },
     goToMessage: () => {
         ownProps.navigator.switchToTab({

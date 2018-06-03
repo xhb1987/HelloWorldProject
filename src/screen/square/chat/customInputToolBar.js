@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActionSheetIOS } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { Navigation } from 'react-native-navigation';
 import { InputToolbar, Composer, Send } from 'react-native-gifted-chat';
 
 const styles = StyleSheet.create({
@@ -37,6 +38,32 @@ class CustomInputToolBar extends Component {
         super(props);
         this.renderComposer = this.renderComposer.bind(this);
         this.renderSend = this.renderSend.bind(this);
+        this.popActionSheet = this.popActionSheet.bind(this);
+        this.actionSheetClick = this.actionSheetClick.bind(this);
+    }
+
+    popActionSheet() {
+        ActionSheetIOS.showActionSheetWithOptions(
+            {
+                options: ['拍摄', '从手机相册选择', '取消'],
+                cancelButtonIndex: 2
+            },
+            buttonIndex => this.actionSheetClick(buttonIndex)
+        );
+    }
+
+    actionSheetClick(index) {
+        if (index === 0) {
+            Navigation.showModal({
+                screen: 'modal.Camera',
+                animationType: 'slide-up'
+            });
+        } else if (index === 1) {
+            Navigation.showModal({
+                screen: 'modal.Photo',
+                animationType: 'slide-up'
+            });
+        }
     }
 
     renderSend(props) {
@@ -50,6 +77,7 @@ class CustomInputToolBar extends Component {
                     {...props}
                     placeholder="请输入消息"
                     textInputStyle={styles.textInputStyle}
+                    onSubmitEditing={this.props.onSend}
                 />
                 <Icon
                     type="entypo"
@@ -58,6 +86,7 @@ class CustomInputToolBar extends Component {
                     size={30}
                     containerStyle={styles.actionButtonContainer}
                     iconStyle={styles.actionButton}
+                    onPress={() => this.popActionSheet()}
                 />
             </View>
         );

@@ -57,42 +57,7 @@ export default class Chat extends Component {
 
     onSend(messages = []) {
         this.props.sendMessage(messages);
-        this.answerDemo(messages);
-    }
-
-    answerDemo(messages) {
-        if (messages.length > 0) {
-            if (messages[0].image || messages[0].location || !this._isAlright) {
-                this.setState(previousState => {
-                    return {
-                        typingText: '用户正在输入'
-                    };
-                });
-            }
-        }
-
-        setTimeout(() => {
-            if (this._isMounted === true) {
-                if (messages.length > 0) {
-                    if (messages[0].image) {
-                        this.onReceive('Nice picture!');
-                    } else if (messages[0].location) {
-                        this.onReceive('My favorite place');
-                    } else {
-                        if (!this._isAlright) {
-                            this._isAlright = true;
-                            this.onReceive('好的');
-                        }
-                    }
-                }
-            }
-
-            this.setState(previousState => {
-                return {
-                    typingText: null
-                };
-            });
-        }, 1000);
+        // this.answerDemo(messages);
     }
 
     onReceive(text) {
@@ -163,7 +128,9 @@ export default class Chat extends Component {
     }
 
     renderInputToolbar(props) {
-        return this.props.toggleTextInput ? <CustomInputToolBar {...props} /> : null;
+        return this.props.toggleTextInput ? (
+            <CustomInputToolBar {...props} onSend={this.onSend} />
+        ) : null;
     }
 
     renderAvatar(props) {

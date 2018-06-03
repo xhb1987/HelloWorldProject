@@ -11,7 +11,11 @@
         "import/extensions": 0,
         "global-require": "off",
         "class-methods-use-this": [2],
-        "arrow-parens": ["error", "as-needed"]
+        "arrow-parens": ["error", "as-needed"],
+        "eslint class-methods-use-this": [
+            "error",
+            { "exceptMethods": ["renderComposer", "renderSend"] }
+        ]
     },
     "globals": {
         "window": true,
