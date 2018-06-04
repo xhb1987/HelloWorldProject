@@ -10,12 +10,9 @@ import UserRegister from './user-register';
 class Container extends Component {
     static get navigatorStyle() {
         return {
-            navBarTranslucent: true,
+            navBarHidden: true,
             tabBarHidden: true,
-            navBarNoBorder: true,
-            navBarBackgroundColor: 'white',
-            drawUnderTabBar: true,
-            disabledBackGesture: true
+            tabBarTranslucent: true
         };
     }
 
@@ -26,6 +23,7 @@ class Container extends Component {
 
 const stateToProps = () => ({});
 const dispatchToProps = (dispatch, ownProps) => ({
+    cancel: () => ownProps.navigator.pop(),
     userRegister: () => {
         ownProps.navigator.popToRoot({
             animated: true,

@@ -4,6 +4,7 @@ import { Button, SearchBar } from 'react-native-elements';
 import { ListView, View, TouchableOpacity, Animated } from 'react-native';
 import { TabBar, SceneMap } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
+import SplashScreen from 'react-native-splash-screen';
 
 import BuyListContainer from './buy-list/buy-list-container';
 import SellListContainer from './sell-list/sell-list-container';
@@ -28,6 +29,10 @@ class Container extends Component {
                 { key: 'daigou', title: '代购' }
             ]
         };
+    }
+
+    componentDidMount() {
+        SplashScreen.hide();
     }
 
     static get navigatorStyle() {

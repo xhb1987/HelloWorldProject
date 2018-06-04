@@ -15,9 +15,9 @@ import {
 const initialState = {
     isLogin: false,
     userInfo: {
-        id: 123456,
-        name: 'Test User',
-        address: 'Test Address'
+        id: 0,
+        name: '',
+        address: ''
     },
     myItem: [
         {
@@ -100,8 +100,22 @@ const userReducer = (state = initialState, action) => {
             return Object.assign({}, state, { loading: false, error: false, isLogin: false });
         case USER_LOGIN_REQUEST:
             return Object.assign({}, state, { loading: true });
-        case USER_LOGIN_SUCCESS:
-            return Object.assign({}, state, { loading: false, isLogin: true });
+        case USER_LOGIN_SUCCESS: {
+            console.log(action);
+            // test account 13633139898 654321
+            // ret code is 0 means login success
+            const result = action.payload;
+            if (result.retCode === 0) {
+                global.token = result.result.sessionToken;
+                return Object.assign({}, state, {
+                    loading: false,
+                    isLogin: true,
+                    sessionToken: result.result.sessionToken
+                });
+            }
+
+            return Object.assign({}, state, { loading: false, isLogin: false });
+        }
         case USER_LOGIN_FAILURE:
             return Object.assign({}, state, { loading: false, error: true, isLogin: false });
         default:

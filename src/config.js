@@ -1,9 +1,11 @@
 const config = {
     // base url
-    baseUrl: 'http://39.105.23.168:8080/neighbors-web/',
+    baseUrl: 'http://39.105.23.168:8081/neighbors-web/',
 
     // session token, get after login
-    token: ''
+    token: '',
+
+    webSocketUrl: 'ws://39.105.23.168:8081/neighbors-web'
 };
 
 export default config;

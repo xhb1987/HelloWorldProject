@@ -12,6 +12,7 @@ if (!global.self) {
     global.self = global;
 }
 
+global.token = '';
 const store = makeStore();
 registerScreens(store, Provider);
 

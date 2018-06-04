@@ -25,9 +25,8 @@ const dispatchToProps = (dispatch, ownProps) => ({
     userLogin: () => {
         ownProps.navigator.push({
             screen: 'screen.User.Login',
-            animationType: 'fade',
-            title: '登陆',
-            backButtonHidden: true
+            animated: true,
+            animationType: 'slide-up'
         });
     },
 

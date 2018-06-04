@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity, Text } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 
-const CustomHeader = ({ title, leftButtonType, leftButtonPress }) => (
+const CustomHeader = ({ title, leftButtonType, leftButtonPress, rightButton }) => (
     <Header
         outerContainerStyles={{
             borderBottomColor: 'white',
@@ -24,6 +24,7 @@ const CustomHeader = ({ title, leftButtonType, leftButtonPress }) => (
                 />
             )
         }
+        rightComponent={React.isValidElement(rightButton) ? rightButton : null}
         centerComponent={{ text: title, style: { color: 'white', fontSize: 18 } }}
     />
 );

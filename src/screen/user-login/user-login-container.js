@@ -12,12 +12,9 @@ import { getUserLoginPassword } from '../../state/screen/user/selectors';
 class Container extends Component {
     static get navigatorStyle() {
         return {
-            navBarTranslucent: true,
+            navBarHidden: true,
             tabBarHidden: true,
-            navBarNoBorder: true,
-            navBarBackgroundColor: 'white',
-            drawUnderTabBar: true,
-            disabledBackGesture: true
+            tabBarTranslucent: true
         };
     }
 
@@ -31,25 +28,20 @@ const stateToProps = state => ({
 });
 const dispatchToProps = (dispatch, ownProps) => ({
     cancelLogin: () => {
-        ownProps.navigator.pop({
-            animated: true,
-            animationType: 'fade'
-        });
+        ownProps.navigator.pop({});
         dispatch(userLoginCancelAction());
     },
     login: user => {
         ownProps.navigator.popToRoot({
-            animated: true,
-            animationType: 'fade'
+            animated: true
         });
         dispatch(userLogin(user));
     },
     goToRegister: () => {
         ownProps.navigator.push({
             screen: 'screen.User.Register',
-            animationType: 'fade',
-            backButtonHidden: true,
-            title: '注册'
+            animated: true,
+            animationType: 'slide-horizontal'
         });
     },
     userInputChange: (value, type) => dispatch(userInputChangeAction(value, type))

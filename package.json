@@ -16,6 +16,7 @@
         "react-dom": "^16.3.1",
         "react-native": "0.55.2",
         "react-native-actionsheet": "^2.4.2",
+        "react-native-cached-image": "^1.4.3",
         "react-native-camera": "^1.1.2",
         "react-native-camera-roll-picker": "^1.2.3",
         "react-native-clean-form": "^0.5.0",
@@ -29,6 +30,7 @@
         "react-native-navigation": "^1.1.443",
         "react-native-scrollable-tab-view": "^0.7.3",
         "react-native-scrollable-tab-view-mask-bar": "^1.0.8",
+        "react-native-splash-screen": "^3.0.7",
         "react-native-swiper": "^1.5.13",
         "react-native-tab-view": "^0.0.77",
         "react-native-vector-icons": "^4.6.0",
@@ -37,7 +39,8 @@
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.2.0",
-        "reselect": "^3.0.1"
+        "reselect": "^3.0.1",
+        "socket.io-client": "^2.1.1"
     },
     "devDependencies": {
         "ajv": "^6.4.0",

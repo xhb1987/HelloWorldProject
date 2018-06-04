@@ -11,10 +11,7 @@ const stateToProps = state => ({
 const dispatchToProps = (dispatch, ownProps) => ({
     userLogin: () => {
         ownProps.navigator.push({
-            screen: 'screen.User.Login',
-            animationType: 'fade',
-            title: '登陆',
-            backButtonHidden: true
+            screen: 'screen.User.Login'
         });
     }
 });

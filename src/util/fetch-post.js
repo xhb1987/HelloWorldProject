@@ -5,7 +5,7 @@ const fetchPost = (url, data) => {
         fetchData(url, {
             method: 'POST',
             credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', sessionToken: global.token },
             body: JSON.stringify(data)
         })
             .then(response => {
