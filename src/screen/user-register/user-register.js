@@ -89,6 +89,23 @@ const styles = StyleSheet.create({
     },
     buttonGroup: {
         marginTop: 20
+    },
+    termContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    term: {
+        textDecorationLine: 'underline',
+        fontWeight: 'bold'
+    },
+    loginContainer: {
+        padding: 15,
+        alignItems: 'flex-end'
+    },
+    loginText: {
+        fontSize: 16,
+        color: '#888888'
     }
 });
 
@@ -153,6 +170,10 @@ const UserRegister = ({ cancel, userRegister, getRegisterCode, userInputChange }
                     }}
                 />
             </View>
+            <View style={styles.termContainer}>
+                <Text>请仔细阅读用户协议，注册则代表您同意</Text>
+                <Text style={styles.term}>用户协议</Text>
+            </View>
             <View style={styles.buttonGroup}>
                 <Button
                     buttonStyle={styles.loginButton}
@@ -161,6 +182,9 @@ const UserRegister = ({ cancel, userRegister, getRegisterCode, userInputChange }
                     backgroundColor="#ed3349"
                 />
             </View>
+            <TouchableOpacity style={styles.loginContainer}>
+                <Text style={styles.loginText}>以后账号？点击登陆</Text>
+            </TouchableOpacity>
         </View>
     </KeyboardAvoidingView>
 );

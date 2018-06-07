@@ -9,7 +9,8 @@ import {
     USER_REGISTER_CODE_REQUEST,
     USER_REGISTER_CODE_SUCCESS,
     USER_REGISTER_CODE_FAILURE,
-    USER_INPUT_CHANGE
+    USER_INPUT_CHANGE,
+    USER_LOGOUT_SUCCESS
 } from './actions';
 
 const initialState = {
@@ -108,16 +109,41 @@ const userReducer = (state = initialState, action) => {
             if (result.retCode === 0) {
                 global.token = result.result.sessionToken;
                 return Object.assign({}, state, {
+                    userLoginPassword: '',
+                    userLoginPhone: '',
                     loading: false,
                     isLogin: true,
                     sessionToken: result.result.sessionToken
                 });
             }
 
-            return Object.assign({}, state, { loading: false, isLogin: false });
+            return Object.assign({}, state, {
+                loading: false,
+                isLogin: false,
+                userLoginPassword: '',
+                userLoginPhone: ''
+            });
         }
         case USER_LOGIN_FAILURE:
-            return Object.assign({}, state, { loading: false, error: true, isLogin: false });
+            return Object.assign({}, state, {
+                loading: false,
+                error: true,
+                isLogin: false,
+                userLoginPassword: '',
+                userLoginPhone: ''
+            });
+        case USER_LOGOUT_SUCCESS: {
+            const result = action.payload;
+            if (result.retCode === 0) {
+                return Object.assign({}, state, {
+                    loading: false,
+                    error: false,
+                    isLogin: false
+                });
+            }
+
+            return Object.assign({}, state, { loading: false, error: true });
+        }
         default:
             return state;
     }

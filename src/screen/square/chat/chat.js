@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 import { Text, View } from 'react-native';
-import moment from 'moment';
 import { GiftedChat, Bubble, SystemMessage, MessageText } from 'react-native-gifted-chat';
 import CustomAvatar from './customAvartar';
 import CustomBubble from './customBubble';
@@ -39,7 +39,25 @@ export default class Chat extends Component {
                 messages: this.props.messages
             };
         });
-        console.log(moment.locales());
+    }
+
+    componentDidMount() {
+        this.props.squareSocketInit();
+        // new Promise(resolve => {
+        //     this.props.squareSocketInit();
+        //     resolve();
+        // }).then(() => {
+        //     this.props.squareSocketAuth();
+        // });
+        // const ws = new WebSocket('ws://39.105.23.168:8081/neighbors-talk/talk');
+        // ws.onopen = () => {
+        //     // connection opened
+        //     ws.send('something'); // send a message
+        // };
+        // ws.onerror = e => {
+        //     // an error occurred
+        //     console.log(e.message);
+        // };
     }
 
     componentWillUnmount() {
@@ -56,6 +74,7 @@ export default class Chat extends Component {
     }
 
     onSend(messages = []) {
+        console.log(messages);
         this.props.sendMessage(messages);
         // this.answerDemo(messages);
     }
@@ -129,7 +148,11 @@ export default class Chat extends Component {
 
     renderInputToolbar(props) {
         return this.props.toggleTextInput ? (
-            <CustomInputToolBar {...props} onSend={this.onSend} />
+            <CustomInputToolBar
+                {...props}
+                onSend={this.onSend}
+                sendMessage={this.props.sendingMessage}
+            />
         ) : null;
     }
 

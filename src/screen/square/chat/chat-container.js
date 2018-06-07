@@ -6,7 +6,9 @@ import {
     receiveMessageAction,
     loadOldMessageRequestAction,
     loadOldMessageSuccessAction,
-    toggleActionSheetAction
+    toggleActionSheetAction,
+    squareSocketInit,
+    squareSocketAuth
 } from '../../../state/screen/square/actions';
 import Chat from './chat';
 
@@ -23,6 +25,7 @@ Container.defaultProps = {
 };
 
 const stateToProps = state => ({
+    sendingMessage: state.square.sendingMessage,
     messages: state.square.messages,
     old_messages: state.square.old_messages,
     loadEarlier: state.square.loadEarlier,
@@ -37,7 +40,9 @@ const dispatchToProps = dispatch => ({
     receiveMessage: messages => dispatch(receiveMessageAction(messages)),
     loadOldMessageRequest: () => dispatch(loadOldMessageRequestAction()),
     loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages)),
-    togglePicsActionSheet: () => dispatch(toggleActionSheetAction())
+    togglePicsActionSheet: () => dispatch(toggleActionSheetAction()),
+    squareSocketInit: () => dispatch(squareSocketInit()),
+    squareSocketAuth: () => dispatch(squareSocketAuth())
 });
 
 const ChatContainer = connect(stateToProps, dispatchToProps)(Container);

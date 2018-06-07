@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActionSheetIOS } from 'react-native';
+import { View, Text, StyleSheet, ActionSheetIOS, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Navigation } from 'react-native-navigation';
 import { InputToolbar, Composer, Send } from 'react-native-gifted-chat';
@@ -7,7 +7,9 @@ import { InputToolbar, Composer, Send } from 'react-native-gifted-chat';
 const styles = StyleSheet.create({
     textInputContainer: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     actionButtonContainer: {
         flex: 1,
@@ -16,12 +18,14 @@ const styles = StyleSheet.create({
     },
     textInputStyle: {
         flex: 5,
-        marginTop: 10,
-        marginBottom: 10,
+        minHeight: 20,
+        height: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 17,
         marginLeft: 10,
-        paddingBottom: 5,
         paddingLeft: 10,
-        borderRadius: 10,
+        borderRadius: 5,
         borderWidth: 1,
         borderColor: '#dddddd',
         backgroundColor: '#f0f0f0'
@@ -30,16 +34,29 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -50
     },
-    containerStyle: {}
+    containerStyle: {
+        borderTopWidth: 0,
+        marginTop: 5,
+        marginBottom: 5,
+        bottom: 5,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 class CustomInputToolBar extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            inputTextValue: ''
+        };
         this.renderComposer = this.renderComposer.bind(this);
         this.renderSend = this.renderSend.bind(this);
         this.popActionSheet = this.popActionSheet.bind(this);
         this.actionSheetClick = this.actionSheetClick.bind(this);
+        this.clearText = this.clearText.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
     }
 
     popActionSheet() {
@@ -69,15 +86,40 @@ class CustomInputToolBar extends Component {
     renderSend(props) {
         return null;
     }
+    handleTextChange(value) {
+        this.setState({ inputTextValue: value });
+        console.log('key change', this.state.inputTextValue);
+        this.textInput.clear();
+        // this.setState({ inputTextValue: '' });
+    }
+    handleKeyPress(e) {
+        console.log('key press', this.state.inputTextValue);
+
+        this.setState({ inputTextValue: '' });
+        //this.textInput.clear();
+    }
+    clearText() {
+        this.textInputValue.setNativeProps({ text: '' });
+    }
 
     renderComposer(props) {
         return (
             <View style={styles.textInputContainer}>
-                <Composer
+                <TextInput
                     {...props}
+                    ref={ref => {
+                        this.textInput = ref;
+                    }}
+                    enablesReturnKeyAutomatically
+                    blurOnSubmit={false}
+                    value={this.state.inputTextValue}
+                    onChangeText={this.handleTextChange}
+                    returnKeyLabel="发送"
+                    returnKeyType="send"
                     placeholder="请输入消息"
-                    textInputStyle={styles.textInputStyle}
-                    onSubmitEditing={this.props.onSend}
+                    style={styles.textInputStyle}
+                    onSubmitEditing={e => this.handleKeyPress(e)}
+                    onKeyPress={e => this.handleKeyPress(e)}
                 />
                 <Icon
                     type="entypo"

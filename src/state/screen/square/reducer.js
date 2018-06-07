@@ -7,8 +7,15 @@ import {
     TOGGLE_FAB_BUTTON,
     TOGGLE_ACTION_SHEET,
     SQUARE_TAKE_IMAGE,
-    SQUARE_PICK_IMAGE
+    SQUARE_PICK_IMAGE,
+    SQUARE_SOCKET_REQUEST,
+    SQUARE_SOCKET_SUCCESS,
+    SQUARE_SOCKET_FAILURE,
+    SQUARE_SOCKET_AUTH_REQUEST,
+    SQUARE_SOCKET_AUTH_SUCCESS,
+    SQUARE_SOCKET_AUTH_FAILURE
 } from './actions';
+import { generateMessage } from '../../../util/utils';
 
 const initialState = {
     messages: [
@@ -70,7 +77,8 @@ const initialState = {
     isLoadingEarlier: false,
     toggleTextInput: false,
     toggleActionSheet: false,
-    image: { uri: '' }
+    image: { uri: '' },
+    sendingMessage: ''
 };
 
 const squareReducer = (state = initialState, action) => {
@@ -95,10 +103,28 @@ const squareReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 messages: GiftedChat.append(state.messages, action.payload.messages)
             });
-        case SEND_MESSAGE:
-            return Object.assign({}, state, {
-                messages: GiftedChat.append(state.messages, action.payload.messages)
-            });
+        case SEND_MESSAGE: {
+            return Object.assign({}, state, { sendingMessage: 'test' });
+            // const messageObj = generateMessage(action.payload.message);
+            // return Object.assign({}, state, {
+            //     messages: GiftedChat.append(state.messages, messageObj)
+            // });
+        }
+        case SQUARE_SOCKET_REQUEST:
+            console.log(action);
+            return state;
+        case SQUARE_SOCKET_SUCCESS:
+            console.log(action);
+            return state;
+        case SQUARE_SOCKET_FAILURE:
+            console.log(action);
+            return state;
+        case SQUARE_SOCKET_AUTH_REQUEST:
+            return state;
+        case SQUARE_SOCKET_AUTH_FAILURE:
+            return state;
+        case SQUARE_SOCKET_AUTH_SUCCESS:
+            return state;
         default:
             return state;
     }

@@ -17,3 +17,15 @@ export const findTagName = (tags, tag) => {
 
     return label ? label.labelName : '';
 };
+
+export const generateMessage = (message, user) => ({
+    _id: Math.round(Math.random() * 1000000),
+    text: message,
+    createdAt: new Date(),
+    user: {
+        _id: 1,
+        name: 'Developer'
+    },
+    sent: true,
+    received: true
+});
