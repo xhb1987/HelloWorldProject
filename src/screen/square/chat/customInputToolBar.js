@@ -55,8 +55,9 @@ class CustomInputToolBar extends Component {
         this.popActionSheet = this.popActionSheet.bind(this);
         this.actionSheetClick = this.actionSheetClick.bind(this);
         this.clearText = this.clearText.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
+        // this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleEditEnd = this.handleEditEnd.bind(this);
     }
 
     popActionSheet() {
@@ -90,13 +91,10 @@ class CustomInputToolBar extends Component {
         this.setState({ inputTextValue: value });
         console.log('key change', this.state.inputTextValue);
         this.textInput.clear();
-        // this.setState({ inputTextValue: '' });
     }
-    handleKeyPress(e) {
-        console.log('key press', this.state.inputTextValue);
-
+    handleEditEnd() {
+        this.props.onSend(this.state.inputTextValue);
         this.setState({ inputTextValue: '' });
-        //this.textInput.clear();
     }
     clearText() {
         this.textInputValue.setNativeProps({ text: '' });
@@ -118,8 +116,8 @@ class CustomInputToolBar extends Component {
                     returnKeyType="send"
                     placeholder="请输入消息"
                     style={styles.textInputStyle}
-                    onSubmitEditing={e => this.handleKeyPress(e)}
-                    onKeyPress={e => this.handleKeyPress(e)}
+                    onSubmitEditing={e => this.handleEditEnd(e)}
+                    // onKeyPress={e => this.handleKeyPress(e)}
                 />
                 <Icon
                     type="entypo"

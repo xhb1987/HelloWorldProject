@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { Header } from 'react-native-elements';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Dimensions
-} from 'react-native';
-import {
-    TabViewAnimated,
-    SceneMap
-} from 'react-native-tab-view';
+import { View, Dimensions, PixelRatio } from 'react-native';
+import { TabViewAnimated } from 'react-native-tab-view';
 import HomeTabBarContainer from '../components/tab-bar/tab-bar-container';
 import TabContainer from '../tabs/tabs-container';
 import styles from './styles';
@@ -20,24 +11,19 @@ const initialLayout = {
     width: Dimensions.get('window').width
 };
 
-const ScreenHome = ({
-    tabRounter,
-    scene,
-    tabHeader,
-    indexChange,
-    navigator
-}) => (
+const ScreenHome = ({ tabRounter, scene, tabHeader, indexChange, navigator }) => (
     <View style={styles.viewContainer}>
         <Header
             outerContainerStyles={{
+                height: 110 / PixelRatio.get(),
+                paddingBottom: 25 / PixelRatio.get(),
                 borderBottomColor: 'white',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 0
             }}
-            centerComponent={
-                <HomeTabBarContainer
-                    navigator={navigator}
-                />
-            }
+            centerComponent={<HomeTabBarContainer navigator={navigator} />}
         />
         <TabViewAnimated
             navigationState={tabRounter}
@@ -46,8 +32,6 @@ const ScreenHome = ({
             onIndexChange={indexChange}
             initialLayout={initialLayout}
         />
-
-        <TabContainer navigator={navigator} />
     </View>
 );
 

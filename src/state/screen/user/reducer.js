@@ -113,7 +113,11 @@ const userReducer = (state = initialState, action) => {
                     userLoginPhone: '',
                     loading: false,
                     isLogin: true,
-                    sessionToken: result.result.sessionToken
+                    sessionToken: result.result.sessionToken,
+                    userInfo: {
+                        ...state.userInfo,
+                        id: result.result.userID
+                    }
                 });
             }
 

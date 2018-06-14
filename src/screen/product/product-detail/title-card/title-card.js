@@ -2,12 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Tag from '../../../components/tag/tag';
-import { stringToArray, findTagName } from '../../../../util/utils';
+import { stringToArray, findTagName, currencyFormat } from '../../../../util/utils';
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
-        minHeight: 100
+        paddingHorizontal: 15,
+        paddingVertical: 10
     },
     title: {
         marginBottom: 10,
@@ -50,10 +50,10 @@ const TitleCard = ({ product, tags }) => (
                 ))}
             </View>
             <View style={styles.priceContainer}>
-                <Text style={styles.price}>¥ {product.nowPrice}</Text>
+                <Text style={styles.price}>¥ {currencyFormat(product.nowPrice)}</Text>
                 <Text style={styles.oldPriceTitle}>
                     全新价：<Text style={styles.oldPrice}>
-                        ¥ {product.oldPrice}
+                        ¥ {currencyFormat(product.oldPrice)}
                     </Text>
                 </Text>
             </View>

@@ -43,21 +43,6 @@ export default class Chat extends Component {
 
     componentDidMount() {
         this.props.squareSocketInit();
-        // new Promise(resolve => {
-        //     this.props.squareSocketInit();
-        //     resolve();
-        // }).then(() => {
-        //     this.props.squareSocketAuth();
-        // });
-        // const ws = new WebSocket('ws://39.105.23.168:8081/neighbors-talk/talk');
-        // ws.onopen = () => {
-        //     // connection opened
-        //     ws.send('something'); // send a message
-        // };
-        // ws.onerror = e => {
-        //     // an error occurred
-        //     console.log(e.message);
-        // };
     }
 
     componentWillUnmount() {
@@ -73,7 +58,7 @@ export default class Chat extends Component {
         }, 1000); // simulating network
     }
 
-    onSend(messages = []) {
+    onSend(messages) {
         console.log(messages);
         this.props.sendMessage(messages);
         // this.answerDemo(messages);
@@ -148,11 +133,7 @@ export default class Chat extends Component {
 
     renderInputToolbar(props) {
         return this.props.toggleTextInput ? (
-            <CustomInputToolBar
-                {...props}
-                onSend={this.onSend}
-                sendMessage={this.props.sendingMessage}
-            />
+            <CustomInputToolBar {...props} onSend={this.onSend} />
         ) : null;
     }
 
@@ -169,7 +150,8 @@ export default class Chat extends Component {
                 user={{
                     _id: 1 // sent messages should have same user._id
                 }}
-                renderAvatarOnTop={true}
+                showAvatarForEveryMessage
+                renderAvatarOnTop
                 renderBubble={this.renderBubble}
                 renderSystemMessage={this.renderSystemMessage}
                 renderFooter={this.renderFooter}
@@ -177,8 +159,7 @@ export default class Chat extends Component {
                 renderTime={this.renderTime}
                 renderTicks={this.renderTicks}
                 renderInputToolbar={this.renderInputToolbar}
-                showUserAvatar={true}
-                renderAvatarOnTop={true}
+                showUserAvatar
                 listViewProps={
                     this.props.toggleTextInput
                         ? {

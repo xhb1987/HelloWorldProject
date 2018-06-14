@@ -20,6 +20,27 @@ export const SQUARE_SOCKET_AUTH_REQUEST = 'SQUARE_SOCKET_AUTH_REQUEST';
 export const SQUARE_SOCKET_AUTH_SUCCESS = 'SQUARE_SOCKET_AUTH_SUCCESS';
 export const SQUARE_SOCKET_AUTH_FAILURE = 'SQUARE_SOCKET_AUTH_FAILURE';
 
+export const SQUARE_SOCKET_CONNECT_REQUEST = 'SQUARE_SOCKET_CONNECT_REQUEST';
+export const SQUARE_SOCKET_CONNECT_SUCCESS = 'SQUARE_SOCKET_CONNECT_SUCCESS';
+export const SQUARE_SOCKET_CONNECT_FAILURE = 'SQUARE_SOCKET_CONNECT_FAILURE';
+
+export const SQUARE_SOCKET_RECEIVE_REQUEST = 'SQUARE_SOCKET_RECEIVE_REQUEST';
+export const SQUARE_SOCKET_RECEIVE_SUCCESS = 'SQUARE_SOCKET_RECEIVE_SUCCESS';
+export const SQUARE_SOCKET_RECEIVE_FAILURE = 'SQUARE_SOCKET_RECEIVE_FAILURE';
+
+export const SQUARE_RECEIVE_MESSAGE = 'SQUARE_RECEIVE_MESSAGE';
+const squareSocketReceiveMessageAction = data => ({
+    type: SQUARE_RECEIVE_MESSAGE,
+    payload: data,
+    meta: {}
+});
+
+function squareSocketReceiveMessage(data) {
+    return dispatch => {
+        dispatch(squareSocketReceiveMessageAction(data));
+    };
+}
+
 export const squarePickImageAction = (imageData, currentImage) => ({
     type: SQUARE_PICK_IMAGE,
     payload: { images: imageData, current: currentImage },
@@ -70,7 +91,41 @@ export function squareSocketInit() {
     return {
         type: 'socket',
         types: [SQUARE_SOCKET_REQUEST, SQUARE_SOCKET_SUCCESS, SQUARE_SOCKET_FAILURE],
-        promise: socket => socket.connect()
+        promise: socket => socket.init()
+    };
+}
+
+export function sendMessageAction(dataValue) {
+    return {
+        type: 'socket',
+        types: [SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAILURE],
+        payload: {
+            funCode: '2007',
+            villageID: 1,
+            msgContent: dataValue
+        },
+        promise: socket =>
+            socket.emit({
+                funCode: '2007',
+                villageID: 1,
+                msgContent: dataValue
+            })
+    };
+}
+
+export function squareSocketConnect() {
+    return {
+        type: 'socket',
+        types: [
+            SQUARE_SOCKET_CONNECT_REQUEST,
+            SQUARE_SOCKET_CONNECT_SUCCESS,
+            SQUARE_SOCKET_CONNECT_FAILURE
+        ],
+        payload: {
+            funCode: 1,
+            sessionToken: global.token
+        },
+        promise: socket => socket.connect('Send', sendMessageAction())
     };
 }
 
@@ -79,24 +134,25 @@ export function squareSocketAuth() {
         type: 'socket',
         types: [SQUARE_SOCKET_AUTH_REQUEST, SQUARE_SOCKET_AUTH_SUCCESS, SQUARE_SOCKET_AUTH_FAILURE],
         payload: {
-            funCode: 1,
+            funCode: '1',
             sessionToken: global.token
         },
         promise: socket =>
-            socket.emit('Send', {
-                funCode: 1,
+            socket.emit({
+                funCode: '1',
                 sessionToken: global.token
             })
     };
 }
 
-export function sendMessageAction(messagesValue) {
+export function squareRecieveMessage() {
     return {
-        type: 'test',
-        types: [SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAILURE],
-        payload: {
-            message: messagesValue
-        },
-        promise: socket => socket.emit({ message: messagesValue })
+        type: 'socket',
+        types: [
+            SQUARE_SOCKET_RECEIVE_REQUEST,
+            SQUARE_SOCKET_RECEIVE_SUCCESS,
+            SQUARE_SOCKET_RECEIVE_FAILURE
+        ],
+        promise: socket => socket.on(squareSocketReceiveMessage)
     };
 }

@@ -4,17 +4,34 @@ import config from './config';
 export default class socketAPI {
     socket;
 
-    connect() {
-        this.socket = new WebSocket('ws://39.105.23.168:8081/neighbors-talk/talk');
+    init() {
+        this.socket = new WebSocket(config.webSocketUrl);
         return new Promise((resolve, reject) => {
             this.socket.onopen = () => {
-                this.socket.send(JSON.stringify({ funCode: '', sessionToken: global.token }));
-                resolve();
+                if (this.socket.readyState === this.socket.OPEN) {
+                    return resolve();
+                }
             };
 
             this.socket.onerror = error => {
-                reject(error);
+                return reject(error);
             };
+        });
+    }
+
+    connect(event, onOpenFunc, onMessageFund) {
+        return new Promise((resolve, reject) => {
+            this.socket.onopen = onOpenFunc;
+            this.socket.onmessage = onMessageFund;
+
+            // this.socket.onopen = () => {
+            //     this.socket.send(JSON.stringify({ funCode: '', sessionToken: global.token }));
+            //     resolve();
+            // };
+
+            // this.socket.onerror = error => {
+            //     reject(error);
+            // };
             // this.socket.on('connect', () => resolve());
             // this.socket.on('connect_error', error => reject(error));
         });
@@ -38,8 +55,18 @@ export default class socketAPI {
             if (!this.socket) {
                 return reject('No socket connection.');
             }
-            this.socket.send(JSON.stringify(data));
-            resolve();
+
+            // this.socket.onopen = () => {
+            if (this.socket.readyState === this.socket.OPEN) {
+                this.socket.send(JSON.stringify(data));
+                return resolve();
+            }
+
+            // };
+
+            this.socket.onerror = error => {
+                return reject(error);
+            };
 
             // return this.socket.onopen(event, data, response => {
             //     // Response is the optional callback that you can use with socket.io in every request. See 1 above.
@@ -53,16 +80,23 @@ export default class socketAPI {
         });
     }
 
-    on(event, fun) {
+    on(fun) {
         // No promise is needed here, but we're expecting one in the middleware.
         return new Promise(resolve => {
             if (!this.socket) return reject('No socket connection.');
-            this.socket.onmessage = e => {
-                console.log(e);
-                fun(e);
+            if (this.socket.readyState === this.socket.OPEN) {
+                this.socket.onmessage = data => {
+                    fun(data);
+                    return resolve();
+                };
+            }
+
+            this.socket.onerror = error => {
+                return reject(error);
             };
+            // this.socket.onmessage = fun;
             // this.socket.on(event, fun);
-            resolve();
+            // return resolve();
         });
     }
 }

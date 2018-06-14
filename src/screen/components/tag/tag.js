@@ -1,19 +1,20 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, PixelRatio } from 'react-native';
 
 const styles = StyleSheet.create({
     tagItem: {
-        marginRight: 5,
-        height: 20,
-        minWidth: 45,
-        padding: 2,
+        height: 35 / PixelRatio.get(),
+        width: 80 / PixelRatio.get(),
+        marginRight: 10,
         textAlign: 'center',
-        fontSize: 13,
+        fontSize: 14,
         backgroundColor: '#ffeff1',
         borderRadius: 5,
         color: '#ed3349',
         borderWidth: 1,
-        borderColor: '#ed3349'
+        borderColor: '#ed3349',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 

@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    TouchableOpacity,
-    Text
-} from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
-import styles from './styles';
 
-const HomeTabBar = ({
-    showModal,
-    homeTitle,
-    textStyle,
-    iconStyle
-}) => (
+const styles = StyleSheet.create({
+    text: {
+        color: '#666',
+        fontSize: 16
+    }
+});
+
+const HomeTabBar = ({ showModal, homeTitle, textStyle, iconStyle }) => (
     <TouchableOpacity
         style={{
             flexDirection: 'row',
@@ -20,17 +18,11 @@ const HomeTabBar = ({
         }}
         onPress={() => showModal()}
     >
-        <Text style={[styles.text, textStyle]}>
-            {homeTitle}
-        </Text>
+        <Text style={[styles.text, textStyle]}>{homeTitle}</Text>
         <Icon
             name="chevron-down"
             type="evilicon"
-            color={
-                iconStyle
-                    ? iconStyle.color
-                    : '#666'
-            }
+            color={iconStyle ? iconStyle.color : '#666'}
             size={iconStyle ? iconStyle.size : 18}
             containerStyle={{
                 marginLeft: -3,

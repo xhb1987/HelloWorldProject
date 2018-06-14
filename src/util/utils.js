@@ -29,3 +29,13 @@ export const generateMessage = (message, user) => ({
     sent: true,
     received: true
 });
+
+export const currencyFormat = currency => {
+    if (isNaN(currency)) {
+        return 0;
+    }
+
+    const localCurrency = parseFloat(currency).toFixed(2);
+
+    return localCurrency.replace(/\d(?=(\d{3})+\.)/g, '$&,');
+};

@@ -4,7 +4,6 @@ import { Dimensions } from 'react-native';
 const styles = RNC`
     viewContainer {
         flex: 1;
-        height: ${Dimensions.get('window').height};
     }
     slider: {
         flex: 1;

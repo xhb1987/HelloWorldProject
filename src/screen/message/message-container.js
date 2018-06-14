@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Message from './message';
 
-const Container = props => <Message {...props} />;
+class Container extends Component {
+    static get navigatorStyle() {
+        return {
+            navBarHidden: true,
+            tabBarHidden: true,
+            tabBarTranslucent: true
+        };
+    }
+
+    render() {
+        return <Message {...this.props} />;
+    }
+}
 
 const stateToProps = (state, ownProps) => ({
     messagesList: state.message.messagesList,

@@ -1,5 +1,5 @@
 import fetchPost from '../../../util/fetch-post';
-
+import { squareSocketAuth, squareRecieveMessage } from '../square/actions';
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
@@ -116,7 +116,11 @@ export const userLogin = user => {
             loginType: 1
         });
         return result
-            .then(response => dispatch(userLoginSuccessAction(response)))
+            .then(response => {
+                dispatch(userLoginSuccessAction(response));
+                dispatch(squareRecieveMessage());
+                dispatch(squareSocketAuth());
+            })
             .catch(e => dispatch(userLoginFailureAction(e)));
     };
 };

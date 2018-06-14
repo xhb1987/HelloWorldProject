@@ -102,7 +102,7 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) 
                     placeholderTextColor="#cccccc"
                     containerStyle={styles.inputContainer}
                     keyboardType="phone-pad"
-                    onEndEditing={e => {
+                    onChange={e => {
                         userInputChange(e.nativeEvent.text, 'loginPhone');
                     }}
                 />
@@ -116,11 +116,12 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) 
                     containerStyle={styles.inputIconContainer}
                 />
                 <FormInput
+                    blurOnSubmit
                     placeholder="请输入密码"
                     placeholderTextColor="#cccccc"
                     containerStyle={styles.inputContainer}
                     secureTextEntry
-                    onEndEditing={e => {
+                    onChange={e => {
                         userInputChange(e.nativeEvent.text, 'loginPassword');
                     }}
                 />

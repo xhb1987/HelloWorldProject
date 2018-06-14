@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, SearchBar } from 'react-native-elements';
-import { ListView, View, TouchableOpacity, Animated } from 'react-native';
+import { ListView, View, TouchableOpacity, Animated, PixelRatio } from 'react-native';
 import { TabBar, SceneMap } from 'react-native-tab-view';
 import PropTypes from 'prop-types';
 import SplashScreen from 'react-native-splash-screen';
-
+import TabWrapper from '../../component/tab-wrapper/tab-wrapper';
 import BuyListContainer from './buy-list/buy-list-container';
 import SellListContainer from './sell-list/sell-list-container';
-import ProductListContainer from './product-list/product-list-container';
 import DaigouListContainer from './daigou-list/daigou-list-container';
 import ScreenHome from './screen-home';
 
@@ -26,7 +25,8 @@ class Container extends Component {
             routes: [
                 { key: 'sell', title: '转让' },
                 { key: 'buy', title: '求购' },
-                { key: 'daigou', title: '代购' }
+                { key: 'store', title: '店铺' },
+                { key: 'estate', title: '地产' }
             ]
         };
     }
@@ -52,7 +52,9 @@ class Container extends Component {
             <View>
                 <View
                     style={{
+                        height: 50 / PixelRatio.get(),
                         flexDirection: 'row',
+                        alignItems: 'center',
                         justifyContent: 'center',
                         borderBottomWidth: 1,
                         borderColor: '#f0f0f0',
@@ -89,7 +91,11 @@ class Container extends Component {
                         return (
                             <TouchableOpacity
                                 key={i}
-                                style={{ flex: 1, alignItems: 'center', maxWidth: 70 }}
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    maxWidth: 125 / PixelRatio.get()
+                                }}
                                 onPress={() => this.setState({ index: i })}
                             >
                                 <Animated.Text
@@ -98,7 +104,7 @@ class Container extends Component {
                                             fontSize: 18,
                                             fontWeight: 'bold',
                                             marginBottom: 5,
-                                            marginHorizontal: 10
+                                            marginHorizontal: 5
                                         },
                                         { color }
                                     ]}
@@ -107,7 +113,11 @@ class Container extends Component {
                                 </Animated.Text>
                                 <Animated.View
                                     style={[
-                                        { height: 2, backgroundColor: 'red', width: 30 },
+                                        {
+                                            height: 4 / PixelRatio.get(),
+                                            backgroundColor: 'red',
+                                            width: 40 / PixelRatio.get()
+                                        },
                                         { backgroundColor },
                                         { opacity }
                                     ]}
@@ -123,7 +133,7 @@ class Container extends Component {
                     inputStyle={{
                         backgroundColor: '#efefef',
                         color: '#bbbbbb',
-                        height: 35,
+                        height: 60 / PixelRatio.get(),
                         paddingLeft: 30,
                         margin: 5
                     }}
@@ -136,31 +146,6 @@ class Container extends Component {
                     placeholder="飞科剃须刀"
                     placeholderTextColor="#bbbbbb"
                 />
-                {/* <View style={{ marginTop: 5 }}>
-
-                    <Button
-                        title="飞科剃须刀"
-                        containerViewStyle={{
-                            justifyContent: 'flex-start'
-                        }}
-                        textStyle={{
-                            alignContent: 'flex-start',
-                            color: '#c8c8c8',
-                            justifyContent: 'flex-start',
-                            alignItems: 'flex-start'
-                        }}
-                        leftIcon={{
-                            name: 'search',
-                            alignContent: 'flex-start',
-                            color: '#c8c8c8',
-                            justifyContent: 'flex-start',
-                            alignItems: 'flex-start'
-                        }}
-                        rounded={true}
-                        backgroundColor={'#efefef'}
-                        buttonStyle={{ padding: 5 }}
-                    />
-                </View> */}
             </View>
         );
     };
@@ -168,19 +153,22 @@ class Container extends Component {
     _renderScene = SceneMap({
         sell: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
         buy: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
-        daigou: () => <DaigouListContainer />
+        store: () => <DaigouListContainer />,
+        estate: () => <DaigouListContainer />
     });
 
     render() {
         return (
-            <ScreenHome
-                {...this.props}
-                scene={this._renderScene}
-                tabHeader={this._renderHeader}
-                tabRounter={this.state}
-                indexChange={this._handleIndexChange}
-                productItem={this.state.dataSource}
-            />
+            <TabWrapper navigator={this.props.navigator}>
+                <ScreenHome
+                    {...this.props}
+                    scene={this._renderScene}
+                    tabHeader={this._renderHeader}
+                    tabRounter={this.state}
+                    indexChange={this._handleIndexChange}
+                    productItem={this.state.dataSource}
+                />
+            </TabWrapper>
         );
     }
 }

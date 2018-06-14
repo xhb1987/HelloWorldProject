@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
+        padding: 15,
         minHeight: 80,
         flexDirection: 'row',
         alignItems: 'center',
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'flex-end'
     }
 });
 
@@ -47,12 +47,7 @@ const UserCard = ({ product }) => (
             </View>
         </View>
         <View style={styles.iconContainer}>
-            <Icon
-                type="entypo"
-                size={18}
-                name="chevron-thin-right"
-                color="#dddddd"
-            />
+            <Icon type="entypo" size={18} name="chevron-thin-right" color="#dddddd" />
         </View>
     </View>
 );

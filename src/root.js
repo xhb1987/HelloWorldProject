@@ -5,6 +5,8 @@ import { Platform } from 'react-native';
 import makeStore from './store';
 // import { App } from './component/index';
 import { registerScreens } from './screen/index';
+import { px2dp } from './global-style';
+
 require('moment/locale/zh-cn.js');
 const Icon = require('react-native-vector-icons/Ionicons');
 
@@ -12,7 +14,6 @@ if (!global.self) {
     global.self = global;
 }
 
-global.token = '';
 const store = makeStore();
 registerScreens(store, Provider);
 
@@ -25,6 +26,7 @@ var iosNavigate;
 export class App {
     constructor() {
         this.populateIcons().then(() => {
+            global.px2dp = px2dp;
             this.startApp();
         });
     }

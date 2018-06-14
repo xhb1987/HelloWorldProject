@@ -8,7 +8,8 @@ import {
     loadOldMessageSuccessAction,
     toggleActionSheetAction,
     squareSocketInit,
-    squareSocketAuth
+    squareSocketAuth,
+    squareSocketConnect
 } from '../../../state/screen/square/actions';
 import Chat from './chat';
 
@@ -25,7 +26,6 @@ Container.defaultProps = {
 };
 
 const stateToProps = state => ({
-    sendingMessage: state.square.sendingMessage,
     messages: state.square.messages,
     old_messages: state.square.old_messages,
     loadEarlier: state.square.loadEarlier,
@@ -42,6 +42,7 @@ const dispatchToProps = dispatch => ({
     loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages)),
     togglePicsActionSheet: () => dispatch(toggleActionSheetAction()),
     squareSocketInit: () => dispatch(squareSocketInit()),
+    squareSocketConnect: () => dispatch(squareSocketConnect()),
     squareSocketAuth: () => dispatch(squareSocketAuth())
 });
 

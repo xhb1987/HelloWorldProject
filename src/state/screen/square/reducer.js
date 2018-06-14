@@ -1,6 +1,8 @@
 import { GiftedChat } from 'react-native-gifted-chat';
 import {
     SEND_MESSAGE,
+    SEND_MESSAGE_SUCCESS,
+    SEND_MESSAGE_FAILURE,
     RECEIVE_MESSAGE,
     LOAD_OLD_MESSAGE_REQUEST,
     LOAD_OLD_MESSAGE_SUCCESS,
@@ -13,7 +15,14 @@ import {
     SQUARE_SOCKET_FAILURE,
     SQUARE_SOCKET_AUTH_REQUEST,
     SQUARE_SOCKET_AUTH_SUCCESS,
-    SQUARE_SOCKET_AUTH_FAILURE
+    SQUARE_SOCKET_AUTH_FAILURE,
+    SQUARE_SOCKET_CONNECT_REQUEST,
+    SQUARE_SOCKET_CONNECT_SUCCESS,
+    SQUARE_SOCKET_CONNECT_FAILURE,
+    SQUARE_SOCKET_RECEIVE_REQUEST,
+    SQUARE_SOCKET_RECEIVE_SUCCESS,
+    SQUARE_SOCKET_RECEIVE_FAILURE,
+    SQUARE_RECEIVE_MESSAGE
 } from './actions';
 import { generateMessage } from '../../../util/utils';
 
@@ -21,7 +30,7 @@ const initialState = {
     messages: [
         {
             _id: Math.round(Math.random() * 1000000),
-            text: '你好',
+            text: '这里应该是本地信息',
             createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
             user: {
                 _id: 1,
@@ -32,7 +41,7 @@ const initialState = {
         },
         {
             _id: Math.round(Math.random() * 1000000),
-            text: '你好， 903',
+            text: '你好， 本地信息',
             createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
             user: {
                 _id: 2,
@@ -78,7 +87,8 @@ const initialState = {
     toggleTextInput: false,
     toggleActionSheet: false,
     image: { uri: '' },
-    sendingMessage: ''
+    sendingMessage: '',
+    auth: ''
 };
 
 const squareReducer = (state = initialState, action) => {
@@ -104,12 +114,17 @@ const squareReducer = (state = initialState, action) => {
                 messages: GiftedChat.append(state.messages, action.payload.messages)
             });
         case SEND_MESSAGE: {
-            return Object.assign({}, state, { sendingMessage: 'test' });
-            // const messageObj = generateMessage(action.payload.message);
-            // return Object.assign({}, state, {
-            //     messages: GiftedChat.append(state.messages, messageObj)
-            // });
+            const messageObj = generateMessage(action.payload.msgContent);
+            return Object.assign({}, state, {
+                messages: GiftedChat.append(state.messages, messageObj)
+            });
         }
+        case SEND_MESSAGE_SUCCESS:
+            console.log(action);
+            return state;
+        case SEND_MESSAGE_FAILURE:
+            console.log(action);
+            return state;
         case SQUARE_SOCKET_REQUEST:
             console.log(action);
             return state;
@@ -120,10 +135,25 @@ const squareReducer = (state = initialState, action) => {
             console.log(action);
             return state;
         case SQUARE_SOCKET_AUTH_REQUEST:
+            console.log(action);
             return state;
         case SQUARE_SOCKET_AUTH_FAILURE:
+            console.log(action);
             return state;
         case SQUARE_SOCKET_AUTH_SUCCESS:
+            console.log(action);
+            return state;
+        case SQUARE_SOCKET_CONNECT_REQUEST:
+        case SQUARE_SOCKET_CONNECT_SUCCESS:
+        case SQUARE_SOCKET_CONNECT_FAILURE:
+            return state;
+        case SQUARE_SOCKET_RECEIVE_REQUEST:
+        case SQUARE_SOCKET_RECEIVE_SUCCESS:
+        case SQUARE_SOCKET_RECEIVE_FAILURE:
+            console.log(action);
+            return state;
+        case SQUARE_RECEIVE_MESSAGE:
+            console.log(action);
             return state;
         default:
             return state;

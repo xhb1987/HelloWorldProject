@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ListView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import { productSelectAction } from '../../../state/screen/product/actions';
+import { productSelectAction } from '../../../../state/screen/product/actions';
 import ProductList from './product-list';
 
 class Container extends Component {

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    Dimensions
-} from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import FullWidthImage from 'react-native-fullwidth-image';
 import PropTypes from 'prop-types';
 import lodash from 'lodash';
@@ -13,7 +7,7 @@ import { stringToArray } from '../../../../util/utils';
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
+        padding: 15,
         flexDirection: 'column'
     },
     title: {
@@ -34,32 +28,20 @@ const styles = StyleSheet.create({
     }
 });
 
-const DetailCard = ({
-    product,
-    clientConfig
-}) => (
+const DetailCard = ({ product, clientConfig }) => (
     <View style={styles.container}>
         <Text style={styles.title}>商品详情</Text>
-        <Text style={styles.content}>
-            {product.discriptionInfos}
-        </Text>
+        <Text style={styles.content}>{product.discriptionInfos}</Text>
         <View style={styles.imgContainer}>
-            {stringToArray(product.fileNames).map(
-                img => (
-                    <FullWidthImage
-                        key={img}
-                        source={{
-                            uri:
-                                clientConfig +
-                                lodash.trim(
-                                    img,
-                                    '"'
-                                )
-                        }}
-                        style={styles.imgItem}
-                    />
-                )
-            )}
+            {stringToArray(product.fileNames).map(img => (
+                <FullWidthImage
+                    key={img}
+                    source={{
+                        uri: clientConfig + lodash.trim(img, '"')
+                    }}
+                    style={styles.imgItem}
+                />
+            ))}
         </View>
     </View>
 );

@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet, Dimensions } from 'react-native';
 import { Divider } from 'react-native-elements';
 import Card from './card/card';
-import styles from './styles';
+
+const styles = StyleSheet.create({
+    height: Dimensions.get('screen').height
+});
 
 const ProductList = ({ clientConfig, products, tags, onProductPress }) => (
     <View style={styles.container}>
