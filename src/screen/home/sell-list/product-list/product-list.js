@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, FlatList, StyleSheet, Dimensions } from 'react-native';
+import { View, FlatList, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import { Divider } from 'react-native-elements';
 import Card from './card/card';
 

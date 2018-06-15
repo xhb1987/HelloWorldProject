@@ -6,7 +6,8 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    PixelRatio
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         width: Dimensions.get('window').width,
-        height: 50,
+        height: 90 / PixelRatio.get(),
         borderTopWidth: 1,
         borderColor: '#f0f0f0',
         shadowColor: '#000',
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 4,
         paddingVertical: 5,
+        width: 150 / PixelRatio.get(),
         maxWidth: Dimensions.get('screen').width / 4
     },
 
@@ -46,10 +48,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 7,
         position: 'absolute',
-        height: 53,
+        height: 110 / PixelRatio.get(),
         bottom: 0,
-        top: -16,
-        width: 53,
+        top: -15,
+        width: 110 / PixelRatio.get(),
         left: Dimensions.get('screen').width / 2 - 30,
         borderRadius: 60,
         borderWidth: 0,
@@ -87,8 +89,8 @@ const styles = StyleSheet.create({
     imageBig: {
         marginTop: -3,
         marginBottom: 5,
-        width: 45,
-        height: 45,
+        width: 95 / PixelRatio.get(),
+        height: 95 / PixelRatio.get(),
         aspectRatio: 1
     }
 });

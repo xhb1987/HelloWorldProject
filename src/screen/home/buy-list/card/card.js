@@ -1,15 +1,25 @@
 import React from 'react';
 import lodash from 'lodash';
-import { View, Text, TouchableOpacity, Alert, ScrollView, Image, StyleSheet } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Alert,
+    ScrollView,
+    Image,
+    StyleSheet,
+    PixelRatio
+} from 'react-native';
+import { Avatar, Divider } from 'react-native-elements';
 import { CachedImage } from 'react-native-cached-image';
-import Tag from '../../../../components/tag/tag';
-import { stringToArray, findTagName, currencyFormat } from '../../../../../util/utils';
+import { currencyFormat } from '../../../../util/utils';
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        paddingVertical: 11,
+        paddingVertical: 11
+    },
+    contentContainer: {
         paddingHorizontal: 15
     },
     titleContainer: {
@@ -30,9 +40,6 @@ const styles = StyleSheet.create({
     avatar: {
         borderRadius: 50
     },
-    user: {
-        // verticalAlign: 'middle'
-    },
     userName: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -48,20 +55,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center'
     },
-
     imageContainer: {
         marginTop: 15
     },
     imgItem: {
-        height: 105,
-        width: 117.5,
+        height: 150,
+        width: 345,
         borderRadius: 5,
-        marginRight: 10
-    },
-    tagContainer: {
-        marginTop: 12.5,
-        flexDirection: 'row',
-        borderRadius: 5
+        backgroundColor: 'grey'
     },
     priceContainer: {
         flexDirection: 'column',
@@ -78,23 +79,37 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         color: '#afafaf'
     },
+    messageContainer: {
+        height: 35,
+        marginVertical: 15,
+        paddingLeft: 5,
+        borderLeftColor: '#eb2038',
+        borderLeftWidth: 2,
+        alignItems: 'flex-start',
+        justifyContent: 'center'
+    },
+    message: {
+        color: '#888888',
+        fontSize: 15
+    },
+    messageIndex: {
+        marginBottom: 10
+    },
+    messageCountContainer: {
+        alignItems: 'flex-end',
+        paddingHorizontal: 15,
+        paddingTop: 10
+    },
 
-    priceOldLine: {
-        fontSize: 14,
-        textDecorationLine: 'line-through',
-        paddingLeft: 10
+    messageCount: {
+        color: '#888888',
+        fontSize: 15
     }
 });
 
 const Card = ({ item, clientConfig, onPressCallback, tags }) => (
-    <TouchableOpacity
-        style={styles.container}
-        activeOpacity={0.8}
-        onPress={() => {
-            onPressCallback(item);
-        }}
-    >
-        <View>
+    <TouchableOpacity style={styles.container} activeOpacity={0.8}>
+        <View style={styles.contentContainer}>
             <View style={styles.titleContainer}>
                 <View style={styles.userContainer}>
                     <Avatar
@@ -111,31 +126,22 @@ const Card = ({ item, clientConfig, onPressCallback, tags }) => (
                     </View>
                 </View>
                 <View style={styles.priceContainer}>
-                    <Text style={styles.price}>¥ {currencyFormat(item.nowPrice)}</Text>
-                    <Text style={styles.priceOld}>
-                        全新价:
-                        <Text style={styles.priceOldLine}>¥ {currencyFormat(item.oldPrice)}</Text>
-                    </Text>
+                    <Text style={styles.price}>期望价: ¥ {currencyFormat(item.oldPrice)}</Text>
                 </View>
             </View>
-            <ScrollView horizontal>
-                {stringToArray(item.fileNames).map(img => (
-                    <View key={img} style={styles.imageContainer}>
-                        <CachedImage
-                            source={{ uri: clientConfig + lodash.trim(img, '"') }}
-                            style={styles.imgItem}
-                        />
-                    </View>
-                ))}
-            </ScrollView>
-            <Text style={styles.title}>{item.commodityTitle}</Text>
-            {item.labels ? (
-                <View style={styles.tagContainer}>
-                    {stringToArray(item.labels).map(tag => (
-                        <Tag key={tag} contant={findTagName(tags, tag)} />
-                    ))}
-                </View>
-            ) : null}
+            <Text style={styles.title}>【求购】这是本地的测试标题等数据接到服务器</Text>
+            <View style={styles.imageContainer}>
+                <View style={styles.imgItem} />
+                {/* <CachedImage style={styles.imgItem} /> */}
+            </View>
+            <View style={styles.messageContainer}>
+                <Text style={[styles.message, styles.messageIndex]}>趣购好东东：我有你看看的</Text>
+                <Text style={styles.message}>主人回复：你的东西呢？</Text>
+            </View>
+        </View>
+        <Divider height={1} backgroundColor={'#f0f0f0'} />
+        <View style={styles.messageCountContainer}>
+            <Text style={styles.messageCount}>9留言</Text>
         </View>
     </TouchableOpacity>
 );

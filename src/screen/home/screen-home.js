@@ -15,8 +15,8 @@ const ScreenHome = ({ tabRounter, scene, tabHeader, indexChange, navigator }) =>
     <View style={styles.viewContainer}>
         <Header
             outerContainerStyles={{
-                height: 110 / PixelRatio.get(),
-                paddingBottom: 25 / PixelRatio.get(),
+                height: 55,
+                paddingBottom: 12.5,
                 borderBottomColor: 'white',
                 backgroundColor: 'white',
                 alignItems: 'center',

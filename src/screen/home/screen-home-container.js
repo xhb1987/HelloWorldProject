@@ -52,7 +52,7 @@ class Container extends Component {
             <View>
                 <View
                     style={{
-                        height: 50 / PixelRatio.get(),
+                        height: 25,
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -94,7 +94,7 @@ class Container extends Component {
                                 style={{
                                     flex: 1,
                                     alignItems: 'center',
-                                    maxWidth: 125 / PixelRatio.get()
+                                    maxWidth: 62.5
                                 }}
                                 onPress={() => this.setState({ index: i })}
                             >
@@ -114,9 +114,9 @@ class Container extends Component {
                                 <Animated.View
                                     style={[
                                         {
-                                            height: 4 / PixelRatio.get(),
+                                            height: 2,
                                             backgroundColor: 'red',
-                                            width: 40 / PixelRatio.get()
+                                            width: 20
                                         },
                                         { backgroundColor },
                                         { opacity }
@@ -133,12 +133,10 @@ class Container extends Component {
                     inputStyle={{
                         backgroundColor: '#efefef',
                         color: '#bbbbbb',
-                        height: 60 / PixelRatio.get(),
-                        paddingLeft: 30,
-                        margin: 5
+                        paddingLeft: 30
                     }}
                     containerStyle={{
-                        marginHorizontal: 8,
+                        marginHorizontal: 5,
                         borderTopWidth: 0,
                         borderBottomWidth: 0,
                         backgroundColor: 'white'
@@ -152,7 +150,7 @@ class Container extends Component {
 
     _renderScene = SceneMap({
         sell: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
-        buy: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
+        buy: () => <BuyListContainer propsNavigatorObject={homeNavigator} />,
         store: () => <DaigouListContainer />,
         estate: () => <DaigouListContainer />
     });
