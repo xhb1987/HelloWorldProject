@@ -8,7 +8,7 @@ import SplashScreen from 'react-native-splash-screen';
 import TabWrapper from '../../component/tab-wrapper/tab-wrapper';
 import BuyListContainer from './buy-list/buy-list-container';
 import SellListContainer from './sell-list/sell-list-container';
-import DaigouListContainer from './daigou-list/daigou-list-container';
+import MarketContainer from './market/market-container';
 import ScreenHome from './screen-home';
 
 import styles from './styles';
@@ -151,8 +151,8 @@ class Container extends Component {
     _renderScene = SceneMap({
         sell: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
         buy: () => <BuyListContainer propsNavigatorObject={homeNavigator} />,
-        store: () => <DaigouListContainer />,
-        estate: () => <DaigouListContainer />
+        store: () => <MarketContainer propsNavigatorObject={homeNavigator} />,
+        estate: () => <View />
     });
 
     render() {

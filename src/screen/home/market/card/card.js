@@ -11,9 +11,10 @@ import {
     PixelRatio,
     Dimensions
 } from 'react-native';
-import { Avatar, Divider } from 'react-native-elements';
+import { Avatar, Divider, Icon } from 'react-native-elements';
 import { CachedImage } from 'react-native-cached-image';
 import { currencyFormat } from '../../../../util/utils';
+import ProductItem from './product-item/product-item';
 
 const styles = StyleSheet.create({
     container: {
@@ -43,8 +44,7 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 5
+        fontWeight: 'bold'
     },
     userStatus: {
         color: '#ababab'
@@ -61,57 +61,42 @@ const styles = StyleSheet.create({
     },
     imgItem: {
         height: 150,
-        width: Dimensions.get('screen').width - 30,
+        width: Dimensions.get('screen').width,
         borderRadius: 5,
         backgroundColor: 'grey'
     },
     priceContainer: {
-        flexDirection: 'column',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingVertical: 5
     },
     price: {
         textAlign: 'right',
         fontSize: 17,
         fontWeight: 'bold',
-        color: '#ed3349',
-        marginBottom: 5
+        color: '#ed3349'
     },
-    priceOld: {
-        textAlign: 'right',
-        color: '#afafaf'
+    productContainer: {
+        marginTop: 15,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
-    messageContainer: {
-        height: 35,
-        marginVertical: 15,
-        paddingLeft: 5,
-        borderLeftColor: '#eb2038',
-        borderLeftWidth: 2,
-        alignItems: 'flex-start',
-        justifyContent: 'center'
+    product: {
+        marginRight: 7,
+        marginBottom: 15
     },
-    message: {
-        color: '#888888',
-        fontSize: 15
-    },
-    messageIndex: {
-        marginBottom: 10
-    },
-    messageCountContainer: {
-        alignItems: 'flex-end',
-        paddingHorizontal: 15,
-        paddingTop: 10
-    },
-
-    messageCount: {
-        color: '#888888',
-        fontSize: 15
+    prodcutLast: {
+        marginRight: 0
     }
 });
 
 const Card = ({ item, clientConfig, onPressCallback, tags }) => (
-    <TouchableOpacity style={styles.container} activeOpacity={0.8}>
+    <View style={styles.container}>
         <View style={styles.contentContainer}>
-            <View style={styles.titleContainer}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.titleContainer}>
                 <View style={styles.userContainer}>
                     <Avatar
                         rounded
@@ -120,31 +105,36 @@ const Card = ({ item, clientConfig, onPressCallback, tags }) => (
                         avatarStyle={styles.avatar}
                         activeOpacity={0.2}
                     />
-
                     <View style={styles.name}>
-                        <Text style={styles.userName}>{item.talkName}</Text>
-                        <Text style={styles.userStatus}>{item.mda}</Text>
+                        <Text style={styles.userName}>{item.name}</Text>
                     </View>
                 </View>
                 <View style={styles.priceContainer}>
-                    <Text style={styles.price}>期望价: ¥ {currencyFormat(item.oldPrice)}</Text>
+                    <Text style={styles.price}>进入店铺</Text>
+                    <Icon
+                        type="evilicon"
+                        name="chevron-right"
+                        color="#ed3349"
+                        containerStyle={{ width: 20 }}
+                    />
+                </View>
+            </TouchableOpacity>
+            <View style={styles.productContainer}>
+                <View style={styles.product}>
+                    <ProductItem />
+                </View>
+                <View style={styles.product}>
+                    <ProductItem />
+                </View>
+                <View style={[styles.product, styles.prodcutLast]}>
+                    <ProductItem />
+                </View>
+                <View style={[styles.product, styles.prodcutLast]}>
+                    <ProductItem />
                 </View>
             </View>
-            <Text style={styles.title}>【求购】这是本地的测试标题等数据接到服务器</Text>
-            <View style={styles.imageContainer}>
-                <View style={styles.imgItem} />
-                {/* <CachedImage style={styles.imgItem} /> */}
-            </View>
-            <View style={styles.messageContainer}>
-                <Text style={[styles.message, styles.messageIndex]}>趣购好东东：我有你看看的</Text>
-                <Text style={styles.message}>主人回复：你的东西呢？</Text>
-            </View>
         </View>
-        <Divider height={1} backgroundColor={'#f0f0f0'} />
-        <View style={styles.messageCountContainer}>
-            <Text style={styles.messageCount}>9留言</Text>
-        </View>
-    </TouchableOpacity>
+    </View>
 );
 
 export default Card;

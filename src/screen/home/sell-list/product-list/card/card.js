@@ -9,7 +9,7 @@ import { stringToArray, findTagName, currencyFormat } from '../../../../../util/
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        paddingVertical: 11,
+        paddingVertical: 10,
         paddingHorizontal: 15
     },
     titleContainer: {

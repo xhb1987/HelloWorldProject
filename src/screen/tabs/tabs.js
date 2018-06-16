@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         width: Dimensions.get('window').width,
-        height: 90 / PixelRatio.get(),
+        height: PixelRatio.get() === 2 ? 45 : 50,
         borderTopWidth: 1,
         borderColor: '#f0f0f0',
         shadowColor: '#000',
@@ -35,9 +35,8 @@ const styles = StyleSheet.create({
         flex: 5,
         flexDirection: 'column',
         alignItems: 'center',
-        paddingHorizontal: 4,
-        paddingVertical: 5,
-        width: 150 / PixelRatio.get(),
+        justifyContent: 'center',
+        width: 75,
         maxWidth: Dimensions.get('screen').width / 4
     },
 
@@ -48,10 +47,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 7,
         position: 'absolute',
-        height: 110 / PixelRatio.get(),
+        height: 55,
         bottom: 0,
         top: -15,
-        width: 110 / PixelRatio.get(),
+        width: 55,
         left: Dimensions.get('screen').width / 2 - 30,
         borderRadius: 60,
         borderWidth: 0,
@@ -84,13 +83,19 @@ const styles = StyleSheet.create({
         width: null,
         height: null,
         resizeMode: 'contain',
-        aspectRatio: 0.7
+        aspectRatio: 0.6
+    },
+    tabTitle: {
+        flex: 1,
+        textAlign: 'center',
+        fontSize: 12,
+        paddingBottom: 2
     },
     imageBig: {
         marginTop: -3,
         marginBottom: 5,
-        width: 95 / PixelRatio.get(),
-        height: 95 / PixelRatio.get(),
+        width: 47.5,
+        height: 47.5,
         aspectRatio: 1
     }
 });
@@ -109,7 +114,7 @@ const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, act
                         : require('../../asset/icon/index.png')
                 }
             />
-            <Text style={{ flex: 1, textAlign: 'center' }}>首页</Text>
+            <Text style={styles.tabTitle}>首页</Text>
         </TouchableOpacity>
         <TouchableOpacity
             style={[styles.tabButtonContainer, styles.tabButtonSideLeft]}
@@ -123,7 +128,7 @@ const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, act
                         : require('../../asset/icon/square.png')
                 }
             />
-            <Text style={{ flex: 1, textAlign: 'center' }}>广场</Text>
+            <Text style={styles.tabTitle}>广场</Text>
         </TouchableOpacity>
         <TouchableHighlight
             underlayColor={'white'}
@@ -144,7 +149,7 @@ const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, act
                         : require('../../asset/icon/message.png')
                 }
             />
-            <Text style={{ flex: 1, textAlign: 'center' }}>消息</Text>
+            <Text style={styles.tabTitle}>消息</Text>
         </TouchableOpacity>
         <TouchableOpacity
             style={[styles.tabButtonContainer, styles.tabButtonSmall]}
@@ -158,7 +163,7 @@ const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, act
                         : require('../../asset/icon/profile.png')
                 }
             />
-            <Text style={{ flex: 1, textAlign: 'center' }}>我的</Text>
+            <Text style={styles.tabTitle}>我的</Text>
         </TouchableOpacity>
     </View>
 );

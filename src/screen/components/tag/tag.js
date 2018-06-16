@@ -3,8 +3,8 @@ import { Text, StyleSheet, PixelRatio } from 'react-native';
 
 const styles = StyleSheet.create({
     tagItem: {
-        height: 35 / PixelRatio.get(),
-        width: 80 / PixelRatio.get(),
+        height: 17.5,
+        width: 40,
         marginRight: 10,
         textAlign: 'center',
         fontSize: 14,
