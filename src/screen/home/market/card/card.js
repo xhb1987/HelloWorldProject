@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         color: '#ed3349'
     },
     productContainer: {
-        marginTop: 15,
+        marginTop: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',

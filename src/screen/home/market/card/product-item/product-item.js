@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         paddingVertical: 7.5
     },
     image: {
-        height: 110,
+        height: 92.5,
         width: 110
     },
     contentContainer: {
