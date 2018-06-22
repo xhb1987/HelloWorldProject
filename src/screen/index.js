@@ -18,6 +18,9 @@ import ProductDetailContainer from './product/product-detail/product-detail-cont
 import ProductDetailTabBarContainer from './product/product-detail/tab-bar/tab-bar-container';
 import ProductOrderContainer from './product/product-order/product-order-container';
 
+// market
+import MarketDetailContainer from './market/market-detail/market-detail-container';
+
 // product publish
 import ProductPublishContainer from './product-publish/product-publish-container';
 import CameraScreenContainer from './product-publish/camera-screen/camera-screen-container';
@@ -109,6 +112,13 @@ export const registerScreens = (store, provider) => {
     Navigation.registerComponent(
         'screen.Product.Detail',
         () => ProductDetailContainer,
+        store,
+        provider
+    );
+
+    Navigation.registerComponent(
+        'screen.Market.Detail',
+        () => MarketDetailContainer,
         store,
         provider
     );

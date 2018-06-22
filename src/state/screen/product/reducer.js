@@ -56,6 +56,7 @@ const productReducer = (state = initialState, action) => {
         case PRODUCT_PULL_SUCCESS: {
             const productResponseData = action.payload;
             return Object.assign({}, state, {
+                loading: false,
                 pageSize: productResponseData.pageSize,
                 pageNo: productResponseData.pageNo,
                 totalCount: productResponseData.totalCount,

@@ -14,13 +14,13 @@ const CustomAvatar = props => (
         }}
         imageStyle={{
             left: {
-                height: 30,
-                width: 30,
+                height: 40,
+                width: 40,
                 borderRadius: 3
             },
             right: {
-                height: 30,
-                width: 30,
+                height: 40,
+                width: 40,
                 borderRadius: 3
             }
         }}

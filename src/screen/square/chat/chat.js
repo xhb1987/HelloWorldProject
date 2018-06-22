@@ -83,11 +83,15 @@ export default class Chat extends Component {
                 {...props}
                 textStyle={{
                     right: {
+                        fontSize: 15,
                         color: 'black',
                         alignItems: 'center',
                         marginBottom: 0,
                         marginTop: 0,
                         lineHeight: null
+                    },
+                    left: {
+                        fontSize: 15
                     }
                 }}
             />
@@ -148,6 +152,7 @@ export default class Chat extends Component {
                 messages={this.props.messages}
                 onSend={this.onSend}
                 user={{
+                    name: 'Developer',
                     _id: 1 // sent messages should have same user._id
                 }}
                 showAvatarForEveryMessage

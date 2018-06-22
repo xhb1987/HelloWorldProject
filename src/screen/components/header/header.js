@@ -7,7 +7,8 @@ const CustomHeader = ({ title, leftButtonType, leftButtonPress, rightButton }) =
     <Header
         outerContainerStyles={{
             borderBottomColor: 'white',
-            backgroundColor: '#ed3349'
+            backgroundColor: '#ed3349',
+            borderBottomWidth: 0
         }}
         leftComponent={
             leftButtonType === 'cancel' ? (
@@ -25,7 +26,10 @@ const CustomHeader = ({ title, leftButtonType, leftButtonPress, rightButton }) =
             )
         }
         rightComponent={React.isValidElement(rightButton) ? rightButton : null}
-        centerComponent={{ text: title, style: { color: 'white', fontSize: 18 } }}
+        centerComponent={{
+            text: title,
+            style: { color: 'white', fontSize: 18, fontWeight: 'bold' }
+        }}
     />
 );
 

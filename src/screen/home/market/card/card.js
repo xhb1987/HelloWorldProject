@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     product: {
-        marginRight: 7,
+        marginRight: 5,
         marginBottom: 15
     },
     prodcutLast: {
@@ -96,7 +96,11 @@ const styles = StyleSheet.create({
 const Card = ({ item, clientConfig, onPressCallback, tags }) => (
     <View style={styles.container}>
         <View style={styles.contentContainer}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.titleContainer}>
+            <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.titleContainer}
+                onPress={() => onPressCallback(item)}
+            >
                 <View style={styles.userContainer}>
                     <Avatar
                         rounded

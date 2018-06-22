@@ -1,21 +1,24 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, SectionList, StyleSheet } from 'react-native';
 import { SearchBar, Divider, List, ListItem } from 'react-native-elements';
+import Lodash from 'lodash';
+import ListContent from './list-content/list-content';
 
 const ListBody = ({
     homeTitle,
-    cityList,
+    schoolList,
     villageList,
     activeCityTab,
     cityTabToggle,
-    selectCity,
-    selectVillage
+    selectVillage,
+    filterVillage
 }) => (
     <View>
         <SearchBar
             round
             lightTheme
             style={{ borderWidth: 0 }}
+            color="black"
             inputStyle={{
                 backgroundColor: '#efefef',
                 color: '#bbbbbb',
@@ -31,29 +34,14 @@ const ListBody = ({
             }}
             placeholder="请选择小区或者学校"
             placeholderTextColor="#bbbbbb"
+            onEndEditing={e => filterVillage(e.nativeEvent.text)}
         />
         <View style={styles.tabContainer}>
-            <TouchableOpacity
-                style={activeCityTab === 'city' ? [styles.tab, styles.tabSelected] : styles.tab}
-                onPress={() => cityTabToggle('city')}
-            >
-                <View style={styles.tabInside}>
-                    <Text
-                        style={
-                            activeCityTab === 'city'
-                                ? [styles.tabText, styles.tabTextSelected]
-                                : styles.tabText
-                        }
-                    >
-                        城市
-                    </Text>
-                </View>
-            </TouchableOpacity>
             <TouchableOpacity
                 style={activeCityTab === 'village' ? [styles.tab, styles.tabSelected] : styles.tab}
                 onPress={() => cityTabToggle('village')}
             >
-                <View style={styles.tabInsideRight}>
+                <View style={styles.tabInside}>
                     <Text
                         style={
                             activeCityTab === 'village'
@@ -61,7 +49,23 @@ const ListBody = ({
                                 : styles.tabText
                         }
                     >
-                        小区或学校
+                        小区
+                    </Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={activeCityTab === 'school' ? [styles.tab, styles.tabSelected] : styles.tab}
+                onPress={() => cityTabToggle('school')}
+            >
+                <View style={styles.tabInsideRight}>
+                    <Text
+                        style={
+                            activeCityTab === 'school'
+                                ? [styles.tabText, styles.tabTextSelected]
+                                : styles.tabText
+                        }
+                    >
+                        学校
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -69,39 +73,31 @@ const ListBody = ({
         <View style={styles.villageTitleContainer}>
             <Text style={styles.villageTitle}>当前：{homeTitle}</Text>
         </View>
-        {activeCityTab === 'city' ? (
+        {activeCityTab === 'village' ? (
             <List containerStyle={{ marginTop: 0, borderTopWidth: 0 }}>
-                {cityList.map(city => (
-                    <ListItem
-                        key={city.cityID}
-                        title={city.cityName}
-                        hideChevron={true}
-                        containerStyle={{
-                            borderBottomWidth: 1,
-                            borderBottomColor: '#e6e6e6',
-                            height: 50,
-                            justifyContent: 'center'
-                        }}
-                        onPress={() => selectCity(city)}
-                    />
-                ))}
+                {villageList.map(
+                    city =>
+                        Lodash.has(city, 'villages') ? (
+                            <ListContent
+                                data={city}
+                                onPressCallback={selectVillage}
+                                key={city.cityID}
+                            />
+                        ) : null
+                )}
             </List>
         ) : (
             <List containerStyle={{ marginTop: 0, borderTopWidth: 0 }}>
-                {villageList.map(village => (
-                    <ListItem
-                        key={village.villageID}
-                        title={village.villageName}
-                        hideChevron={true}
-                        containerStyle={{
-                            borderBottomWidth: 1,
-                            borderBottomColor: '#e6e6e6',
-                            height: 50,
-                            justifyContent: 'center'
-                        }}
-                        onPress={() => selectVillage(village)}
-                    />
-                ))}
+                {schoolList.map(
+                    school =>
+                        Lodash.has(school, 'villages') ? (
+                            <ListContent
+                                data={school}
+                                onPressCallback={selectVillage}
+                                key={school.cityID}
+                            />
+                        ) : null
+                )}
             </List>
         )}
     </View>

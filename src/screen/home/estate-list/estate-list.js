@@ -3,16 +3,12 @@ import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
 import { Divider } from 'react-native-elements';
 import Card from './card/card';
 
-const styles = StyleSheet.create({
-    height: Dimensions.get('screen').height
-});
-
-const Market = ({ markets, marketSelect, navigator }) => (
+const EstateList = ({ estates, estateSelect, navigator }) => (
     <View>
         <FlatList
-            data={markets}
+            data={estates}
             renderItem={({ item, index }) => (
-                <Card item={item} key={index} onPressCallback={() => marketSelect(item)} />
+                <Card item={item} key={index} onPressCallback={() => {}} />
             )}
             keyExtractor={({ item, index }) => index}
             ItemSeparatorComponent={() => (
@@ -22,4 +18,4 @@ const Market = ({ markets, marketSelect, navigator }) => (
     </View>
 );
 
-export default Market;
+export default EstateList;

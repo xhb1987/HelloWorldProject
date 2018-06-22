@@ -6,7 +6,6 @@ import { InputToolbar, Composer, Send } from 'react-native-gifted-chat';
 
 const styles = StyleSheet.create({
     textInputContainer: {
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
@@ -55,7 +54,6 @@ class CustomInputToolBar extends Component {
         this.popActionSheet = this.popActionSheet.bind(this);
         this.actionSheetClick = this.actionSheetClick.bind(this);
         this.clearText = this.clearText.bind(this);
-        // this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleEditEnd = this.handleEditEnd.bind(this);
     }

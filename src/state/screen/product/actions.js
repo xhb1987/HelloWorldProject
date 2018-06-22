@@ -78,9 +78,11 @@ export const productPublishStoreAction = product => ({
 export const productPull = () => {
     return (dispatch, getState) => {
         const state = getState();
+        const selectedVillage = state.home.selectedVillage;
+
         const url = 'userservice/getcommodity';
         dispatch(productPullRequestAction());
-        const villageId = 1;
+        const villageId = selectedVillage.villageID || 1;
         const result = fetchPost(url, {
             queryParams: { villageID: villageId, pageSize: 2, pageNo: 1 }
         });

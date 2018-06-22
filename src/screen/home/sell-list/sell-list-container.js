@@ -8,7 +8,7 @@ import { getClientConfigRequest, getTagRequest } from '../../../state/screen/hom
 class Container extends Component {
     componentDidMount() {
         if (this.props.products.length === 0) {
-            this.props.getProductList();
+            this.props.getProductList(this.props.selectedVillage);
             this.props.getClientConfig();
             this.props.getTags();
         }
@@ -28,6 +28,7 @@ Container.defaultProps = {
 
 const stateToProps = (state, ownProps) => ({
     products: state.product.products,
+    selectedVillage: state.home.selectedVillage,
     navigator: ownProps.propsNavigatorObject
 });
 

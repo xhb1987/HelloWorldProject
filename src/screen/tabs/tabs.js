@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         width: Dimensions.get('window').width,
-        height: PixelRatio.get() === 2 ? 45 : 50,
+        height: 45,
         borderTopWidth: 1,
         borderColor: '#f0f0f0',
         shadowColor: '#000',

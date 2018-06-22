@@ -9,6 +9,7 @@ import TabWrapper from '../../component/tab-wrapper/tab-wrapper';
 import BuyListContainer from './buy-list/buy-list-container';
 import SellListContainer from './sell-list/sell-list-container';
 import MarketContainer from './market/market-container';
+import EstateListContainer from './estate-list/estate-list-container';
 import ScreenHome from './screen-home';
 
 import styles from './styles';
@@ -152,7 +153,7 @@ class Container extends Component {
         sell: () => <SellListContainer propsNavigatorObject={homeNavigator} />,
         buy: () => <BuyListContainer propsNavigatorObject={homeNavigator} />,
         store: () => <MarketContainer propsNavigatorObject={homeNavigator} />,
-        estate: () => <View />
+        estate: () => <EstateListContainer propsNavigatorObject={homeNavigator} />
     });
 
     render() {

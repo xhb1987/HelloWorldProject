@@ -1,22 +1,13 @@
 import React from 'react';
-import lodash from 'lodash';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    Alert,
-    ScrollView,
-    Image,
-    StyleSheet,
-    PixelRatio,
-    Dimensions
-} from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { Avatar, Divider, Icon, Button } from 'react-native-elements';
 import { CachedImage } from 'react-native-cached-image';
 
 const styles = StyleSheet.create({
     container: {
-        maxWidth: (Dimensions.get('screen').width - 30 - 10) / 3,
+        marginRight: 10,
+        marginBottom: 10,
+        maxWidth: (Dimensions.get('screen').width - 30 - 10) / 2,
         borderColor: '#f0f0f0',
         borderWidth: 1,
         flexDirection: 'column',
@@ -24,7 +15,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 92.5,
-        width: (Dimensions.get('screen').width - 30 - 10) / 3
+        width: (Dimensions.get('screen').width - 30 - 10) / 2
     },
     contentContainer: {
         paddingHorizontal: 5
@@ -63,7 +54,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const ProductItem = ({ product }) => (
+const MarketItem = ({ item }) => (
     <View style={styles.container}>
         <View style={styles.image} />
         <View style={styles.contentContainer}>
@@ -87,4 +78,4 @@ const ProductItem = ({ product }) => (
     </View>
 );
 
-export default ProductItem;
+export default MarketItem;
