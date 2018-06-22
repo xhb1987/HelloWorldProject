@@ -107,23 +107,23 @@ const CustomBubble = props => (
             {...props}
             containerToPreviousStyle={{
                 left: {
-                    borderBottomTopRadius: 5
+                    borderBottomTopRadius: 6
                 },
                 right: {
-                    borderTopRightRadius: 5
+                    borderTopRightRadius: 6
                 }
             }}
             containerToNextStyle={{
                 left: {
-                    borderBottomLeftRadius: 5
+                    borderBottomLeftRadius: 6
                 },
                 right: {
-                    borderBottomRightRadius: 5
+                    borderBottomRightRadius: 6
                 }
             }}
             wrapperStyle={{
                 left: {
-                    borderRadius: 5,
+                    borderRadius: 6,
                     height: 32,
                     alignItems: 'center',
                     borderColor: '#bbbbbb',
@@ -134,7 +134,7 @@ const CustomBubble = props => (
                     zIndex: 0
                 },
                 right: {
-                    borderRadius: 5,
+                    borderRadius: 6,
                     height: 32,
                     alignItems: 'center',
                     borderColor: '#bbbbbb',

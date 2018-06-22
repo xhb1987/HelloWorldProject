@@ -83,15 +83,16 @@ export default class Chat extends Component {
                 {...props}
                 textStyle={{
                     right: {
-                        fontSize: 15,
-                        color: 'black',
+                        fontSize: 16,
+                        color: '#333',
                         alignItems: 'center',
                         marginBottom: 0,
                         marginTop: 0,
                         lineHeight: null
                     },
                     left: {
-                        fontSize: 15
+                        fontSize: 16,
+                        color: '#333'
                     }
                 }}
             />
