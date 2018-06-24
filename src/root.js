@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import { Platform } from 'react-native';
+import { persistStore } from 'redux-persist';
 import makeStore from './store';
 // import { App } from './component/index';
 import { registerScreens } from './screen/index';
@@ -15,7 +16,6 @@ if (!global.self) {
 }
 
 const store = makeStore();
-registerScreens(store, Provider);
 
 var settingsIcon;
 var settingsOutlineIcon;
@@ -26,7 +26,6 @@ var iosNavigate;
 export class App {
     constructor() {
         this.populateIcons().then(() => {
-            global.px2dp = px2dp;
             this.startApp();
         });
     }
@@ -51,42 +50,46 @@ export class App {
     };
 
     startApp() {
-        const tabs = [
-            {
-                screen: 'screen.Home',
-                icon: settingsIcon
-            },
-            {
-                screen: 'screen.Square',
-                icon: settingsIcon
-            },
-            {
-                screen: 'screen.ProductPublish',
-                icon: settingsIcon
-            },
-            {
-                screen: 'screen.Message',
-                icon: settingsIcon
-            },
-            {
-                screen: 'screen.Profile',
-                icon: settingsIcon
-            }
-        ];
-        Navigation.startTabBasedApp({
-            tabs,
-            tabsStyle: {
-                tabBarHidden: true,
-                tabBarTranslucent: true,
-                initialTabIndex: 4
-            },
-            appStyle: {
-                tabBarHidden: true,
-                tabBarTranslucent: true,
-                initialTabIndex: 4
-            },
-            animationType: 'slide-down'
+        persistStore(store, null, () => {
+            registerScreens(store, Provider);
+            const tabs = [
+                {
+                    screen: 'screen.Home',
+                    icon: settingsIcon
+                },
+                {
+                    screen: 'screen.Square',
+                    icon: settingsIcon
+                },
+                {
+                    screen: 'screen.ProductPublish',
+                    icon: settingsIcon
+                },
+                {
+                    screen: 'screen.Message',
+                    icon: settingsIcon
+                },
+                {
+                    screen: 'screen.Profile',
+                    icon: settingsIcon
+                }
+            ];
+            Navigation.startTabBasedApp({
+                tabs,
+                tabsStyle: {
+                    tabBarHidden: true,
+                    tabBarTranslucent: true,
+                    initialTabIndex: 4
+                },
+                appStyle: {
+                    tabBarHidden: true,
+                    tabBarTranslucent: true,
+                    initialTabIndex: 4
+                },
+                animationType: 'slide-down'
+            });
         });
+
         // Navigation.startSingleScreenApp({
         //     screen: { screen: 'screen.Home' },
         //     animationType: 'fade'

@@ -14,7 +14,6 @@ import {
 } from './actions';
 
 import { VILLAGE_TYPE, SCHOOL_TYPE } from 'src/config';
-
 const initialState = {
     home: 'home screen',
     homeTitle: '城市',
@@ -83,6 +82,9 @@ const homeReducer = (state = initialState, action) => {
             return state;
         }
         case VILLAGE_FILTER: {
+            AsyncStorage.getItem('root', result => {
+                console.log(result);
+            });
             const filterContent = action.payload;
             if (filterContent !== '') {
                 const originalVillageList = state.villageList;
