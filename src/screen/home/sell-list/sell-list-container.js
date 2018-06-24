@@ -7,11 +7,9 @@ import { getClientConfigRequest, getTagRequest } from '../../../state/screen/hom
 
 class Container extends Component {
     componentDidMount() {
-        if (this.props.products.length === 0) {
-            this.props.getProductList(this.props.selectedVillage);
-            this.props.getClientConfig();
-            this.props.getTags();
-        }
+        this.props.getProductList(this.props.selectedVillage);
+        this.props.getClientConfig();
+        this.props.getTags();
     }
     render() {
         return <SellList {...this.props} />;
