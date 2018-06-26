@@ -6,7 +6,7 @@ import { Icon } from 'react-native-elements';
 const styles = StyleSheet.create({
     text: {
         color: '#666',
-        fontSize: 16
+        fontSize: 15
     }
 });
 

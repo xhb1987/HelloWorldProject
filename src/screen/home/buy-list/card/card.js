@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: 17.5,
-        lineHeight: 20,
+        lineHeight: 25,
         fontSize: 16,
         flex: 1,
         alignItems: 'center'
@@ -130,14 +130,18 @@ const Card = ({ item, clientConfig, onPressCallback, tags }) => (
                     <Text style={styles.price}>期望价: ¥ {currencyFormat(item.oldPrice)}</Text>
                 </View>
             </View>
-            <Text style={styles.title}>【求购】这是本地的测试标题等数据接到服务器</Text>
+            <Text style={styles.title}>
+                【苹果笔记本电脑】收一台苹果笔记本电脑（如下图）要 求全新、1T硬盘、8G内存。
+            </Text>
             <View style={styles.imageContainer}>
                 <View style={styles.imgItem} />
                 {/* <CachedImage style={styles.imgItem} /> */}
             </View>
             <View style={styles.messageContainer}>
-                <Text style={[styles.message, styles.messageIndex]}>趣购好东东：我有你看看的</Text>
-                <Text style={styles.message}>主人回复：你的东西呢？</Text>
+                <Text style={[styles.message, styles.messageIndex]}>
+                    趣购好东东: 我有你看看我的
+                </Text>
+                <Text style={styles.message}>主人回复：你那个电脑几成新？多少钱？</Text>
             </View>
         </View>
         <Divider height={1} backgroundColor={'#f0f0f0'} />

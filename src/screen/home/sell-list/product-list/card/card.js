@@ -9,7 +9,7 @@ import { stringToArray, findTagName, currencyFormat } from '../../../../../util/
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        paddingVertical: 10,
+        paddingVertical: 11,
         paddingHorizontal: 15
     },
     titleContainer: {
@@ -35,16 +35,15 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontSize: 16,
-        fontWeight: 'bold',
         marginBottom: 5
     },
     userStatus: {
         color: '#ababab'
     },
     title: {
-        marginTop: 17.5,
-        lineHeight: 20,
-        fontSize: 16,
+        marginTop: 14,
+        lineHeight: 25,
+        fontSize: 15,
         flex: 1,
         alignItems: 'center'
     },
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     tagContainer: {
-        marginTop: 12.5,
+        marginTop: 5,
         flexDirection: 'row',
         borderRadius: 5
     },
@@ -121,8 +120,8 @@ const Card = ({ item, clientConfig, onPressCallback, tags }) => (
             <ScrollView horizontal>
                 {stringToArray(item.fileNames).map(img => (
                     <View key={img} style={styles.imageContainer}>
-                        <CachedImage
-                            source={{ uri: clientConfig + lodash.trim(img, '"') }}
+                        <Image
+                            source={{ uri: clientConfig + lodash.trim(img, '"'), cache: 'reload' }}
                             style={styles.imgItem}
                         />
                     </View>

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         width: Dimensions.get('window').width,
-        height: 45,
+        height: 46,
         borderTopWidth: 1,
         borderColor: '#f0f0f0',
         shadowColor: '#000',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         overflow: 'visible',
         justifyContent: 'space-around',
-        zIndex: 5
+        zIndex: 0
     },
 
     tabButtonContainer: {
@@ -49,25 +49,26 @@ const styles = StyleSheet.create({
         position: 'absolute',
         height: 55,
         bottom: 0,
-        top: -15,
+        top: -12,
         width: 55,
         left: Dimensions.get('screen').width / 2 - 30,
-        borderRadius: 60,
+        borderRadius: 55,
         borderWidth: 0,
         borderTopWidth: 0,
         borderColor: '#f0f0f0',
         shadowColor: '#000',
         shadowOffset: {
-            width: 2,
-            height: -4
+            width: 0,
+            height: -3
         },
-        shadowRadius: 3,
+        shadowRadius: 2,
         shadowOpacity: 0.1,
-        zIndex: 0
+        zIndex: -1
     },
 
     tabButtonSmall: {
         flex: 1,
+        marginVertical: 3,
         maxWidth: 35
     },
 
@@ -92,10 +93,10 @@ const styles = StyleSheet.create({
         paddingBottom: 2
     },
     imageBig: {
-        marginTop: -3,
-        marginBottom: 5,
-        width: 47.5,
-        height: 47.5,
+        marginTop: -2,
+        marginBottom: 7,
+        width: 44,
+        height: 44,
         aspectRatio: 1
     }
 });

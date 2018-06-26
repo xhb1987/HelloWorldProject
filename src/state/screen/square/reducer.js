@@ -9,20 +9,7 @@ import {
     TOGGLE_FAB_BUTTON,
     TOGGLE_ACTION_SHEET,
     SQUARE_TAKE_IMAGE,
-    SQUARE_PICK_IMAGE,
-    SQUARE_SOCKET_REQUEST,
-    SQUARE_SOCKET_SUCCESS,
-    SQUARE_SOCKET_FAILURE,
-    SQUARE_SOCKET_AUTH_REQUEST,
-    SQUARE_SOCKET_AUTH_SUCCESS,
-    SQUARE_SOCKET_AUTH_FAILURE,
-    SQUARE_SOCKET_CONNECT_REQUEST,
-    SQUARE_SOCKET_CONNECT_SUCCESS,
-    SQUARE_SOCKET_CONNECT_FAILURE,
-    SQUARE_SOCKET_RECEIVE_REQUEST,
-    SQUARE_SOCKET_RECEIVE_SUCCESS,
-    SQUARE_SOCKET_RECEIVE_FAILURE,
-    SQUARE_RECEIVE_MESSAGE
+    SQUARE_PICK_IMAGE
 } from './actions';
 import { generateMessage } from '../../../util/utils';
 
@@ -123,36 +110,6 @@ const squareReducer = (state = initialState, action) => {
             console.log(action);
             return state;
         case SEND_MESSAGE_FAILURE:
-            console.log(action);
-            return state;
-        case SQUARE_SOCKET_REQUEST:
-            console.log(action);
-            return state;
-        case SQUARE_SOCKET_SUCCESS:
-            console.log(action);
-            return state;
-        case SQUARE_SOCKET_FAILURE:
-            console.log(action);
-            return state;
-        case SQUARE_SOCKET_AUTH_REQUEST:
-            console.log(action);
-            return state;
-        case SQUARE_SOCKET_AUTH_FAILURE:
-            console.log(action);
-            return state;
-        case SQUARE_SOCKET_AUTH_SUCCESS:
-            console.log(action);
-            return state;
-        case SQUARE_SOCKET_CONNECT_REQUEST:
-        case SQUARE_SOCKET_CONNECT_SUCCESS:
-        case SQUARE_SOCKET_CONNECT_FAILURE:
-            return state;
-        case SQUARE_SOCKET_RECEIVE_REQUEST:
-        case SQUARE_SOCKET_RECEIVE_SUCCESS:
-        case SQUARE_SOCKET_RECEIVE_FAILURE:
-            console.log(action);
-            return state;
-        case SQUARE_RECEIVE_MESSAGE:
             console.log(action);
             return state;
         default:

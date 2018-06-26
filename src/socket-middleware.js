@@ -13,7 +13,7 @@ export default function socketMiddleWare(socket) {
         const [REQUEST, SUCCESS, FAILURE] = types;
         next({ ...rest, type: REQUEST });
         console.log(promise);
-        return promise(socket)
+        return promise(socket, dispatch)
             .then(result => {
                 console.log(result);
                 return next({ ...rest, result, type: SUCCESS });

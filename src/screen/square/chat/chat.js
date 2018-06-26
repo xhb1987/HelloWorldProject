@@ -42,7 +42,7 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
-        this.props.squareSocketInit();
+        // this.props.squareSocketInit();
     }
 
     componentWillUnmount() {
@@ -60,7 +60,7 @@ export default class Chat extends Component {
 
     onSend(messages) {
         console.log(messages);
-        this.props.sendMessage(messages);
+        this.props.sendMessage(messages, this.props.village);
         // this.answerDemo(messages);
     }
 

@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     },
     codeButton: {
         position: 'absolute',
-        right: 25,
-        bottom: 2,
+        right: 32.5,
+        bottom: 5,
         top: 0,
         paddingHorizontal: 5,
         alignItems: 'center',
@@ -183,7 +183,7 @@ const UserRegister = ({ cancel, userRegister, getRegisterCode, userInputChange }
                 />
             </View>
             <TouchableOpacity style={styles.loginContainer}>
-                <Text style={styles.loginText}>以后账号？点击登陆</Text>
+                <Text style={styles.loginText}>已有账号？点击登陆</Text>
             </TouchableOpacity>
         </View>
     </KeyboardAvoidingView>

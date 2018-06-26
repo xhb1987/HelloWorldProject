@@ -4,8 +4,12 @@ import config from './config';
 export default class socketAPI {
     socket;
 
-    init() {
+    init(messageCallback) {
         this.socket = new WebSocket(config.webSocketUrl);
+        this.socket.onmessage = e => {
+            console.log(e.data);
+            messageCallback(e.data);
+        };
         return new Promise((resolve, reject) => {
             this.socket.onopen = () => {
                 if (this.socket.readyState === this.socket.OPEN) {
@@ -23,17 +27,6 @@ export default class socketAPI {
         return new Promise((resolve, reject) => {
             this.socket.onopen = onOpenFunc;
             this.socket.onmessage = onMessageFund;
-
-            // this.socket.onopen = () => {
-            //     this.socket.send(JSON.stringify({ funCode: '', sessionToken: global.token }));
-            //     resolve();
-            // };
-
-            // this.socket.onerror = error => {
-            //     reject(error);
-            // };
-            // this.socket.on('connect', () => resolve());
-            // this.socket.on('connect_error', error => reject(error));
         });
     }
 
@@ -85,12 +78,12 @@ export default class socketAPI {
         return new Promise(resolve => {
             if (!this.socket) return reject('No socket connection.');
             if (this.socket.readyState === this.socket.OPEN) {
-                this.socket.onmessage = data => {
-                    fun(data);
-                    return resolve();
+                this.socket.onmessage = e => {
+                    console.log(e.data);
+                    fun(e.data);
                 };
             }
-
+            return resolve();
             this.socket.onerror = error => {
                 return reject(error);
             };

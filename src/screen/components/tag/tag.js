@@ -1,23 +1,29 @@
 import React from 'react';
-import { Text, StyleSheet, PixelRatio } from 'react-native';
+import { Text, StyleSheet, PixelRatio, View } from 'react-native';
 
 const styles = StyleSheet.create({
-    tagItem: {
+    tagContainer: {
+        borderRadius: 5,
+        backgroundColor: '#ffeff1',
+        marginRight: 10,
         height: 17.5,
         width: 40,
-        marginRight: 10,
-        textAlign: 'center',
-        fontSize: 14,
-        backgroundColor: '#ffeff1',
-        borderRadius: 5,
-        color: '#ed3349',
-        borderWidth: 1,
         borderColor: '#ed3349',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderWidth: 0.5
+    },
+    tagItem: {
+        fontSize: 13,
+        color: '#ed3349',
+        textAlign: 'center'
     }
 });
 
-const Tag = ({ contant }) => <Text style={styles.tagItem}> {contant} </Text>;
+const Tag = ({ contant }) => (
+    <View style={styles.tagContainer}>
+        <Text style={styles.tagItem}>{contant} </Text>
+    </View>
+);
 
 export default Tag;

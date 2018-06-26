@@ -146,7 +146,7 @@ const userReducer = (state = initialState, action) => {
                 });
             }
 
-            return Object.assign({}, state, { loading: false, error: true });
+            return Object.assign({}, state, { loading: false, error: true, isLogin: false });
         }
         default:
             return state;

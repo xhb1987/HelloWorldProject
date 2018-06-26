@@ -12,8 +12,7 @@ const styles = StyleSheet.create({
     title: {
         marginBottom: 10,
         minHeight: 30,
-        fontSize: 18,
-        fontWeight: 'bold'
+        fontSize: 18
     },
     footerContainer: {
         flexDirection: 'row',

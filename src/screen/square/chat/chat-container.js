@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { sendMessageAction } from 'state/screen/chat-message/actions';
 import {
-    sendMessageAction,
     receiveMessageAction,
     loadOldMessageRequestAction,
     loadOldMessageSuccessAction,
     toggleActionSheetAction,
-    squareSocketInit,
-    squareSocketAuth,
-    squareSocketConnect
+    squareSocketInit
 } from '../../../state/screen/square/actions';
 import Chat from './chat';
 
@@ -26,6 +24,7 @@ Container.defaultProps = {
 };
 
 const stateToProps = state => ({
+    village: state.home.selectedVillage,
     messages: state.square.messages,
     old_messages: state.square.old_messages,
     loadEarlier: state.square.loadEarlier,
@@ -41,9 +40,7 @@ const dispatchToProps = dispatch => ({
     loadOldMessageRequest: () => dispatch(loadOldMessageRequestAction()),
     loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages)),
     togglePicsActionSheet: () => dispatch(toggleActionSheetAction()),
-    squareSocketInit: () => dispatch(squareSocketInit()),
-    squareSocketConnect: () => dispatch(squareSocketConnect()),
-    squareSocketAuth: () => dispatch(squareSocketAuth())
+    squareSocketInit: () => dispatch(squareSocketInit())
 });
 
 const ChatContainer = connect(stateToProps, dispatchToProps)(Container);

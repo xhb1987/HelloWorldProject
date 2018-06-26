@@ -11,6 +11,7 @@ import SellListContainer from './sell-list/sell-list-container';
 import MarketContainer from './market/market-container';
 import EstateListContainer from './estate-list/estate-list-container';
 import ScreenHome from './screen-home';
+import { socketInitAction } from 'state/screen/chat-message/actions';
 
 import styles from './styles';
 
@@ -34,6 +35,7 @@ class Container extends Component {
 
     componentDidMount() {
         SplashScreen.hide();
+        this.props.socketInit();
     }
 
     static get navigatorStyle() {
@@ -131,10 +133,18 @@ class Container extends Component {
                     round
                     lightTheme
                     style={{ borderWidth: 0 }}
+                    icon={{
+                        type: 'material',
+                        color: '#86939e',
+                        name: 'search',
+                        style: { top: 10 }
+                    }}
                     inputStyle={{
                         backgroundColor: '#efefef',
                         color: '#bbbbbb',
-                        paddingLeft: 30
+                        marginVertical: 3,
+                        paddingLeft: 30,
+                        height: 30.5
                     }}
                     containerStyle={{
                         marginHorizontal: 5,
@@ -192,7 +202,11 @@ const stateToProps = (state, ownProps) => ({
     navigator: ownProps.navigator
 });
 
-const dispatchToProps = dispatch => ({});
+const dispatchToProps = dispatch => ({
+    socketInit: () => {
+        dispatch(socketInitAction());
+    }
+});
 
 const ScreenHomeContainer = connect(stateToProps, dispatchToProps)(Container);
 
