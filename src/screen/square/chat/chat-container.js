@@ -24,8 +24,9 @@ Container.defaultProps = {
 };
 
 const stateToProps = state => ({
+    user: state.user.userInfo,
     village: state.home.selectedVillage,
-    messages: state.square.messages,
+    messages: state.chatMessage.squareMessages,
     old_messages: state.square.old_messages,
     loadEarlier: state.square.loadEarlier,
     typingText: state.square.typingText,

@@ -11,6 +11,7 @@ import {
     PRODUCT_OPTION,
     PRODUCT_OPTION_SELECT
 } from './actions';
+const date = new Date();
 
 const initialState = {
     products: [],
@@ -18,6 +19,7 @@ const initialState = {
     pageSize: 20,
     pageNo: 1,
     totalCount: 0,
+    imageVersion: date.getTime(),
     productToPublish: {
         title: '',
         discreption: '',
@@ -55,7 +57,9 @@ const productReducer = (state = initialState, action) => {
             return Object.assign({}, state, { loading: true });
         case PRODUCT_PULL_SUCCESS: {
             const productResponseData = action.payload;
+            const timeNow = new Date();
             return Object.assign({}, state, {
+                imageVersion: timeNow.getTime(),
                 loading: false,
                 pageSize: productResponseData.pageSize,
                 pageNo: productResponseData.pageNo,

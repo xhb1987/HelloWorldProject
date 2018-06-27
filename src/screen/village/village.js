@@ -5,7 +5,7 @@ import CustomHeader from '../components/header/header';
 import ListBodyContainer from './list-body/list-body-container';
 
 const Village = ({ close }) => (
-    <View>
+    <View style={{ flex: 1 }}>
         <CustomHeader title="区域选择" leftButtonPress={close} />
         <ListBodyContainer close={close} />
     </View>

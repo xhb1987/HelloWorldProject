@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { List, ListItem, Divider } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -35,7 +35,10 @@ const ListContent = ({ data, onPressCallback }) => (
                         height: 40,
                         justifyContent: 'center'
                     }}
-                    onPress={() => onPressCallback(village)}
+                    onPress={() => {
+                        Keyboard.dismiss();
+                        onPressCallback(village);
+                    }}
                 />
             ))}
         </List>

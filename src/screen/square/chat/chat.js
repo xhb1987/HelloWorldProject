@@ -60,7 +60,7 @@ export default class Chat extends Component {
 
     onSend(messages) {
         console.log(messages);
-        this.props.sendMessage(messages, this.props.village);
+        this.props.sendMessage(messages, this.props.village, this.props.userInfo);
         // this.answerDemo(messages);
     }
 
@@ -150,7 +150,7 @@ export default class Chat extends Component {
         return (
             <GiftedChat
                 bottomOffset={-10}
-                messages={this.props.messages}
+                messages={this.props.messages[this.props.village.villageId]}
                 onSend={this.onSend}
                 user={{
                     name: 'Developer',

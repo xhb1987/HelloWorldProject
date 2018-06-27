@@ -12,12 +12,13 @@ export const SQUARE_SEND_MESSAGE = 'SQUARE_SEND_MESSAGE';
 export const SQUARE_SEND_MESSAGE_SUCCESS = 'SQUARE_SEND_MESSAGE_SUCCESS';
 export const SQUARE_SEND_MESSAGE_FAILURE = 'SQUARE_SEND_MESSAGE_FAILURE';
 
-export function sendMessageAction(dataValue, village) {
+export function sendMessageAction(dataValue, village, userInfo) {
     return {
         type: 'socket',
         types: [SQUARE_SEND_MESSAGE, SQUARE_SEND_MESSAGE_SUCCESS, SQUARE_SEND_MESSAGE_FAILURE],
         payload: {
             funCode: '2007',
+            user: userInfo,
             villageName: village.villageName,
             msgContent: dataValue
         },

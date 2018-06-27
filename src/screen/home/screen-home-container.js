@@ -130,6 +130,7 @@ class Container extends Component {
                     })}
                 </View>
                 <SearchBar
+                    returnKeyLabel={'搜索'}
                     round
                     lightTheme
                     style={{ borderWidth: 0 }}

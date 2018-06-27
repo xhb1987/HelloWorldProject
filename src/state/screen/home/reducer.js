@@ -13,7 +13,7 @@ import {
     VILLAGE_FILTER
 } from './actions';
 
-import { VILLAGE_TYPE, SCHOOL_TYPE } from 'src/config';
+import { VILLAGE_TYPE, SCHOOL_TYPE } from '../../../config';
 const initialState = {
     home: 'home screen',
     homeTitle: '城市',
@@ -30,6 +30,7 @@ const initialState = {
     villagePage: 0,
     villagePageSize: 0,
     selectedVillage: {
+        villageId: 1,
         villageName: '小区'
     },
     tags: [],
@@ -82,9 +83,6 @@ const homeReducer = (state = initialState, action) => {
             return state;
         }
         case VILLAGE_FILTER: {
-            AsyncStorage.getItem('root', result => {
-                console.log(result);
-            });
             const filterContent = action.payload;
             if (filterContent !== '') {
                 const originalVillageList = state.villageList;

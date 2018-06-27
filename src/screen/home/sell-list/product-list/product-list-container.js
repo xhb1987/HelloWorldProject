@@ -17,6 +17,7 @@ class Container extends Component {
 }
 
 const stateToProps = state => ({
+    imageVersion: state.product.imageVersion,
     products: state.product.products,
     loading: state.product.loading,
     clientConfig: state.home.clientConfig,

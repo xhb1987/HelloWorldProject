@@ -15,7 +15,30 @@ import {
 import { generateMessage } from '../../../util/utils';
 
 const initialState = {
-    squareMessages: {},
+    squareMessages: {
+        1: [
+            {
+                _id: Math.round(Math.random() * 1000000),
+                text: '这里应该是本地信息',
+                createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                user: {
+                    _id: 1,
+                    name: 'Developer'
+                },
+                sent: true,
+                received: true
+            },
+            {
+                _id: Math.round(Math.random() * 1000000),
+                text: '你好， 本地信息',
+                createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                user: {
+                    _id: 2,
+                    name: 'React Native'
+                }
+            }
+        ]
+    },
     chat: [],
     squareMessageSend: false,
     authorized: false
@@ -45,12 +68,12 @@ const chatMessageReducer = (state = initialState, action) => {
         }
         case SQUARE_SEND_MESSAGE: {
             // const messageObj = generateMessage(action.payload.msgContent);
-            const { village, msgContent } = action.payload;
+            const { village, msgContent, user } = action.payload;
 
             const squareMessageObj = state.squareMessages;
             if (lodash.has(squareMessageObj, village.villageName)) {
                 const existMessageArray = squareMessageObj[village.villageName].messages.slice();
-                existMessageArray.push(generateMessage(msgContent));
+                existMessageArray.push(generateMessage(msgContent, user));
 
                 return Object.assign({}, state, {
                     squareMessages: {

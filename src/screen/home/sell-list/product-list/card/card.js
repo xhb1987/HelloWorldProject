@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const Card = ({ item, clientConfig, onPressCallback, tags }) => (
+const Card = ({ item, clientConfig, onPressCallback, tags, imageVersion }) => (
     <TouchableOpacity
         style={styles.container}
         activeOpacity={0.8}
@@ -121,7 +121,10 @@ const Card = ({ item, clientConfig, onPressCallback, tags }) => (
                 {stringToArray(item.fileNames).map(img => (
                     <View key={img} style={styles.imageContainer}>
                         <Image
-                            source={{ uri: clientConfig + lodash.trim(img, '"'), cache: 'reload' }}
+                            source={{
+                                uri: `${clientConfig}${lodash.trim(img, '"')}?${imageVersion}`,
+                                cache: 'reload'
+                            }}
                             style={styles.imgItem}
                         />
                     </View>

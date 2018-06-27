@@ -6,16 +6,5 @@
         "production": {
             "plugins": ["babel-plugin-root-import"]
         }
-    },
-    "plugins": [
-        [
-            "module-resolver",
-            {
-                "root": ["./src"],
-                "alias": {
-                    "src": "./src"
-                }
-            }
-        ]
-    ]
+    }
 }

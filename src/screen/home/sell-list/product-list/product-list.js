@@ -10,7 +10,8 @@ const ProductList = ({
     tags,
     productSelect,
     refreshProductList,
-    loading
+    loading,
+    imageVersion
 }) => (
     <FlatList
         data={products}
@@ -20,6 +21,7 @@ const ProductList = ({
                 tags={tags}
                 item={item}
                 key={index}
+                imageVersion={imageVersion}
                 onPressCallback={() => productSelect(item)}
             />
         )}
