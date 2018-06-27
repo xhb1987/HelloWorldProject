@@ -33,8 +33,8 @@ const initialState = {
                 text: '你好， 本地信息',
                 createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
                 user: {
-                    _id: 2,
-                    name: 'React Native'
+                    _id: 26,
+                    name: '本地用户'
                 }
             }
         ]
@@ -71,14 +71,16 @@ const chatMessageReducer = (state = initialState, action) => {
             const { village, msgContent, user } = action.payload;
 
             const squareMessageObj = state.squareMessages;
-            if (lodash.has(squareMessageObj, village.villageName)) {
-                const existMessageArray = squareMessageObj[village.villageName].messages.slice();
-                existMessageArray.push(generateMessage(msgContent, user));
+            if (lodash.has(squareMessageObj, village.villageID)) {
+                const existMessageArray = squareMessageObj[village.villageID].slice();
 
                 return Object.assign({}, state, {
                     squareMessages: {
                         ...state.squareMessages,
-                        [village.villageName]: existMessageArray
+                        [village.villageID]: GiftedChat.append(
+                            existMessageArray,
+                            generateMessage(msgContent, user)
+                        )
                     }
                 });
             }

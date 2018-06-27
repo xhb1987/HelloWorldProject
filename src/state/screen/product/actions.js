@@ -82,9 +82,9 @@ export const productPull = () => {
 
         const url = 'userservice/getcommodity';
         dispatch(productPullRequestAction());
-        const villageId = selectedVillage.villageID || 1;
+        const villageID = selectedVillage.villageID || 1;
         const result = fetchPost(url, {
-            queryParams: { villageID: villageId, pageSize: 2, pageNo: 1 }
+            queryParams: { villageID: villageID, pageSize: 2, pageNo: 1 }
         });
         return result
             .then(json => dispatch(productPullSuccess(json)))

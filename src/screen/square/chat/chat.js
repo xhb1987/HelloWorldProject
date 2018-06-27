@@ -60,7 +60,7 @@ export default class Chat extends Component {
 
     onSend(messages) {
         console.log(messages);
-        this.props.sendMessage(messages, this.props.village, this.props.userInfo);
+        this.props.sendMessage(messages, this.props.village, this.props.user);
         // this.answerDemo(messages);
     }
 
@@ -150,11 +150,11 @@ export default class Chat extends Component {
         return (
             <GiftedChat
                 bottomOffset={-10}
-                messages={this.props.messages[this.props.village.villageId]}
+                messages={this.props.messages[this.props.village.villageID]}
                 onSend={this.onSend}
                 user={{
-                    name: 'Developer',
-                    _id: 1 // sent messages should have same user._id
+                    name: '本地用户',
+                    _id: this.props.user.id // sent messages should have same user._id
                 }}
                 showAvatarForEveryMessage
                 renderAvatarOnTop

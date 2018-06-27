@@ -30,7 +30,7 @@ const initialState = {
     villagePage: 0,
     villagePageSize: 0,
     selectedVillage: {
-        villageId: 1,
+        villageID: 1,
         villageName: '小区'
     },
     tags: [],

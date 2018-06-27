@@ -19,13 +19,14 @@ export function sendMessageAction(dataValue, village, userInfo) {
         payload: {
             funCode: '2007',
             user: userInfo,
-            villageName: village.villageName,
+            village: village,
             msgContent: dataValue
         },
         promise: socket =>
             socket.emit({
                 funCode: '2007',
-                villageID: village.villageID,
+                user: userInfo,
+                village: village,
                 msgContent: dataValue
             })
     };

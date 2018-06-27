@@ -36,7 +36,8 @@ const stateToProps = state => ({
 });
 
 const dispatchToProps = dispatch => ({
-    sendMessage: messages => dispatch(sendMessageAction(messages)),
+    sendMessage: (messages, village, userInfo) =>
+        dispatch(sendMessageAction(messages, village, userInfo)),
     receiveMessage: messages => dispatch(receiveMessageAction(messages)),
     loadOldMessageRequest: () => dispatch(loadOldMessageRequestAction()),
     loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages)),

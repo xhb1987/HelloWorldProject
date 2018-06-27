@@ -24,7 +24,7 @@ export const generateMessage = (message, user) => ({
     createdAt: new Date(),
     user: {
         _id: user.id,
-        name: 'Developer'
+        name: '本地用户'
     },
     sent: true,
     received: true

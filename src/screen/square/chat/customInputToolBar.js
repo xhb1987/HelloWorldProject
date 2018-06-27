@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActionSheetIOS, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ActionSheetIOS, TextInput, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Navigation } from 'react-native-navigation';
 import { InputToolbar, Composer, Send } from 'react-native-gifted-chat';
@@ -86,36 +86,39 @@ class CustomInputToolBar extends Component {
         return null;
     }
     handleTextChange(value) {
-        this.setState({ inputTextValue: value });
-        console.log('key change', this.state.inputTextValue);
-        this.textInput.clear();
+        if (value) {
+            this.setState({ inputTextValue: value });
+        }
     }
     handleEditEnd() {
         this.props.onSend(this.state.inputTextValue);
         this.setState({ inputTextValue: '' });
+        this.clearText();
     }
     clearText() {
-        this.textInputValue.setNativeProps({ text: '' });
+        if (Platform.OS === 'ios') {
+            this.textInput.setNativeProps({ text: ' ' });
+        }
+
+        setTimeout(() => {
+            this.textInput.setNativeProps({ text: '' });
+        });
     }
 
     renderComposer(props) {
         return (
             <View style={styles.textInputContainer}>
                 <TextInput
-                    {...props}
                     ref={ref => {
                         this.textInput = ref;
                     }}
-                    enablesReturnKeyAutomatically
                     blurOnSubmit={false}
-                    value={this.state.inputTextValue}
-                    onChangeText={this.handleTextChange}
+                    style={styles.textInputStyle}
                     returnKeyLabel="发送"
                     returnKeyType="send"
                     placeholder="请输入消息"
-                    style={styles.textInputStyle}
-                    onSubmitEditing={e => this.handleEditEnd(e)}
-                    // onKeyPress={e => this.handleKeyPress(e)}
+                    onChange={e => this.handleTextChange(e.nativeEvent.text)}
+                    onSubmitEditing={() => this.handleEditEnd()}
                 />
                 <Icon
                     type="entypo"
