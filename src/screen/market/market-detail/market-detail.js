@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 const MarketDetail = ({ goBack, market, clientConfig }) => (
     <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
-        <Header title="店铺详情" leftButtonPress={goBack} />
+        <Header title="店铺详情" leftButtonPress={goBack} leftButtonType="back" />
         <MarketTitle title={market.name} />
         <MarketContentContainer />
     </KeyboardAvoidingView>

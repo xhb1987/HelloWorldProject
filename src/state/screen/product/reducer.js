@@ -9,7 +9,10 @@ import {
     PRODUCT_PULL_SUCCESS,
     PRODUCT_PULL_FAILURE,
     PRODUCT_OPTION,
-    PRODUCT_OPTION_SELECT
+    PRODUCT_OPTION_SELECT,
+    PRODUCT_PUBLISH_CLEAR,
+    PRODUCT_PUBLISH_IMAGE_CLEAR,
+    PRODUCT_PUBLISH_IMAGE_DELETE
 } from './actions';
 const date = new Date();
 
@@ -44,6 +47,30 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PRODUCT_PUBLISH_IMAGE_DELETE: {
+            const image = action.payload;
+            const currentImages = state.productToPublish.images.slice();
+            const imageIndex = lodash.findIndex(currentImages, img => img.uri === image.uri);
+            currentImages.splice(imageIndex, 1);
+            return Object.assign({}, state, {
+                productToPublish: {
+                    ...state.productToPublish,
+                    images: currentImages
+                }
+            });
+        }
+
+        case PRODUCT_PUBLISH_IMAGE_CLEAR:
+            return Object.assign({}, state, {
+                productToPublish: {
+                    ...state.productToPublish,
+                    images: []
+                }
+            });
+        case PRODUCT_PUBLISH_CLEAR:
+            return Object.assign({}, state, {
+                productToPublish: { ...initialState.productToPublish }
+            });
         case PRODUCT_OPTION_SELECT:
             return Object.assign({}, state, {
                 productToPublish: {

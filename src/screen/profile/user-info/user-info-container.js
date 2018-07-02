@@ -13,6 +13,11 @@ const dispatchToProps = (dispatch, ownProps) => ({
         ownProps.navigator.push({
             screen: 'screen.User.Login'
         });
+    },
+    userProfile: () => {
+        ownProps.navigator.push({
+            screen: 'screen.Profile.Settings'
+        });
     }
 });
 

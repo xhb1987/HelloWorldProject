@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { productImageSelectAction } from '../../../state/screen/product/actions';
+import {
+    productImageSelectAction,
+    productPublishImageClearAction
+} from '../../../state/screen/product/actions';
 import PhotoScreen from './photo-screen';
 
 class Container extends Component {
@@ -26,6 +29,10 @@ const dispatchToProps = (dispatch, ownProps) => ({
         ownProps.navigator.push({
             screen: 'screen.ProductPublish.CameraScreen'
         });
+    },
+    cancel: () => {
+        ownProps.navigator.pop();
+        dispatch(productPublishImageClearAction());
     },
     goBack: () => {
         ownProps.navigator.pop();

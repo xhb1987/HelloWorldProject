@@ -23,7 +23,7 @@ const initialState = {
                 createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
                 user: {
                     _id: 1,
-                    name: 'Developer'
+                    name: '小区用户'
                 },
                 sent: true,
                 received: true
@@ -35,7 +35,9 @@ const initialState = {
                 user: {
                     _id: 26,
                     name: '本地用户'
-                }
+                },
+                sent: true,
+                received: true
             }
         ]
     },

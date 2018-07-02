@@ -7,12 +7,14 @@ import {
     TextInput,
     KeyboardAvoidingView,
     ScrollView,
-    Dimensions
+    Dimensions,
+    Image
 } from 'react-native';
 import { FormInput, Button, Icon, Divider } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/header/header';
 import PropTypes from 'prop-types';
+import ImageContent from './image-content/image-content';
 
 const styles = StyleSheet.create({
     container: {
@@ -27,6 +29,18 @@ const styles = StyleSheet.create({
         height: 130,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    imageContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 2
+    },
+    image: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 130,
+        width: 130,
+        marginRight: 5
     },
     buttonText: {
         fontSize: 16,
@@ -111,7 +125,8 @@ const ProductPublish = ({
     productInputChange,
     goToPhotoScreen,
     cancel,
-    showSelections
+    showSelections,
+    imageDelete
 }) => (
     <KeyboardAwareScrollView
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -121,10 +136,19 @@ const ProductPublish = ({
     >
         <Header title="发布宝贝" leftButtonPress={cancel} leftButtonType="cancel" />
         <ScrollView style={styles.scrollContainer}>
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => goToPhotoScreen()}>
-                <Icon type="entypo" name="camera" color="#888888" size={50} />
-                <Text style={styles.buttonText}>添加照片</Text>
-            </TouchableOpacity>
+            {product.images.length ? (
+                <ScrollView contentContainerStyle={styles.imageContainer} horizontal>
+                    {product.images.map(img => (
+                        <ImageContent key={img.uri} image={img} deleteImage={imageDelete} />
+                    ))}
+                </ScrollView>
+            ) : (
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => goToPhotoScreen()}>
+                    <Icon type="entypo" name="camera" color="#888888" size={50} />
+                    <Text style={styles.buttonText}>添加照片</Text>
+                </TouchableOpacity>
+            )}
+
             <Divider style={{ height: 13, backgroundColor: '#f0f0f0' }} />
             <FormInput
                 containerStyle={styles.titleInputContainer}

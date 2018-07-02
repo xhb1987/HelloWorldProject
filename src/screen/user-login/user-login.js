@@ -7,7 +7,15 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { FormLabel, FormInput, Button, Icon, Text, Divider } from 'react-native-elements';
+import {
+    FormLabel,
+    FormInput,
+    Button,
+    Icon,
+    Text,
+    Divider,
+    FormValidationMessage
+} from 'react-native-elements';
 import Header from '../components/header/header';
 
 const styles = StyleSheet.create({
@@ -74,6 +82,13 @@ const styles = StyleSheet.create({
     },
     buttonGroup: {
         marginTop: 20
+    },
+    errorMsgContainer: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    errorMsg: {
+        fontSize: 16
     }
 });
 
@@ -82,6 +97,7 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) 
         <Header
             title="用户登陆"
             leftButtonPress={cancelLogin}
+            leftButtonType="back"
             rightButton={
                 <TouchableOpacity onPress={goToRegister}>
                     <Text style={styles.register}>注册</Text>
@@ -103,10 +119,19 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) 
                     containerStyle={styles.inputContainer}
                     keyboardType="phone-pad"
                     onChange={e => {
-                        userInputChange(e.nativeEvent.text, 'loginPhone');
+                        userInputChange(e.nativeEvent.text, 'phone');
                     }}
                 />
             </View>
+            {user.phone.data && !user.phone.validate ? (
+                <FormValidationMessage
+                    containerStyle={styles.errorMsgContainer}
+                    style={styles.errorMsg}
+                >
+                    {' '}
+                    {'请输入正确的手机号码'}
+                </FormValidationMessage>
+            ) : null}
             <View style={styles.inputViewContainer}>
                 <Icon
                     size={28}
@@ -122,12 +147,22 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) 
                     containerStyle={styles.inputContainer}
                     secureTextEntry
                     onChange={e => {
-                        userInputChange(e.nativeEvent.text, 'loginPassword');
+                        userInputChange(e.nativeEvent.text, 'password');
                     }}
                 />
             </View>
+            {user.password.data && !user.password.validate ? (
+                <FormValidationMessage
+                    containerStyle={styles.errorMsgContainer}
+                    style={styles.errorMsg}
+                >
+                    {' '}
+                    {'密码至少包含一个数字和一位字母， 至少6位， 最多20位'}
+                </FormValidationMessage>
+            ) : null}
             <View style={styles.buttonGroup}>
                 <Button
+                    disabled={!user.phone.validate || !user.password.validate}
                     buttonStyle={styles.loginButton}
                     title="登陆"
                     onPress={() => login(user)}

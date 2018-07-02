@@ -1,26 +1,44 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, Dimensions } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Header, Icon, Divider } from 'react-native-elements';
+import HomeTabBarContainer from '../components/tab-bar/tab-bar-container';
 import ProfileInfoContainer from './profile-info/profile-info-container';
 import UserInfoContainer from './user-info/user-info-container';
 import TabWrapper from '../../component/tab-wrapper/tab-wrapper';
-import Header from '../components/header/header';
 
 const styles = StyleSheet.create({
     viewContainer: {
-        flex: 1
-    },
-    container: {
-        height: Dimensions.get('screen').height
+        flex: 1,
+        backgroundColor: '#f0f0f0'
     }
 });
 
 const ScreenProfile = ({ navigator, userLogout, isLogin }) => (
     <TabWrapper navigator={navigator}>
         <View style={styles.viewContainer}>
-            <ScrollView style={styles.container}>
+            <Header
+                outerContainerStyles={{
+                    borderBottomColor: '#ed3349',
+                    backgroundColor: '#ed3349'
+                }}
+                centerComponent={
+                    <HomeTabBarContainer
+                        navigator={navigator}
+                        textStyle={{
+                            color: 'white',
+                            fontSize: 18
+                        }}
+                        iconStyle={{
+                            color: 'white',
+                            size: 16
+                        }}
+                    />
+                }
+            />
+            <View style={styles.container}>
                 <UserInfoContainer navigator={navigator} />
-                <ProfileInfoContainer />
+                <Divider style={{ backgroundColor: '#f0f0f0', height: 12.5 }} />
+                <ProfileInfoContainer navigator={navigator} />
                 {isLogin ? (
                     <Button
                         backgroundColor={'#ed3349'}
@@ -29,7 +47,7 @@ const ScreenProfile = ({ navigator, userLogout, isLogin }) => (
                         containerViewStyle={{ marginVertical: 10 }}
                     />
                 ) : null}
-            </ScrollView>
+            </View>
         </View>
     </TabWrapper>
 );

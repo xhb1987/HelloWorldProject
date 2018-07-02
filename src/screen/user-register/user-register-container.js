@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as selectors from '../../state/selectors';
 import {
     userRegisterCode,
     userRegister,
-    userInputChangeAction
+    userInputChangeAction,
+    validateRegisterFormAction,
+    userInfoClearAction
 } from '../../state/screen/user/actions';
 import UserRegister from './user-register';
 
@@ -15,26 +18,36 @@ class Container extends Component {
             tabBarTranslucent: true
         };
     }
-
+    componentWillUnmount() {
+        this.props.userInputClear();
+    }
     render() {
         return <UserRegister {...this.props} />;
     }
 }
 
-const stateToProps = () => ({});
+const stateToProps = state => ({
+    phone: state.user.phone,
+    password: state.user.password,
+    smsCode: state.user.smsCode,
+    user: selectors.getUserLogInfo(state)
+});
+
 const dispatchToProps = (dispatch, ownProps) => ({
     cancel: () => ownProps.navigator.pop(),
-    userRegister: () => {
+    userRegister: user => {
         ownProps.navigator.popToRoot({
             animated: true,
             animationType: 'fade'
         });
-        dispatch(userRegister());
+        dispatch(userRegister(user));
     },
-    getRegisterCode: () => {
-        dispatch(userRegisterCode());
+    getRegisterCode: phone => {
+        dispatch(userRegisterCode(phone));
     },
-    userInputChange: (value, type) => dispatch(userInputChangeAction(value, type))
+    userInputChange: (value, type) => dispatch(userInputChangeAction(value, type)),
+    userInputValidate: (user, type) => dispatch(validateRegisterFormAction(user, type)),
+    userInputClear: () => dispatch(userInfoClearAction())
 });
 
 const UserRegisterContainer = connect(stateToProps, dispatchToProps)(Container);

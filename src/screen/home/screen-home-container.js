@@ -74,16 +74,12 @@ class Container extends Component {
                     {props.navigationState.routes.map((route, i) => {
                         const color = props.position.interpolate({
                             inputRange,
-                            outputRange: inputRange.map(
-                                inputIndex => (inputIndex === i ? '#ed3349' : '#888888')
-                            )
+                            outputRange: inputRange.map(inputIndex => (inputIndex === i ? '#ed3349' : '#888888'))
                         });
 
                         const backgroundColor = props.position.interpolate({
                             inputRange,
-                            outputRange: inputRange.map(
-                                inputIndex => (inputIndex === i ? '#ed3349' : '#fff')
-                            )
+                            outputRange: inputRange.map(inputIndex => (inputIndex === i ? '#ed3349' : '#fff'))
                         });
 
                         const opacity = props.position.interpolate({
@@ -176,7 +172,6 @@ class Container extends Component {
                     tabHeader={this._renderHeader}
                     tabRounter={this.state}
                     indexChange={this._handleIndexChange}
-                    productItem={this.state.dataSource}
                 />
             </TabWrapper>
         );
@@ -185,14 +180,12 @@ class Container extends Component {
 
 Container.propTypes = {
     homeTitle: PropTypes.string,
-    navigator: PropTypes.objectOf(PropTypes.any),
-    productItem: PropTypes.arrayOf(PropTypes.object)
+    navigator: PropTypes.objectOf(PropTypes.any)
 };
 
 Container.defaultProps = {
     homeTitle: 'Default Home',
-    navigator: {},
-    productItem: [{}]
+    navigator: {}
 };
 
 const stateToProps = (state, ownProps) => ({

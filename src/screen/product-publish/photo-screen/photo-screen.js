@@ -55,9 +55,9 @@ const styles = StyleSheet.create({
     }
 });
 
-const PhotoScreen = ({ product, goToTakePicature, goBack, selectImage }) => (
+const PhotoScreen = ({ product, goToTakePicature, goBack, cancel, selectImage }) => (
     <View style={styles.container}>
-        <Header title="相机交卷" leftButtonType="cancel" leftButtonPress={goBack} />
+        <Header title="相机交卷" leftButtonType="cancel" leftButtonPress={cancel} />
         <View style={styles.photoButtonContainer}>
             <Icon
                 type="entypo"
@@ -90,7 +90,7 @@ const PhotoScreen = ({ product, goToTakePicature, goBack, selectImage }) => (
                 containerViewStyle={styles.publishContainer}
                 buttonStyle={styles.publishButton}
                 color="white"
-                onPress={() => {}}
+                onPress={goBack}
             />
         </View>
     </View>

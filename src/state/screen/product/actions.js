@@ -13,6 +13,28 @@ export const PRODUCT_PULL_FAILURE = 'PRODUCT_PULL_SUCCESS';
 export const PRODUCT_OPTION = 'PRODUCT_OPTION';
 export const PRODUCT_OPTION_SELECT = 'PRODUCT_OPTION_SELECT';
 
+export const PRODUCT_PUBLISH_CLEAR = 'PRODUCT_PUBLISH_CLEAR';
+export const PRODUCT_PUBLISH_IMAGE_CLEAR = 'PRODUCT_PUBLISH_IMAGE_CLEAR';
+export const PRODUCT_PUBLISH_IMAGE_DELETE = 'PRODUCT_PUBLISH_IMAGE_DELETE';
+
+export const productPublishImageDeleteAction = image => ({
+    type: PRODUCT_PUBLISH_IMAGE_DELETE,
+    payload: image,
+    meta: {}
+});
+
+export const productPublishImageClearAction = () => ({
+    type: PRODUCT_PUBLISH_IMAGE_CLEAR,
+    payload: {},
+    meta: {}
+});
+
+export const productPublishClearAction = () => ({
+    type: PRODUCT_PUBLISH_CLEAR,
+    payload: {},
+    meta: {}
+});
+
 export const productOptionSelectAction = (type, option) => ({
     type: PRODUCT_OPTION_SELECT,
     payload: { optionType: type, optionSelected: option },
@@ -75,19 +97,22 @@ export const productPublishStoreAction = product => ({
     meta: {}
 });
 
-export const productPull = () => {
-    return (dispatch, getState) => {
-        const state = getState();
-        const selectedVillage = state.home.selectedVillage;
+export const productPull = () => (dispatch, getState) => {
+    const state = getState();
+    const isLoading = state.product.loading;
 
-        const url = 'userservice/getcommodity';
-        dispatch(productPullRequestAction());
-        const villageID = selectedVillage.villageID || 1;
-        const result = fetchPost(url, {
-            queryParams: { villageID: villageID, pageSize: 2, pageNo: 1 }
-        });
-        return result
-            .then(json => dispatch(productPullSuccess(json)))
-            .catch(e => dispatch(productPullFailure(e)));
-    };
+    if (isLoading) {
+        return;
+    }
+    console.log(isLoading);
+    const selectedVillage = state.home.selectedVillage;
+    const url = 'userservice/getcommodity';
+    dispatch(productPullRequestAction());
+    const villageID = selectedVillage.villageID || 1;
+    const result = fetchPost(url, {
+        queryParams: { villageID: villageID, pageSize: 20, pageNo: 1 }
+    });
+    return result
+        .then(json => dispatch(productPullSuccess(json)))
+        .catch(e => dispatch(productPullFailure(e)));
 };

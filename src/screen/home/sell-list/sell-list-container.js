@@ -7,7 +7,6 @@ import { getClientConfigRequest, getTagRequest } from '../../../state/screen/hom
 
 class Container extends Component {
     componentDidMount() {
-        this.props.getProductList(this.props.selectedVillage);
         this.props.getClientConfig();
         this.props.getTags();
     }

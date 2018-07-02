@@ -6,10 +6,9 @@ import { productImageSelectAction } from '../../../state/screen/product/actions'
 class Container extends Component {
     static get navigatorStyle() {
         return {
-            navBarTranslucent: true,
+            navBarHidden: true,
             tabBarHidden: true,
-            navBarNoBorder: true,
-            navBarBackgroundColor: 'white'
+            tabBarTranslucent: true
         };
     }
 

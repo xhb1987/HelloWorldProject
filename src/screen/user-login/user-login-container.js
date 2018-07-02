@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
     userLoginCancelAction,
     userLogin,
-    userInputChangeAction
+    userInputChangeAction,
+    userInfoClearAction
 } from '../../state/screen/user/actions';
 import * as selectors from '../../state/selectors';
 import UserLogin from './user-login';
@@ -17,7 +18,9 @@ class Container extends Component {
             tabBarTranslucent: true
         };
     }
-
+    componentWillUnmount() {
+        this.props.cancelLogin();
+    }
     render() {
         return <UserLogin {...this.props} />;
     }
@@ -29,7 +32,7 @@ const stateToProps = state => ({
 const dispatchToProps = (dispatch, ownProps) => ({
     cancelLogin: () => {
         ownProps.navigator.pop({});
-        dispatch(userLoginCancelAction());
+        dispatch(userInfoClearAction());
     },
     login: user => {
         ownProps.navigator.popToRoot({

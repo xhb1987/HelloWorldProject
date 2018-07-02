@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CameraScreen from './camera-screen';
-import { productTakeImageAction } from '../../../state/screen/product/actions';
+import {
+    productTakeImageAction,
+    productPublishImageDeleteAction
+} from '../../../state/screen/product/actions';
 
 class Container extends Component {
     static get navigatorStyle() {
         return {
-            navBarTranslucent: true,
+            navBarHidden: true,
             tabBarHidden: true,
-            navBarNoBorder: true,
-            navBarBackgroundColor: 'white'
+            tabBarTranslucent: true
         };
     }
 
@@ -23,7 +25,8 @@ const stateToProps = state => ({
 });
 
 const dispatchToProps = dispatch => ({
-    storeImage: imageData => dispatch(productTakeImageAction(imageData))
+    storeImage: imageData => dispatch(productTakeImageAction(imageData)),
+    imageDelete: image => dispatch(productPublishImageDeleteAction(image))
 });
 
 const CameraScreenContainer = connect(stateToProps, dispatchToProps)(Container);

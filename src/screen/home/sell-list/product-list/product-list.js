@@ -4,16 +4,9 @@ import { View, FlatList, StyleSheet, Dimensions, PixelRatio } from 'react-native
 import { Divider } from 'react-native-elements';
 import Card from './card/card';
 
-const ProductList = ({
-    clientConfig,
-    products,
-    tags,
-    productSelect,
-    refreshProductList,
-    loading,
-    imageVersion
-}) => (
+const ProductList = ({ clientConfig, products, tags, productSelect, refreshProductList, loading, imageVersion }) => (
     <FlatList
+        style={{ minHeight: 200 }}
         data={products}
         renderItem={({ item, index }) => (
             <Card
@@ -30,9 +23,7 @@ const ProductList = ({
         keyExtractor={item => {
             return item.commodityID ? item.commodityID + '' : 'defaultKey';
         }}
-        ItemSeparatorComponent={() => (
-            <Divider style={{ backgroundColor: '#f0f0f0', height: 10 }} />
-        )}
+        ItemSeparatorComponent={() => <Divider style={{ backgroundColor: '#f0f0f0', height: 10 }} />}
     />
 );
 

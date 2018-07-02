@@ -13,7 +13,7 @@ import chatMessageReducer from './screen/chat-message/reducer';
 const persistHomeConfig = {
     key: 'home',
     storage: AsyncStorage,
-    blacklist: ['activeCityTab', 'activeTab']
+    blacklist: ['activeCityTab', 'activeTab', 'loading']
 };
 
 const persistSquareConfig = {
@@ -22,9 +22,15 @@ const persistSquareConfig = {
     blacklist: ['toggleActionSheet', 'toggleTextInput']
 };
 
+const persistProductConfig = {
+    key: 'product',
+    storage: AsyncStorage,
+    blacklist: ['productToPublish']
+};
+
 const reducer = combineReducers({
     home: persistReducer(persistHomeConfig, homeReducer),
-    product: productReducer,
+    product: persistReducer(persistProductConfig, productReducer),
     square: persistReducer(persistSquareConfig, squareReducer),
     user: userReducer,
     message: messageReducer,

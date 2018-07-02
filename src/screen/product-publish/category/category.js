@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 const Category = ({ product, cancel, selectOption, productCategoryOption }) => (
     <View>
-        <Header title="分类" leftButtonPress={cancel} />
+        <Header title="分类" leftButtonPress={cancel} leftButtonType="back" />
         <List containerStyle={styles.container}>
             {productCategoryOption.map(option => (
                 <ListItem

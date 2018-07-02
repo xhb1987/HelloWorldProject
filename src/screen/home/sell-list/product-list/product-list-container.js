@@ -7,12 +7,14 @@ import { productPull, productSelectAction } from '../../../../state/screen/produ
 import ProductList from './product-list';
 
 class Container extends Component {
-    constructor(props) {
-        super(props);
+    componentWillMount() {
+        if (this.props.products.length === 0) {
+            this.props.refreshProductList();
+        }
     }
 
     render() {
-        return this.props.products.length > 0 ? <ProductList {...this.props} /> : null;
+        return <ProductList {...this.props} />;
     }
 }
 

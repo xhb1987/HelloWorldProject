@@ -81,33 +81,19 @@ const styles = StyleSheet.create({
 const CustomBubble = props => (
     <View style={styles.container}>
         {console.log(props)}
-        <View
-            style={
-                props.position === 'right'
-                    ? { justifyContent: 'flex-end', alignItems: 'flex-end' }
-                    : null
-            }
-        >
+        <View style={props.position === 'right' ? { justifyContent: 'flex-end', alignItems: 'flex-end' } : null}>
             <Text style={styles.userName}>{props.currentMessage.user.name}</Text>
         </View>
-        <View
-            style={
-                props.position === 'right' ? styles.bubbleTriangleRight : styles.bubbleTriangleLeft
-            }
-        >
+        <View style={props.position === 'right' ? styles.bubbleTriangleRight : styles.bubbleTriangleLeft}>
             <View
-                style={
-                    props.position === 'right'
-                        ? styles.bubbleTriangleWhiteRight
-                        : styles.bubbleTriangleWhiteLeft
-                }
+                style={props.position === 'right' ? styles.bubbleTriangleWhiteRight : styles.bubbleTriangleWhiteLeft}
             />
         </View>
         <Bubble
             {...props}
             containerToPreviousStyle={{
                 left: {
-                    borderBottomTopRadius: 6
+                    borderTopLeftRadius: 6
                 },
                 right: {
                     borderTopRightRadius: 6

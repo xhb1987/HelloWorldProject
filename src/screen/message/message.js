@@ -19,15 +19,13 @@ const styles = StyleSheet.create({
 const Message = ({ messagesList, navigator }) => (
     <TabWrapper navigator={navigator}>
         <View style={styles.viewContainer}>
-            <Header title="消息" />
+            <Header title="消息" leftButtonType="none" />
             <FlatList
                 style={styles.container}
                 data={messagesList}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => <MessageItem item={item} navigator={navigator} />}
-                ItemSeparatorComponent={() => (
-                    <Divider style={{ height: 1.5, backgroundColor: '#f1f1f1' }} />
-                )}
+                ItemSeparatorComponent={() => <Divider style={{ height: 1.5, backgroundColor: '#f1f1f1' }} />}
             />
             {/* <TabContainer navigator={navigator} /> */}
         </View>

@@ -40,7 +40,40 @@ import UserLoginContainer from './user-login/user-login-container';
 // user - register
 import UserRegisterContainer from './user-register/user-register-container';
 
+// user - profile
+import UserSettingsContainer from './profile-detail/user-settings/user-settings-container';
+import UserCertContainer from './profile-detail/user-cert/user-cert-container';
+import UserCertAddContainer from './profile-detail/user-cert-add/user-cert-add-container';
+import UserPublishContainer from './profile-detail/user-publish/user-publish-container';
+import UserInvolveContainer from './profile-detail/user-involve/user-involve-container';
+
 export const registerScreens = (store, provider) => {
+    // user profile
+    Navigation.registerComponent(
+        'screen.Profile.Settings',
+        () => UserSettingsContainer,
+        store,
+        provider
+    );
+    Navigation.registerComponent('screen.Profile.Cert', () => UserCertContainer, store, provider);
+    Navigation.registerComponent(
+        'screen.Profile.Cert.Add',
+        () => UserCertAddContainer,
+        store,
+        provider
+    );
+    Navigation.registerComponent(
+        'screen.Profile.Publish',
+        () => UserPublishContainer,
+        store,
+        provider
+    );
+    Navigation.registerComponent(
+        'screen.Profile.Involve',
+        () => UserInvolveContainer,
+        store,
+        provider
+    );
     // product publish
     Navigation.registerComponent(
         'screen.ProductPublish',

@@ -8,7 +8,6 @@ import {
     villageFilterAction
 } from '../../../state/screen/home/actions';
 import { productPull } from 'state/screen/product/actions';
-// import { productPull } from '../../../state/screen/product/actions';
 import ListBody from './list-body';
 
 import { VILLAGE_TYPE, SCHOOL_TYPE } from '../../../config';

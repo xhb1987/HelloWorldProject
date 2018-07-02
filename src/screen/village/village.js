@@ -6,7 +6,7 @@ import ListBodyContainer from './list-body/list-body-container';
 
 const Village = ({ close }) => (
     <View style={{ flex: 1 }}>
-        <CustomHeader title="区域选择" leftButtonPress={close} />
+        <CustomHeader title="区域选择" leftButtonPress={close} leftButtonType="back" />
         <ListBodyContainer close={close} />
     </View>
 );

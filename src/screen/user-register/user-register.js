@@ -7,8 +7,17 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { FormLabel, FormInput, Button, Icon, Text, Divider } from 'react-native-elements';
+import {
+    FormLabel,
+    FormInput,
+    Button,
+    Icon,
+    Text,
+    Divider,
+    FormValidationMessage
+} from 'react-native-elements';
 import Header from '../components/header/header';
+import CodeButton from '../components/code-button/code-button';
 
 const styles = StyleSheet.create({
     container: {},
@@ -40,16 +49,8 @@ const styles = StyleSheet.create({
     codeButton: {
         position: 'absolute',
         right: 32.5,
-        bottom: 5,
-        top: 0,
-        paddingHorizontal: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#dddddd'
-    },
-    codeTItle: {
-        color: '#3e3e3e',
-        fontSize: 16
+        bottom: 0,
+        top: -10
     },
     loginThirdPartyContainer: {
         marginTop: 20,
@@ -106,12 +107,28 @@ const styles = StyleSheet.create({
     loginText: {
         fontSize: 16,
         color: '#888888'
+    },
+    errorMsgContainer: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    errorMsg: {
+        fontSize: 16
     }
 });
 
-const UserRegister = ({ cancel, userRegister, getRegisterCode, userInputChange }) => (
+const UserRegister = ({
+    phone,
+    password,
+    smsCode,
+    cancel,
+    user,
+    userRegister,
+    getRegisterCode,
+    userInputChange
+}) => (
     <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
-        <Header title="用户注册" leftButtonPress={cancel} />
+        <Header title="用户注册" leftButtonPress={cancel} leftButtonType="back" />
         <View style={styles.formContainer}>
             <View style={styles.inputViewContainer}>
                 <Icon
@@ -126,11 +143,21 @@ const UserRegister = ({ cancel, userRegister, getRegisterCode, userInputChange }
                     placeholderTextColor="#cccccc"
                     containerStyle={styles.inputContainer}
                     keyboardType="phone-pad"
-                    onEndEditing={e => {
+                    onChange={e => {
                         userInputChange(e.nativeEvent.text, 'phone');
                     }}
                 />
             </View>
+            {phone.data && !phone.validate ? (
+                <FormValidationMessage
+                    containerStyle={styles.errorMsgContainer}
+                    style={styles.errorMsg}
+                >
+                    {' '}
+                    {'请输入正确的手机号码'}
+                </FormValidationMessage>
+            ) : null}
+
             <View style={styles.inputViewContainer}>
                 <Icon
                     size={28}
@@ -144,14 +171,23 @@ const UserRegister = ({ cancel, userRegister, getRegisterCode, userInputChange }
                     placeholderTextColor="#cccccc"
                     containerStyle={[styles.inputContainer, styles.codeInputContainer]}
                     secureTextEntry
-                    onEndEditing={e => {
+                    onChange={e => {
                         userInputChange(e.nativeEvent.text, 'code');
                     }}
                 />
-                <TouchableOpacity style={styles.codeButton}>
-                    <Text style={styles.codeTItle}>获取验证码</Text>
-                </TouchableOpacity>
+                <View style={styles.codeButton}>
+                    <CodeButton callback={() => getRegisterCode(phone)} />
+                </View>
             </View>
+            {smsCode.data && !smsCode.validate ? (
+                <FormValidationMessage
+                    containerStyle={styles.errorMsgContainer}
+                    style={styles.errorMsg}
+                >
+                    {' '}
+                    {'请输入6位数字验证码'}
+                </FormValidationMessage>
+            ) : null}
             <View style={styles.inputViewContainer}>
                 <Icon
                     size={28}
@@ -165,20 +201,30 @@ const UserRegister = ({ cancel, userRegister, getRegisterCode, userInputChange }
                     placeholderTextColor="#cccccc"
                     containerStyle={styles.inputContainer}
                     secureTextEntry
-                    onEndEditing={e => {
+                    onChange={e => {
                         userInputChange(e.nativeEvent.text, 'password');
                     }}
                 />
             </View>
+            {password.data && !password.validate ? (
+                <FormValidationMessage
+                    containerStyle={styles.errorMsgContainer}
+                    style={styles.errorMsg}
+                >
+                    {' '}
+                    {'密码至少包含一个数字和一位字母， 至少6位， 最多20位'}
+                </FormValidationMessage>
+            ) : null}
             <View style={styles.termContainer}>
                 <Text>请仔细阅读用户协议，注册则代表您同意</Text>
                 <Text style={styles.term}>用户协议</Text>
             </View>
             <View style={styles.buttonGroup}>
                 <Button
+                    disabled={!phone.validate || !password.validate || !smsCode.validate}
                     buttonStyle={styles.loginButton}
                     title="注册"
-                    onPress={() => userRegister()}
+                    onPress={() => userRegister(user)}
                     backgroundColor="#ed3349"
                 />
             </View>

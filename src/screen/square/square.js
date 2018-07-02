@@ -36,7 +36,7 @@ const Square = ({ navigator, toggleTextInput, toggleFabButton }) => (
         <View style={styles.container}>
             <Header
                 outerContainerStyles={{
-                    borderBottomColor: 'white',
+                    borderBottomColor: '#ed3349',
                     backgroundColor: '#ed3349'
                 }}
                 centerComponent={

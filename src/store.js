@@ -15,7 +15,7 @@ const persistRootConfig = {
     key: 'root',
     storage: AsyncStorage,
     debug: true,
-    blacklist: ['home', 'square']
+    blacklist: ['home', 'square', 'user', 'product']
 };
 
 const middleware = applyMiddleware(logger, socketMiddleWare(socketClient), thunkMiddleware);

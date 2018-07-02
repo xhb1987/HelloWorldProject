@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import ProductPublish from './product-publish';
-import { productInputChangeAction, productOptionAction } from '../../state/screen/product/actions';
+import {
+    productInputChangeAction,
+    productOptionAction,
+    productPublishClearAction,
+    productPublishImageDeleteAction
+} from '../../state/screen/product/actions';
 
 class Container extends Component {
     static get navigatorStyle() {
@@ -23,13 +28,17 @@ const stateToProps = state => ({
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
+    imageDelete: image => dispatch(productPublishImageDeleteAction(image)),
     productInputChange: (value, type) => dispatch(productInputChangeAction(value, type)),
     goToPhotoScreen: () => {
         ownProps.navigator.push({
             screen: 'screen.ProductPublish.PhotoScreen'
         });
     },
-    cancel: () => Navigation.dismissModal({ animationType: 'slide-down' }),
+    cancel: () => {
+        Navigation.dismissModal({ animationType: 'slide-down' });
+        dispatch(productPublishClearAction());
+    },
     showSelections: type => {
         dispatch(productOptionAction(type));
         Navigation.showLightBox({

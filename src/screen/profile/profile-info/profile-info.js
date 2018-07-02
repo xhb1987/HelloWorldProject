@@ -1,18 +1,91 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
-import { Text, List, ListItem } from 'react-native-elements';
-import styles from './styles';
+import { ScrollView, TouchableOpacity, View, Text, StyleSheet, Image } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-const ProfileInfo = ({ user, list }) => (
-    <ScrollView>
-        <List>
-            {list.map(item => (
-                <TouchableOpacity key={item.title}>
-                    <ListItem title={item.title} leftIcon={{ name: item.icon }} />
-                </TouchableOpacity>
-            ))}
-        </List>
-    </ScrollView>
+const styles = StyleSheet.create({
+    container: {},
+    itemContainer: {
+        backgroundColor: 'white',
+        borderTopColor: '#ddd',
+        borderTopWidth: 1,
+        paddingHorizontal: 10,
+        height: 47.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    lastItemContainer: {
+        borderBottomColor: '#ddd',
+        borderBottomWidth: 1
+    },
+    icon: {
+        width: 22,
+        height: 22,
+        resizeMode: 'contain',
+        aspectRatio: 1,
+        marginRight: 8
+    },
+    iconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    title: {
+        fontSize: 16,
+        color: '#333'
+    }
+});
+
+const ProfileInfo = ({ user, goToCertPage, goToPublishPage, goToInvolvePage }) => (
+    <View style={styles.container}>
+        <TouchableOpacity
+            style={styles.itemContainer}
+            activeOpacity={0.8}
+            onPress={goToPublishPage}
+        >
+            <View style={styles.iconContainer}>
+                <Image style={styles.icon} source={require('../../../asset/icon/my-publish.png')} />
+                <Text style={styles.title}>我的发布</Text>
+            </View>
+            <View style={styles.iconContainer}>
+                <Icon type="entypo" size={18} name="chevron-thin-right" color="#dddddd" />
+            </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={styles.itemContainer}
+            activeOpacity={0.8}
+            onPress={goToInvolvePage}
+        >
+            <View style={styles.iconContainer}>
+                <Image style={styles.icon} source={require('../../../asset/icon/involve.png')} />
+                <Text style={styles.title}>我的参与</Text>
+            </View>
+            <View style={styles.iconContainer}>
+                <Icon type="entypo" size={18} name="chevron-thin-right" color="#dddddd" />
+            </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.itemContainer} activeOpacity={0.8} onPress={goToCertPage}>
+            <View style={styles.iconContainer}>
+                <Image style={styles.icon} source={require('../../../asset/icon/cert.png')} />
+                <Text style={styles.title}>实名认证</Text>
+            </View>
+            <View style={styles.iconContainer}>
+                <Icon type="entypo" size={18} name="chevron-thin-right" color="#dddddd" />
+            </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={[styles.itemContainer, styles.lastItemContainer]}
+            activeOpacity={0.8}
+        >
+            <View style={styles.iconContainer}>
+                <Image style={styles.icon} source={require('../../../asset/icon/settings.png')} />
+                <Text style={styles.title}>设置</Text>
+            </View>
+            <View style={styles.iconContainer}>
+                <Icon type="entypo" size={18} name="chevron-thin-right" color="#dddddd" />
+            </View>
+        </TouchableOpacity>
+    </View>
 );
 
 export default ProfileInfo;
