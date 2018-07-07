@@ -38,7 +38,8 @@ const initialState = {
     loading: false,
     error: false,
     activeTab: 'index',
-    activeCityTab: 'village'
+    activeCityTab: 'village',
+    notification: ''
 };
 
 const homeReducer = (state = initialState, action) => {

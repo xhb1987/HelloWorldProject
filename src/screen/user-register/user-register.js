@@ -125,7 +125,8 @@ const UserRegister = ({
     user,
     userRegister,
     getRegisterCode,
-    userInputChange
+    userInputChange,
+    isLoading
 }) => (
     <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
         <Header title="用户注册" leftButtonPress={cancel} leftButtonType="back" />
@@ -221,11 +222,15 @@ const UserRegister = ({
             </View>
             <View style={styles.buttonGroup}>
                 <Button
-                    disabled={!phone.validate || !password.validate || !smsCode.validate}
+                    disabled={
+                        !phone.validate || !password.validate || !smsCode.validate || isLoading
+                    }
                     buttonStyle={styles.loginButton}
                     title="注册"
                     onPress={() => userRegister(user)}
                     backgroundColor="#ed3349"
+                    loading={isLoading}
+                    loadingRight
                 />
             </View>
             <TouchableOpacity style={styles.loginContainer}>

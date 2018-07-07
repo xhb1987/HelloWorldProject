@@ -35,7 +35,7 @@ const dispatchToProps = (dispatch, ownProps) => ({
         dispatch(activeTabToggleAction('square'));
     },
     goToPublish: () => {
-        Navigation.showModal({ screen: 'screen.ProductPublish' });
+        Navigation.showModal({ screen: 'screen.PublishHome' });
     },
     goToMessage: () => {
         ownProps.navigator.switchToTab({

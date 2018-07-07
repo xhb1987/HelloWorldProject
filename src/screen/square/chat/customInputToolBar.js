@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActionSheetIOS, TextInput, Platform } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    ActionSheetIOS,
+    TextInput,
+    Platform,
+    TouchableHighlight
+} from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Navigation } from 'react-native-navigation';
 import { InputToolbar, Composer, Send } from 'react-native-gifted-chat';
@@ -112,6 +120,8 @@ class CustomInputToolBar extends Component {
                     ref={ref => {
                         this.textInput = ref;
                     }}
+                    editable={this.props.isLogin}
+                    enablesReturnKeyAutomatically
                     blurOnSubmit={false}
                     style={styles.textInputStyle}
                     returnKeyLabel="发送"

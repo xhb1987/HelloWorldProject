@@ -5,7 +5,8 @@ const initialState = {
     estates: [1, 2, 3, 4],
     estate: {},
     loading: false,
-    error: false
+    error: false,
+    notification: ''
 };
 
 const estateReducer = (state = initialState, action) => {

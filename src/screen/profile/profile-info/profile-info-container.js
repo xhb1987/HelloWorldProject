@@ -6,7 +6,8 @@ import { involvePublishAction } from '../../../state/screen/user/actions';
 const Container = props => <ProfileInfo {...props} />;
 
 const stateToProps = state => ({
-    user: state.user.userInfo
+    user: state.user.userInfo,
+    isLogin: state.user.isLogin
 });
 const dispatchToProps = (dispatch, ownProps) => ({
     goToCertPage: () =>
@@ -24,6 +25,11 @@ const dispatchToProps = (dispatch, ownProps) => ({
             screen: 'screen.Profile.Involve'
         });
         dispatch(involvePublishAction('involve'));
+    },
+    goToLoginPage: () => {
+        ownProps.navigator.showModal({
+            screen: 'screen.User.Login'
+        });
     }
 });
 

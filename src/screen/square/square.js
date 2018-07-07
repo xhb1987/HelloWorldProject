@@ -53,7 +53,7 @@ const Square = ({ navigator, toggleTextInput, toggleFabButton }) => (
                     />
                 }
             />
-            <ChatContainer />
+            <ChatContainer navigator={navigator} />
             <Icon
                 type="entypo"
                 name="arrow-with-circle-right"

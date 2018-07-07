@@ -42,7 +42,8 @@ const initialState = {
         options: ['大陆', '香港', '澳门', '台湾', '国外']
     },
     loading: false,
-    error: false
+    error: false,
+    notification: ''
 };
 
 const productReducer = (state = initialState, action) => {

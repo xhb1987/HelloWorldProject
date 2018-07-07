@@ -4,7 +4,8 @@ import {
     userLoginCancelAction,
     userLogin,
     userInputChangeAction,
-    userInfoClearAction
+    userInfoClearAction,
+    resetNotificationAction
 } from '../../state/screen/user/actions';
 import * as selectors from '../../state/selectors';
 import UserLogin from './user-login';
@@ -18,27 +19,54 @@ class Container extends Component {
             tabBarTranslucent: true
         };
     }
+
+    componentDidUpdate(prevProps) {
+        console.log(prevProps);
+        if (this.props.isLogin) {
+            this.props.loginSuccess();
+        }
+
+        // notification for both login and reigster, need to refactor to better way
+        if (!this.props.isLogin && this.props.notification !== '') {
+            this.props.loginFailure(this.props.notification);
+        }
+    }
+
     componentWillUnmount() {
         this.props.cancelLogin();
     }
+
     render() {
         return <UserLogin {...this.props} />;
     }
 }
 
 const stateToProps = state => ({
-    user: selectors.getUserLogInfo(state)
+    user: selectors.getUserLogInfo(state),
+    isLogin: state.user.isLogin,
+    notification: state.user.notification,
+    smsCode: state.user.smsCode
 });
+
 const dispatchToProps = (dispatch, ownProps) => ({
     cancelLogin: () => {
-        ownProps.navigator.pop({});
+        ownProps.navigator.dismissModal({});
         dispatch(userInfoClearAction());
     },
     login: user => {
-        ownProps.navigator.popToRoot({
+        dispatch(userLogin(user));
+    },
+    loginSuccess: () => {
+        ownProps.navigator.dismissModal({
             animated: true
         });
-        dispatch(userLogin(user));
+    },
+    loginFailure: note => {
+        console.log('Im note', note);
+        ownProps.navigator.showInAppNotification({
+            screen: 'component.Notification',
+            autoDismissTimerSec: 0.5
+        });
     },
     goToRegister: () => {
         ownProps.navigator.push({

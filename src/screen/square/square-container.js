@@ -35,7 +35,9 @@ const stateToProps = (state, ownProps) => ({
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
-    toggleFabButton: toggleValue => dispatch(toggleFabButtonAction(toggleValue))
+    toggleFabButton: toggleValue => {
+        dispatch(toggleFabButtonAction(toggleValue));
+    }
 });
 
 const SquareContainer = connect(stateToProps, dispatchToProps)(Container);

@@ -36,12 +36,19 @@ const styles = StyleSheet.create({
     }
 });
 
-const ProfileInfo = ({ user, goToCertPage, goToPublishPage, goToInvolvePage }) => (
+const ProfileInfo = ({
+    user,
+    isLogin,
+    goToCertPage,
+    goToPublishPage,
+    goToInvolvePage,
+    goToLoginPage
+}) => (
     <View style={styles.container}>
         <TouchableOpacity
             style={styles.itemContainer}
             activeOpacity={0.8}
-            onPress={goToPublishPage}
+            onPress={isLogin ? goToPublishPage : goToLoginPage}
         >
             <View style={styles.iconContainer}>
                 <Image style={styles.icon} source={require('../../../asset/icon/my-publish.png')} />
@@ -54,7 +61,7 @@ const ProfileInfo = ({ user, goToCertPage, goToPublishPage, goToInvolvePage }) =
         <TouchableOpacity
             style={styles.itemContainer}
             activeOpacity={0.8}
-            onPress={goToInvolvePage}
+            onPress={isLogin ? goToInvolvePage : goToLoginPage}
         >
             <View style={styles.iconContainer}>
                 <Image style={styles.icon} source={require('../../../asset/icon/involve.png')} />
@@ -64,7 +71,11 @@ const ProfileInfo = ({ user, goToCertPage, goToPublishPage, goToInvolvePage }) =
                 <Icon type="entypo" size={18} name="chevron-thin-right" color="#dddddd" />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContainer} activeOpacity={0.8} onPress={goToCertPage}>
+        <TouchableOpacity
+            style={styles.itemContainer}
+            activeOpacity={0.8}
+            onPress={isLogin ? goToCertPage : goToLoginPage}
+        >
             <View style={styles.iconContainer}>
                 <Image style={styles.icon} source={require('../../../asset/icon/cert.png')} />
                 <Text style={styles.title}>实名认证</Text>

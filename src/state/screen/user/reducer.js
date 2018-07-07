@@ -13,8 +13,10 @@ import {
     USER_LOGOUT_SUCCESS,
     REGISTER_VALIDATE,
     USER_INFO_CLEAR,
-    INVOLVE_PUBLISH
+    INVOLVE_PUBLISH,
+    RESET_NOTIFICATION
 } from './actions';
+import getReturnCodeMessage from '../../../util/return-code';
 
 const initialState = {
     isLogin: false,
@@ -29,18 +31,19 @@ const initialState = {
     error: false,
     phone: {
         data: '',
-        validate: true
+        validate: false
     },
     smsCode: {
         data: '',
-        validate: true
+        validate: false
     },
     password: {
         data: '',
-        validate: true
+        validate: false
     },
     sessionToken: '',
-    myInvolvePulish: ''
+    myInvolvePulish: '',
+    notification: ''
 };
 
 const phoneRegex = /^1(3|4|5|7|8)\d{9}$/;
@@ -49,8 +52,14 @@ const smsCodeReges = /^\d{6}$/;
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case RESET_NOTIFICATION:
+            return Object.assign({}, state, { notification: '' });
         case USER_INFO_CLEAR: {
-            return Object.assign({}, state, initialState);
+            return Object.assign({}, state, {
+                phone: initialState.phone,
+                smsCode: initialState.smsCode,
+                password: initialState.password
+            });
         }
         case USER_INPUT_CHANGE: {
             const inputType = action.payload.type;
@@ -85,8 +94,23 @@ const userReducer = (state = initialState, action) => {
 
         case USER_REGISTER_REQUEST:
             return Object.assign({}, state, { loading: true });
-        case USER_REGISTER_SUCCESS:
-            return Object.assign({}, state, { loading: false, error: false });
+        case USER_REGISTER_SUCCESS: {
+            const result = action.payload;
+
+            if (result.retCode === 0) {
+                return Object.assign({}, state, {
+                    loading: false,
+                    error: false,
+                    notification: ''
+                });
+            }
+
+            return Object.assign({}, state, {
+                loading: false,
+                error: false,
+                notification: getReturnCodeMessage(result.retCode)
+            });
+        }
         case USER_REGISTER_FAILURE:
             return Object.assign({}, state, { loading: false, error: true });
         case USER_REGISTER_CODE_REQUEST:
@@ -127,7 +151,8 @@ const userReducer = (state = initialState, action) => {
                     userInfo: {
                         ...state.userInfo,
                         id: result.result.userID
-                    }
+                    },
+                    notification: ''
                 });
             }
 
@@ -141,7 +166,8 @@ const userReducer = (state = initialState, action) => {
                 phone: {
                     data: '',
                     validate: true
-                }
+                },
+                notification: getReturnCodeMessage(result.retCode)
             });
         }
         case USER_LOGIN_FAILURE:

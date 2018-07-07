@@ -61,7 +61,8 @@ const initialState = {
                 name: '小区用户1'
             }
         }
-    ]
+    ],
+    notification: ''
 };
 
 const messageReducer = (state = initialState, action) => {

@@ -43,7 +43,10 @@ const initialState = {
     },
     chat: [],
     squareMessageSend: false,
-    authorized: false
+    authorized: false,
+    chatMessage: 'test',
+    socketConnect: false,
+    notification: ''
 };
 
 const chatMessageReducer = (state = initialState, action) => {
@@ -52,10 +55,11 @@ const chatMessageReducer = (state = initialState, action) => {
         case SOCKET_SUCCESS:
         case SOCKET_FAILURE:
         case SOCKET_AUTH_REQUEST:
-        case SOCKET_AUTH_SUCCESS:
         case SOCKET_AUTH_FAILURE:
             console.log(action);
             return state;
+        case SOCKET_AUTH_SUCCESS:
+            return Object.assign({}, state, { socketConnect: true });
         case SOCKET_RECEIVE: {
             const payload = JSON.parse(action.payload);
             if (payload.funCode === 2 && payload.retCode === 0) {
@@ -94,6 +98,11 @@ const chatMessageReducer = (state = initialState, action) => {
                 }
             });
         }
+        case SQUARE_SEND_MESSAGE_SUCCESS:
+            console.log('send success');
+            return state;
+        case SQUARE_SEND_MESSAGE_FAILURE:
+            return Object.assign({}, state, { socketConnect: false });
         default:
             return state;
     }

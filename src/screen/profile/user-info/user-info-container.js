@@ -10,7 +10,7 @@ const stateToProps = state => ({
 });
 const dispatchToProps = (dispatch, ownProps) => ({
     userLogin: () => {
-        ownProps.navigator.push({
+        ownProps.navigator.showModal({
             screen: 'screen.User.Login'
         });
     },

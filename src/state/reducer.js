@@ -28,15 +28,45 @@ const persistProductConfig = {
     blacklist: ['productToPublish']
 };
 
+const persistUserConfig = {
+    key: 'user',
+    storage: AsyncStorage,
+    whitelist: ['userInfo']
+};
+
+const persistMessageConfig = {
+    key: 'message',
+    storage: AsyncStorage,
+    blacklist: ['notification']
+};
+
+const persistMarketConfig = {
+    key: 'market',
+    storage: AsyncStorage,
+    blacklist: ['notification']
+};
+
+const persistEstateConfig = {
+    key: 'estate',
+    storage: AsyncStorage,
+    blacklist: ['notification']
+};
+
+const persistChatMessageConfig = {
+    key: 'chatMessage',
+    storage: AsyncStorage,
+    blacklist: ['notification']
+};
+
 const reducer = combineReducers({
     home: persistReducer(persistHomeConfig, homeReducer),
     product: persistReducer(persistProductConfig, productReducer),
     square: persistReducer(persistSquareConfig, squareReducer),
-    user: userReducer,
-    message: messageReducer,
-    market: marketReducer,
-    estate: estateReducer,
-    chatMessage: chatMessageReducer
+    user: persistReducer(persistUserConfig, userReducer),
+    message: persistReducer(persistMessageConfig, messageReducer),
+    market: persistReducer(persistMarketConfig, marketReducer),
+    estate: persistReducer(persistEstateConfig, estateReducer),
+    chatMessage: persistReducer(persistChatMessageConfig, chatMessageReducer)
 });
 
 export default reducer;

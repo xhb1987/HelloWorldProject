@@ -6,6 +6,9 @@ export default class socketAPI {
 
     init(messageCallback) {
         this.socket = new WebSocket(config.webSocketUrl);
+        this.socket.onerror = error => {
+            console.log(error);
+        };
         this.socket.onmessage = e => {
             console.log(e.data);
             messageCallback(e.data);
@@ -43,7 +46,7 @@ export default class socketAPI {
         });
     }
 
-    emit(data) {
+    emit(data, reconnectCallback) {
         return new Promise((resolve, reject) => {
             if (!this.socket) {
                 return reject('No socket connection.');
@@ -54,7 +57,8 @@ export default class socketAPI {
                 this.socket.send(JSON.stringify(data));
                 return resolve();
             }
-
+            console.log(reconnectCallback);
+            // reconnectCallback();
             // };
 
             this.socket.onerror = error => {

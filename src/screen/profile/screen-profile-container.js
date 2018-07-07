@@ -23,7 +23,7 @@ const stateToProps = (state, ownProps) => ({
 });
 const dispatchToProps = (dispatch, ownProps) => ({
     userLogin: () => {
-        ownProps.navigator.push({
+        ownProps.navigator.showModal({
             screen: 'screen.User.Login',
             animated: true,
             animationType: 'slide-up'

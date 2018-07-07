@@ -75,7 +75,8 @@ const initialState = {
     toggleActionSheet: false,
     image: { uri: '' },
     sendingMessage: '',
-    auth: ''
+    auth: '',
+    notification: ''
 };
 
 const squareReducer = (state = initialState, action) => {

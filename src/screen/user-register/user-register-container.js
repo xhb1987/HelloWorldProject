@@ -21,6 +21,18 @@ class Container extends Component {
     componentWillUnmount() {
         this.props.userInputClear();
     }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.isRegistered) {
+            this.props.registerSuccess();
+        }
+        // this notification is located in user login module,
+        // because this register page and login page share one stack
+        // if (!this.props.isRegistered && this.props.notification !== '') {
+        //     // this.props.registerFailure();
+        // }
+    }
+
     render() {
         return <UserRegister {...this.props} />;
     }
@@ -30,16 +42,23 @@ const stateToProps = state => ({
     phone: state.user.phone,
     password: state.user.password,
     smsCode: state.user.smsCode,
-    user: selectors.getUserLogInfo(state)
+    user: selectors.getUserLogInfo(state),
+    isLogin: state.user.isLogin,
+    notification: state.user.notification,
+    isLoading: state.user.loading
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
-    cancel: () => ownProps.navigator.pop(),
-    userRegister: user => {
+    registerSuccess: () => {
         ownProps.navigator.popToRoot({
             animated: true,
             animationType: 'fade'
         });
+    },
+    cancel: () => {
+        ownProps.navigator.pop();
+    },
+    userRegister: user => {
         dispatch(userRegister(user));
     },
     getRegisterCode: phone => {

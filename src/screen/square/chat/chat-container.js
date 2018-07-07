@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sendMessageAction } from 'state/screen/chat-message/actions';
@@ -6,12 +6,23 @@ import {
     receiveMessageAction,
     loadOldMessageRequestAction,
     loadOldMessageSuccessAction,
-    toggleActionSheetAction,
-    squareSocketInit
+    toggleActionSheetAction
 } from '../../../state/screen/square/actions';
+import { socketInitAction, socketAuthAction } from '../../../state/screen/chat-message/actions';
 import Chat from './chat';
 
-const Container = props => <Chat {...props} />;
+class Container extends Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.socketConnect === false && prevProps.socketConnect === true) {
+            this.props.socketInit();
+            this.props.socketAuth();
+        }
+    }
+
+    render() {
+        return <Chat {...this.props} goToLoginPage={this.props.goToLoginPage} />;
+    }
+}
 
 Container.propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
@@ -24,6 +35,7 @@ Container.defaultProps = {
 };
 
 const stateToProps = state => ({
+    isLogin: state.user.isLogin,
     user: state.user.userInfo,
     village: state.home.selectedVillage,
     messages: state.chatMessage.squareMessages,
@@ -32,17 +44,23 @@ const stateToProps = state => ({
     typingText: state.square.typingText,
     isLoadingEarlier: state.square.isLoadingEarlier,
     toggleTextInput: state.square.toggleTextInput,
-    toggleActionSheet: state.square.toggleActionSheet
+    toggleActionSheet: state.square.toggleActionSheet,
+    socketConnect: state.chatMessage.socketConnect
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch, ownProps) => ({
     sendMessage: (messages, village, userInfo) =>
         dispatch(sendMessageAction(messages, village, userInfo)),
     receiveMessage: messages => dispatch(receiveMessageAction(messages)),
     loadOldMessageRequest: () => dispatch(loadOldMessageRequestAction()),
     loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages)),
     togglePicsActionSheet: () => dispatch(toggleActionSheetAction()),
-    squareSocketInit: () => dispatch(squareSocketInit())
+    socketInit: () => dispatch(socketInitAction()),
+    socketAuth: () => dispatch(socketAuthAction()),
+    goToLoginPage: () =>
+        ownProps.navigator.showModal({
+            screen: 'screen.User.Login'
+        })
 });
 
 const ChatContainer = connect(stateToProps, dispatchToProps)(Container);

@@ -21,6 +21,9 @@ import ProductOrderContainer from './product/product-order/product-order-contain
 // market
 import MarketDetailContainer from './market/market-detail/market-detail-container';
 
+// publish home
+import PublishHomeContainer from './publish-home/publish-home-container';
+
 // product publish
 import ProductPublishContainer from './product-publish/product-publish-container';
 import CameraScreenContainer from './product-publish/camera-screen/camera-screen-container';
@@ -46,6 +49,9 @@ import UserCertContainer from './profile-detail/user-cert/user-cert-container';
 import UserCertAddContainer from './profile-detail/user-cert-add/user-cert-add-container';
 import UserPublishContainer from './profile-detail/user-publish/user-publish-container';
 import UserInvolveContainer from './profile-detail/user-involve/user-involve-container';
+
+// notification
+import AppNotificationContainer from './components/notification/app-notification-container';
 
 export const registerScreens = (store, provider) => {
     // user profile
@@ -74,6 +80,8 @@ export const registerScreens = (store, provider) => {
         store,
         provider
     );
+    // publish home
+    Navigation.registerComponent('screen.PublishHome', () => PublishHomeContainer, store, provider);
     // product publish
     Navigation.registerComponent(
         'screen.ProductPublish',
@@ -172,6 +180,14 @@ export const registerScreens = (store, provider) => {
     Navigation.registerComponent('screen.Home.TopBar', () => HomeTabBarContainer, store, provider);
     Navigation.registerComponent('screen.Home', () => ScreenHomeContainer, store, provider);
     Navigation.registerComponent('screen.Profile', () => ScreenProfileContainer, store, provider);
+
+    // notifiaction
+    Navigation.registerComponent(
+        'component.Notification',
+        () => AppNotificationContainer,
+        store,
+        provider
+    );
 };
 
 // export const registerScreens = (store, provider) => {

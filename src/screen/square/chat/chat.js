@@ -138,7 +138,12 @@ export default class Chat extends Component {
 
     renderInputToolbar(props) {
         return this.props.toggleTextInput ? (
-            <CustomInputToolBar {...props} onSend={this.onSend} />
+            <CustomInputToolBar
+                {...props}
+                onSend={this.onSend}
+                isLogin={this.props.isLogin}
+                goToLoginPage={this.props.goToLoginPage}
+            />
         ) : null;
     }
 

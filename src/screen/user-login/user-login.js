@@ -97,7 +97,7 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) 
         <Header
             title="用户登陆"
             leftButtonPress={cancelLogin}
-            leftButtonType="back"
+            leftButtonType="cancel"
             rightButton={
                 <TouchableOpacity onPress={goToRegister}>
                     <Text style={styles.register}>注册</Text>

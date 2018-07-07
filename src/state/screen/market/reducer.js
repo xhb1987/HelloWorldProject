@@ -5,7 +5,8 @@ const initialState = {
     markets: [{ name: '福伴超市' }, { name: '小区超市' }],
     market: {},
     loading: false,
-    error: false
+    error: false,
+    notification: ''
 };
 
 const marketReducer = (state = initialState, action) => {

@@ -25,6 +25,14 @@ export const USER_INFO_CLEAR = 'USER_INFO_CLEAR';
 
 export const INVOLVE_PUBLISH = 'INVOLVE_PUBLISH';
 
+export const RESET_NOTIFICATION = 'RESET_NOTIFICATION';
+
+export const resetUserNotificationAction = () => ({
+    type: RESET_NOTIFICATION,
+    payload: {},
+    meta: {}
+});
+
 export const involvePublishAction = type => ({
     type: INVOLVE_PUBLISH,
     payload: type,
@@ -88,15 +96,15 @@ export const userRegisterRequestAction = () => ({
     meta: {}
 });
 
-export const userRegisterSuccessAction = () => ({
+export const userRegisterSuccessAction = res => ({
     type: USER_REGISTER_SUCCESS,
-    payload: {},
+    payload: res,
     meta: {}
 });
 
-export const userRegisterFailureAction = () => ({
+export const userRegisterFailureAction = e => ({
     type: USER_REGISTER_FAILURE,
-    payload: {},
+    payload: e,
     meta: {}
 });
 
@@ -166,6 +174,7 @@ export const userRegisterCode = phone => {
 
 export const userRegister = user => dispatch => {
     dispatch(userRegisterRequestAction());
+    console.log(user);
     const result = fetchPost('userservice/registeruser', {
         userName: user.phone.data,
         mobile: user.phone.data,
@@ -175,6 +184,7 @@ export const userRegister = user => dispatch => {
     return result
         .then(res => {
             dispatch(userRegisterSuccessAction(res));
+            console.log(res);
             if (res.retCode === 0) {
                 dispatch(userLogin(user));
             }
