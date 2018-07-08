@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: 15,
-        lineHeight: 20,
-        fontSize: 16,
+        lineHeight: 25,
+        fontSize: 15,
         flex: 1,
         alignItems: 'center'
     },

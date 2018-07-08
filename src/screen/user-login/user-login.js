@@ -19,13 +19,22 @@ import {
 import Header from '../components/header/header';
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        flex: 1
+    },
     register: {
         color: 'white',
         fontSize: 18
     },
+    pageContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     formContainer: {
-        marginVertical: 30
+        marginVertical: 30,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     inputViewContainer: {
         flexDirection: 'row',
@@ -41,32 +50,43 @@ const styles = StyleSheet.create({
     inputContainer: {
         flex: 10
     },
+    input: {
+        maxWidth: Dimensions.get('screen').width - 30 - 62
+    },
+    passwordInput: {
+        paddingRight: 50
+    },
+    eyeButton: {
+        position: 'absolute',
+        right: 27.5,
+        top: 5,
+        width: 35
+    },
     loginButton: {
         borderRadius: 5
     },
     loginThirdPartyContainer: {
-        marginTop: 20,
+        height: 150,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'flex-start'
     },
     iconGroupContainer: {
-        marginVertical: 20,
-        height: 80,
+        marginTop: 30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
     },
     iconButtonContainer: {
         flex: 1,
+        height: 50,
+        width: 50,
         alignItems: 'center',
         justifyContent: 'center'
     },
     iconButton: {
         flex: 1,
-        width: null,
-        height: null,
-        resizeMode: 'contain',
-        aspectRatio: 0.8
+        width: 50,
+        height: 50
     },
     loginThirdPartyTitleContainer: {
         flexDirection: 'row',
@@ -81,6 +101,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     buttonGroup: {
+        width: Dimensions.get('screen').width,
         marginTop: 20
     },
     errorMsgContainer: {
@@ -92,7 +113,16 @@ const styles = StyleSheet.create({
     }
 });
 
-const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) => (
+const UserLogin = ({
+    login,
+    cancelLogin,
+    goToRegister,
+    userInputChange,
+    user,
+    isLoading,
+    passwordSecured,
+    passwordSecuredToggle
+}) => (
     <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
         <Header
             title="用户登陆"
@@ -104,86 +134,101 @@ const UserLogin = ({ login, cancelLogin, goToRegister, userInputChange, user }) 
                 </TouchableOpacity>
             }
         />
-        <View style={styles.formContainer}>
-            <View style={styles.inputViewContainer}>
-                <Icon
-                    size={28}
-                    type="font-awesome"
-                    name="user"
-                    color="#cccccc"
-                    containerStyle={styles.inputIconContainer}
-                />
-                <FormInput
-                    placeholder="请输入手机号"
-                    placeholderTextColor="#cccccc"
-                    containerStyle={styles.inputContainer}
-                    keyboardType="phone-pad"
-                    onChange={e => {
-                        userInputChange(e.nativeEvent.text, 'phone');
-                    }}
-                />
+        <View style={styles.pageContainer}>
+            <View style={styles.formContainer}>
+                <View style={styles.inputViewContainer}>
+                    <Icon
+                        size={28}
+                        type="font-awesome"
+                        name="user"
+                        color="#cccccc"
+                        containerStyle={styles.inputIconContainer}
+                    />
+                    <FormInput
+                        placeholder="请输入手机号"
+                        placeholderTextColor="#cccccc"
+                        containerStyle={styles.inputContainer}
+                        inputStyle={styles.input}
+                        keyboardType="phone-pad"
+                        onChange={e => {
+                            userInputChange(e.nativeEvent.text, 'phone');
+                        }}
+                    />
+                </View>
+                {user.phone.data && !user.phone.validate ? (
+                    <FormValidationMessage
+                        containerStyle={styles.errorMsgContainer}
+                        style={styles.errorMsg}
+                    >
+                        {' '}
+                        {'请输入正确的手机号码'}
+                    </FormValidationMessage>
+                ) : null}
+                <View style={styles.inputViewContainer}>
+                    <Icon
+                        size={28}
+                        type="entypo"
+                        name="lock"
+                        color="#cccccc"
+                        containerStyle={styles.inputIconContainer}
+                    />
+                    <FormInput
+                        blurOnSubmit
+                        placeholder="请输入密码"
+                        placeholderTextColor="#cccccc"
+                        inputStyle={[styles.input, styles.passwordInput]}
+                        containerStyle={styles.inputContainer}
+                        secureTextEntry={passwordSecured}
+                        onChange={e => {
+                            userInputChange(e.nativeEvent.text, 'password');
+                        }}
+                    />
+                    <TouchableOpacity
+                        style={styles.eyeButton}
+                        onPress={() => passwordSecuredToggle(passwordSecured)}
+                    >
+                        <Icon type="entypo" name="eye" color="#ccc" />
+                    </TouchableOpacity>
+                </View>
+                {user.password.data && !user.password.validate ? (
+                    <FormValidationMessage
+                        containerStyle={styles.errorMsgContainer}
+                        style={styles.errorMsg}
+                    >
+                        {' '}
+                        {'密码至少包含一个数字和一位字母， 至少6位， 最多20位'}
+                    </FormValidationMessage>
+                ) : null}
+                <View style={styles.buttonGroup}>
+                    <Button
+                        disabled={!user.phone.validate || !user.password.validate || isLoading}
+                        buttonStyle={styles.loginButton}
+                        title="登陆"
+                        onPress={() => login(user)}
+                        backgroundColor="#ed3349"
+                        loading={isLoading}
+                        loadingRight
+                    />
+                </View>
             </View>
-            {user.phone.data && !user.phone.validate ? (
-                <FormValidationMessage
-                    containerStyle={styles.errorMsgContainer}
-                    style={styles.errorMsg}
-                >
-                    {' '}
-                    {'请输入正确的手机号码'}
-                </FormValidationMessage>
-            ) : null}
-            <View style={styles.inputViewContainer}>
-                <Icon
-                    size={28}
-                    type="entypo"
-                    name="lock"
-                    color="#cccccc"
-                    containerStyle={styles.inputIconContainer}
-                />
-                <FormInput
-                    blurOnSubmit
-                    placeholder="请输入密码"
-                    placeholderTextColor="#cccccc"
-                    containerStyle={styles.inputContainer}
-                    secureTextEntry
-                    onChange={e => {
-                        userInputChange(e.nativeEvent.text, 'password');
-                    }}
-                />
-            </View>
-            {user.password.data && !user.password.validate ? (
-                <FormValidationMessage
-                    containerStyle={styles.errorMsgContainer}
-                    style={styles.errorMsg}
-                >
-                    {' '}
-                    {'密码至少包含一个数字和一位字母， 至少6位， 最多20位'}
-                </FormValidationMessage>
-            ) : null}
-            <View style={styles.buttonGroup}>
-                <Button
-                    disabled={!user.phone.validate || !user.password.validate}
-                    buttonStyle={styles.loginButton}
-                    title="登陆"
-                    onPress={() => login(user)}
-                    backgroundColor="#ed3349"
-                />
-            </View>
-        </View>
-        <View style={styles.loginThirdPartyContainer}>
-            <View style={styles.loginThirdPartyTitleContainer}>
-                <Divider style={{ height: 1, backgroundColor: '#dddddd', flex: 1 }} />
-                <Text style={styles.loginThirdPartyTitle}>第三方应用登陆</Text>
-                <Divider style={{ height: 1, backgroundColor: '#dddddd', flex: 1 }} />
-            </View>
+            <View style={styles.loginThirdPartyContainer}>
+                <View style={styles.loginThirdPartyTitleContainer}>
+                    <Divider style={{ height: 1, backgroundColor: '#dddddd', flex: 1 }} />
+                    <Text style={styles.loginThirdPartyTitle}>第三方应用登陆</Text>
+                    <Divider style={{ height: 1, backgroundColor: '#dddddd', flex: 1 }} />
+                </View>
 
-            <View style={styles.iconGroupContainer}>
-                <TouchableOpacity onPress={() => {}} style={styles.iconButtonContainer}>
-                    <Image source={require('../../asset/wechat.png')} style={styles.iconButton} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {}} style={styles.iconButtonContainer}>
-                    <Image source={require('../../asset/qq.png')} style={styles.iconButton} />
-                </TouchableOpacity>
+                <View style={styles.iconGroupContainer}>
+                    <TouchableOpacity onPress={() => {}} style={styles.iconButtonContainer}>
+                        <Image
+                            source={require('../../asset/wechat.png')}
+                            style={styles.iconButton}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {}} style={styles.iconButtonContainer}>
+                        <Image source={require('../../asset/qq.png')} style={styles.iconButton} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     </KeyboardAvoidingView>

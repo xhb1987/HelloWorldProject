@@ -5,7 +5,8 @@ import {
     userLogin,
     userInputChangeAction,
     userInfoClearAction,
-    resetNotificationAction
+    resetNotificationAction,
+    passwordSecuredToggleAction
 } from '../../state/screen/user/actions';
 import * as selectors from '../../state/selectors';
 import UserLogin from './user-login';
@@ -21,14 +22,8 @@ class Container extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps);
         if (this.props.isLogin) {
             this.props.loginSuccess();
-        }
-
-        // notification for both login and reigster, need to refactor to better way
-        if (!this.props.isLogin && this.props.notification !== '') {
-            this.props.loginFailure(this.props.notification);
         }
     }
 
@@ -45,10 +40,15 @@ const stateToProps = state => ({
     user: selectors.getUserLogInfo(state),
     isLogin: state.user.isLogin,
     notification: state.user.notification,
-    smsCode: state.user.smsCode
+    smsCode: state.user.smsCode,
+    isLoading: state.user.loading,
+    passwordSecured: state.user.passwordSecured
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
+    passwordSecuredToggle: passwordSecured => {
+        dispatch(passwordSecuredToggleAction(passwordSecured));
+    },
     cancelLogin: () => {
         ownProps.navigator.dismissModal({});
         dispatch(userInfoClearAction());
@@ -62,7 +62,6 @@ const dispatchToProps = (dispatch, ownProps) => ({
         });
     },
     loginFailure: note => {
-        console.log('Im note', note);
         ownProps.navigator.showInAppNotification({
             screen: 'component.Notification',
             autoDismissTimerSec: 0.5

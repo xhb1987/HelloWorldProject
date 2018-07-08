@@ -37,7 +37,7 @@ const DetailCard = ({ product, clientConfig }) => (
                 <FullWidthImage
                     key={img}
                     source={{
-                        uri: clientConfig + lodash.trim(img, '"')
+                        uri: `${clientConfig}${img}`
                     }}
                     style={styles.imgItem}
                 />

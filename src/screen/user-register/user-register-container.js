@@ -23,14 +23,9 @@ class Container extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.isRegistered) {
+        if (this.props.isLogin) {
             this.props.registerSuccess();
         }
-        // this notification is located in user login module,
-        // because this register page and login page share one stack
-        // if (!this.props.isRegistered && this.props.notification !== '') {
-        //     // this.props.registerFailure();
-        // }
     }
 
     render() {

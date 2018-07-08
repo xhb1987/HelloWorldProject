@@ -1,13 +1,15 @@
 import lodash from 'lodash';
 
 export const stringToArray = str => {
-    const matchs = str.match(/\[(.*)\]/);
-    let strArray = [];
-    if (matchs) {
-        strArray = matchs[1].split(',');
-    }
+    return JSON.parse(str);
 
-    return strArray;
+    // const matchs = str.match(/\[(.*)\]/);
+    // let strArray = [];
+    // if (matchs) {
+    //     strArray = matchs[1].split(',');
+    // }
+
+    // return strArray;
 };
 
 export const findTagName = (tags, tag) => {

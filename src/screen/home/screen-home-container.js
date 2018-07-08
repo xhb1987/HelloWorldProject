@@ -12,6 +12,7 @@ import MarketContainer from './market/market-container';
 import EstateListContainer from './estate-list/estate-list-container';
 import ScreenHome from './screen-home';
 import { socketInitAction } from 'state/screen/chat-message/actions';
+import * as selector from '../../state/selectors';
 
 import styles from './styles';
 
@@ -36,6 +37,12 @@ class Container extends Component {
     componentDidMount() {
         SplashScreen.hide();
         this.props.socketInit();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.notification === '' && this.props.notification !== '') {
+            this.props.showNotification();
+        }
     }
 
     static get navigatorStyle() {
@@ -74,12 +81,16 @@ class Container extends Component {
                     {props.navigationState.routes.map((route, i) => {
                         const color = props.position.interpolate({
                             inputRange,
-                            outputRange: inputRange.map(inputIndex => (inputIndex === i ? '#ed3349' : '#888888'))
+                            outputRange: inputRange.map(
+                                inputIndex => (inputIndex === i ? '#ed3349' : '#888888')
+                            )
                         });
 
                         const backgroundColor = props.position.interpolate({
                             inputRange,
-                            outputRange: inputRange.map(inputIndex => (inputIndex === i ? '#ed3349' : '#fff'))
+                            outputRange: inputRange.map(
+                                inputIndex => (inputIndex === i ? '#ed3349' : '#fff')
+                            )
                         });
 
                         const opacity = props.position.interpolate({
@@ -193,12 +204,19 @@ const stateToProps = (state, ownProps) => ({
     homeTitle: state.home.homeTitle,
     productItem: state.product.products,
     city: state.home.selectedCity,
-    navigator: ownProps.navigator
+    navigator: ownProps.navigator,
+    notification: selector.getNotification(state)
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch, ownProps) => ({
     socketInit: () => {
         dispatch(socketInitAction());
+    },
+    showNotification: () => {
+        ownProps.navigator.showInAppNotification({
+            screen: 'component.Notification',
+            autoDismissTimerSec: 0.5
+        });
     }
 });
 

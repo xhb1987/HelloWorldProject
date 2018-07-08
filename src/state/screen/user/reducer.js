@@ -14,7 +14,8 @@ import {
     REGISTER_VALIDATE,
     USER_INFO_CLEAR,
     INVOLVE_PUBLISH,
-    RESET_NOTIFICATION
+    RESET_NOTIFICATION,
+    PASSWORD_SECURED_TOGGLE
 } from './actions';
 import getReturnCodeMessage from '../../../util/return-code';
 
@@ -41,6 +42,7 @@ const initialState = {
         data: '',
         validate: false
     },
+    passwordSecured: true,
     sessionToken: '',
     myInvolvePulish: '',
     notification: ''
@@ -52,13 +54,16 @@ const smsCodeReges = /^\d{6}$/;
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PASSWORD_SECURED_TOGGLE:
+            return Object.assign({}, state, { passwordSecured: !action.payload });
         case RESET_NOTIFICATION:
             return Object.assign({}, state, { notification: '' });
         case USER_INFO_CLEAR: {
             return Object.assign({}, state, {
                 phone: initialState.phone,
                 smsCode: initialState.smsCode,
-                password: initialState.password
+                password: initialState.password,
+                passwordSecured: true
             });
         }
         case USER_INPUT_CHANGE: {
@@ -159,14 +164,6 @@ const userReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 loading: false,
                 isLogin: false,
-                password: {
-                    data: '',
-                    validate: true
-                },
-                phone: {
-                    data: '',
-                    validate: true
-                },
                 notification: getReturnCodeMessage(result.retCode)
             });
         }
@@ -182,7 +179,8 @@ const userReducer = (state = initialState, action) => {
                 phone: {
                     data: '',
                     validate: true
-                }
+                },
+                notification: ''
             });
         case USER_LOGOUT_SUCCESS: {
             const result = action.payload;

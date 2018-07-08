@@ -20,6 +20,7 @@ const USER_NOT_LOGIN_NOW = 10005; // 用户未登录
 const FILE_UPLOAD_FAILED = 10006; // 文件上传失败
 const INVALID_IMAGE_FILE_TYPE = 10007; // 无效的图片文件类型
 const BAD_IMAGE_FILE = 10008; // 破损的图片文件
+const INVALID_SMS_CODE = 10009; // 验证码已经失效
 
 const USER_ALREADY_EXISTS = 11001; // 用户已存在
 const INVALID_ACCOUNT = 11002; // 无效帐号名
@@ -113,7 +114,7 @@ const getReturnCodeMessage = code => {
     if (code === PERMISSION_DENIED) return '没有权限';
     if (code === OUTMONEY_NOT_ENOUGH) return '可出资金不够';
     if (code === USER_NOT_EXISTS) return '用户不存在';
-
+    if (code === INVALID_SMS_CODE) return '验证码已经失效';
     if (code === USER_NOT_LOGIN_NOW) return '用户未登录';
     if (code === FILE_UPLOAD_FAILED) return '文件上传失败';
     if (code === INVALID_IMAGE_FILE_TYPE) return '无效的图片文件类型';

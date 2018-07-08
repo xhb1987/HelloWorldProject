@@ -27,6 +27,14 @@ export const INVOLVE_PUBLISH = 'INVOLVE_PUBLISH';
 
 export const RESET_NOTIFICATION = 'RESET_NOTIFICATION';
 
+export const PASSWORD_SECURED_TOGGLE = 'PASSWORD_SECURED_TOGGLE';
+
+export const passwordSecuredToggleAction = value => ({
+    type: PASSWORD_SECURED_TOGGLE,
+    payload: value,
+    meta: {}
+});
+
 export const resetUserNotificationAction = () => ({
     type: RESET_NOTIFICATION,
     payload: {},

@@ -42,6 +42,12 @@ const styles = StyleSheet.create({
     inputContainer: {
         flex: 10
     },
+    input: {
+        maxWidth: Dimensions.get('screen').width - 30 - 62
+    },
+    smsCodeInput: {
+        paddingRight: 100
+    },
     codeInputContainer: {},
     loginButton: {
         borderRadius: 5
@@ -144,6 +150,7 @@ const UserRegister = ({
                     placeholderTextColor="#cccccc"
                     containerStyle={styles.inputContainer}
                     keyboardType="phone-pad"
+                    inputStyle={styles.input}
                     onChange={e => {
                         userInputChange(e.nativeEvent.text, 'phone');
                     }}
@@ -171,7 +178,7 @@ const UserRegister = ({
                     placeholder="请输入验证码"
                     placeholderTextColor="#cccccc"
                     containerStyle={[styles.inputContainer, styles.codeInputContainer]}
-                    secureTextEntry
+                    inputStyle={[styles.input, styles.smsCodeInput]}
                     onChange={e => {
                         userInputChange(e.nativeEvent.text, 'code');
                     }}
@@ -202,6 +209,7 @@ const UserRegister = ({
                     placeholderTextColor="#cccccc"
                     containerStyle={styles.inputContainer}
                     secureTextEntry
+                    inputStyle={styles.input}
                     onChange={e => {
                         userInputChange(e.nativeEvent.text, 'password');
                     }}

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     title: {
         marginTop: 17.5,
         lineHeight: 25,
-        fontSize: 16,
+        fontSize: 15,
         flex: 1,
         alignItems: 'center'
     },

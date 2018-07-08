@@ -122,7 +122,7 @@ const Card = ({ item, clientConfig, onPressCallback, tags, imageVersion }) => (
                     <View key={img} style={styles.imageContainer}>
                         <Image
                             source={{
-                                uri: `${clientConfig}${lodash.trim(img, '"')}?version=${imageVersion}`,
+                                uri: `${clientConfig}${img}?version=${imageVersion}`,
                                 cache: 'reload'
                             }}
                             style={styles.imgItem}
@@ -133,7 +133,9 @@ const Card = ({ item, clientConfig, onPressCallback, tags, imageVersion }) => (
             <Text style={styles.title}>{item.commodityTitle}</Text>
             {item.labels ? (
                 <View style={styles.tagContainer}>
-                    {stringToArray(item.labels).map(tag => <Tag key={tag} contant={findTagName(tags, tag)} />)}
+                    {stringToArray(item.labels).map(tag => (
+                        <Tag key={tag} contant={findTagName(tags, tag)} />
+                    ))}
                 </View>
             ) : null}
         </View>
