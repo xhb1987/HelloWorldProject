@@ -188,30 +188,14 @@ const userReducer = (state = initialState, action) => {
                 return Object.assign({}, state, {
                     loading: false,
                     error: false,
-                    isLogin: false,
-                    password: {
-                        data: '',
-                        validate: true
-                    },
-                    phone: {
-                        data: '',
-                        validate: true
-                    }
+                    isLogin: false
                 });
             }
 
             return Object.assign({}, state, {
                 loading: false,
                 error: true,
-                isLogin: false,
-                password: {
-                    data: '',
-                    validate: true
-                },
-                phone: {
-                    data: '',
-                    validate: true
-                }
+                isLogin: false
             });
         }
         case REGISTER_VALIDATE: {

@@ -151,11 +151,7 @@ const stateToProps = (state, ownProps) => ({
     navigator: ownProps.navigator
 });
 
-const dispatchToProps = dispatch => ({
-    socketInit: () => {
-        dispatch(socketInitAction());
-    }
-});
+const dispatchToProps = dispatch => ({});
 
 const CommonProductListContainer = connect(stateToProps, dispatchToProps)(Container);
 

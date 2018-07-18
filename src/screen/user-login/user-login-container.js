@@ -8,6 +8,7 @@ import {
     resetNotificationAction,
     passwordSecuredToggleAction
 } from '../../state/screen/user/actions';
+import { socketAuthAction } from '../../state/screen/chat-message/actions';
 import * as selectors from '../../state/selectors';
 import UserLogin from './user-login';
 import { getUserLoginPassword } from '../../state/screen/user/selectors';
@@ -60,6 +61,7 @@ const dispatchToProps = (dispatch, ownProps) => ({
         ownProps.navigator.dismissModal({
             animated: true
         });
+        dispatch(socketAuthAction());
     },
     loginFailure: note => {
         ownProps.navigator.showInAppNotification({

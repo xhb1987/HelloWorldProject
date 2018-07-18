@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, Dimensions } from 'react-native';
-import { Button, Header, Icon, Divider } from 'react-native-elements';
+import { Button, Icon, Divider } from 'react-native-elements';
+import Header from '../components/header/header';
 import HomeTabBarContainer from '../components/tab-bar/tab-bar-container';
 import ProfileInfoContainer from './profile-info/profile-info-container';
 import UserInfoContainer from './user-info/user-info-container';
@@ -17,16 +18,13 @@ const ScreenProfile = ({ navigator, userLogout, isLogin }) => (
     <TabWrapper navigator={navigator}>
         <View style={styles.viewContainer}>
             <Header
-                outerContainerStyles={{
-                    borderBottomColor: '#ed3349',
-                    backgroundColor: '#ed3349'
-                }}
+                leftButtonType="none"
                 centerComponent={
                     <HomeTabBarContainer
                         navigator={navigator}
                         textStyle={{
                             color: 'white',
-                            fontSize: 18
+                            fontSize: 15
                         }}
                         iconStyle={{
                             color: 'white',
@@ -34,6 +32,10 @@ const ScreenProfile = ({ navigator, userLogout, isLogin }) => (
                         }}
                     />
                 }
+                outerContainerStyles={{
+                    height: 56,
+                    paddingBottom: 10
+                }}
             />
             <View style={styles.container}>
                 <UserInfoContainer navigator={navigator} />

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header } from 'react-native-elements';
+import Header from '../components/header/header';
 import { View, Dimensions, PixelRatio } from 'react-native';
 import { TabViewAnimated } from 'react-native-tab-view';
 import HomeTabBarContainer from '../components/tab-bar/tab-bar-container';
@@ -14,16 +14,24 @@ const initialLayout = {
 const ScreenHome = ({ tabRounter, scene, tabHeader, indexChange, navigator }) => (
     <View style={styles.viewContainer}>
         <Header
+            leftButtonType="none"
+            centerComponent={
+                <HomeTabBarContainer
+                    navigator={navigator}
+                    textStyle={{
+                        color: 'white',
+                        fontSize: 15
+                    }}
+                    iconStyle={{
+                        color: 'white',
+                        size: 16
+                    }}
+                />
+            }
             outerContainerStyles={{
-                height: 55,
-                paddingBottom: 12.5,
-                borderBottomColor: 'white',
-                backgroundColor: 'white',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 0
+                height: 56,
+                paddingBottom: 10
             }}
-            centerComponent={<HomeTabBarContainer navigator={navigator} />}
         />
         <TabViewAnimated
             navigationState={tabRounter}

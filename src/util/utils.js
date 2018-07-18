@@ -20,14 +20,15 @@ export const findTagName = (tags, tag) => {
     return label ? label.labelName : '';
 };
 
-export const generateMessage = (message, user) => ({
-    _id: Math.round(Math.random() * 1000000),
+export const generateMessage = (message, user, messageId, messageType) => ({
+    _id: messageId || Math.round(Math.random() * 1000000),
     text: message,
     createdAt: new Date(),
     user: {
         _id: user.id,
-        name: '本地用户'
+        name: user.name || user.id + ''
     },
+    messageType: messageType || 0,
     sent: true,
     received: true
 });

@@ -55,7 +55,7 @@ const persistEstateConfig = {
 const persistChatMessageConfig = {
     key: 'chatMessage',
     storage: AsyncStorage,
-    blacklist: ['notification']
+    whitelist: ['squareMessages']
 };
 
 const reducer = combineReducers({

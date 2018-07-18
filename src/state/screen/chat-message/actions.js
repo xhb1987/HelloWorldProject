@@ -12,15 +12,41 @@ export const SQUARE_SEND_MESSAGE = 'SQUARE_SEND_MESSAGE';
 export const SQUARE_SEND_MESSAGE_SUCCESS = 'SQUARE_SEND_MESSAGE_SUCCESS';
 export const SQUARE_SEND_MESSAGE_FAILURE = 'SQUARE_SEND_MESSAGE_FAILURE';
 
-const socketMessageReceiveAction = msg => ({
+export const SOCKET_CLOSE_REQUEST = 'SOCKET_CLOSE_REQUEST';
+export const SOCKET_CLOSE_SUCCESS = 'SOCKET_CLOSE_SUCCESS';
+export const SOCKET_CLOSE_FAILURE = 'SOCKET_CLOSE_FAILURE';
+
+export const SOCKET_CONNECTION_DETECT = 'SOCKET_CONNECTION_DETECT';
+export const SOCKET_CONNECTION_SUCCESS = 'SOCKET_CONNECTION_SUCCESS';
+export const SOCKET_CONNECTION_FAILURE = 'SOCKET_CONNECTION_FAILURE';
+
+// export const socketCloseAction = () => ({
+//     type: SOCKET_CLOSE,
+//     payload: {},
+//     meta: {}
+// });
+
+export function socketCloseAction() {
+    return {
+        type: 'socket',
+        types: [SOCKET_CLOSE_REQUEST, SOCKET_CLOSE_SUCCESS, SOCKET_CLOSE_FAILURE],
+        promise: socket => socket.disconnect()
+    };
+}
+
+const socketMessageReceiveAction = (msg, village, user) => ({
     type: SOCKET_RECEIVE,
-    payload: msg,
+    payload: { msg, village, user },
     meta: {}
 });
 
 function socketMessageReceive(msg) {
-    return dispatch => {
-        dispatch(socketMessageReceiveAction(msg));
+    return (dispatch, getState) => {
+        const state = getState();
+        const village = state.home.selectedVillage;
+        const user = state.user.userInfo;
+
+        dispatch(socketMessageReceiveAction(msg, village, user));
     };
 }
 
@@ -40,10 +66,10 @@ export function sendMessageAction(dataValue, village, userInfo) {
         types: [SQUARE_SEND_MESSAGE, SQUARE_SEND_MESSAGE_SUCCESS, SQUARE_SEND_MESSAGE_FAILURE],
         payload: {
             user: userInfo,
-            village: village,
+            village,
             msgContent: dataValue
         },
-        promise: (socket, dispatch) =>
+        promise: socket =>
             socket.emit({
                 funCode: 2007,
                 villageID: village.villageID,
@@ -56,25 +82,22 @@ export function socketAuthAction() {
         type: 'socket',
         types: [SOCKET_AUTH_REQUEST, SOCKET_AUTH_SUCCESS, SOCKET_AUTH_FAILURE],
         payload: {
-            funCode: '1',
+            funCode: 1,
             sessionToken: global.token
         },
         promise: socket =>
             socket.emit({
-                funCode: '1',
+                funCode: 1,
                 sessionToken: global.token
             })
     };
 }
 
-export function socketConnectAction() {
+export function socketConnectionDetect() {
     return {
         type: 'socket',
-        types: [SOCKET_RECEIVE_REQUEST, SOCKET_RECEIVE_SUCCESS, SOCKET_RECEIVE_FAILURE],
+        types: [SOCKET_CONNECTION_DETECT, SOCKET_CONNECTION_SUCCESS, SOCKET_CONNECTION_FAILURE],
         payload: {},
-        promise: socket =>
-            socket.on(message => {
-                console.log('message', message);
-            })
+        promise: socket => socket.detect()
     };
 }

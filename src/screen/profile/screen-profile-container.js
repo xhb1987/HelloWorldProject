@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userLogout } from '../../state/screen/user/actions';
+import { userLogoutAction } from '../../state/actions';
 import ScreenProfile from './screen-profile';
 
 class Container extends Component {
@@ -30,7 +30,7 @@ const dispatchToProps = (dispatch, ownProps) => ({
         });
     },
 
-    userLogout: () => dispatch(userLogout())
+    userLogout: () => dispatch(userLogoutAction())
 });
 
 const ScreenProfileContainer = connect(stateToProps, dispatchToProps)(Container);

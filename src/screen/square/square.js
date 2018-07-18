@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Header, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
+import Header from '../components/header/header';
 import HomeTabBarContainer from '../components/tab-bar/tab-bar-container';
 import TabContainer from '../tabs/tabs-container';
 import ChatContainer from './chat/chat-container';
@@ -35,16 +36,13 @@ const Square = ({ navigator, toggleTextInput, toggleFabButton }) => (
     <TabWrapper navigator={navigator} hideTab={toggleTextInput}>
         <View style={styles.container}>
             <Header
-                outerContainerStyles={{
-                    borderBottomColor: '#ed3349',
-                    backgroundColor: '#ed3349'
-                }}
+                leftButtonType="none"
                 centerComponent={
                     <HomeTabBarContainer
                         navigator={navigator}
                         textStyle={{
                             color: 'white',
-                            fontSize: 18
+                            fontSize: 15
                         }}
                         iconStyle={{
                             color: 'white',
@@ -52,6 +50,10 @@ const Square = ({ navigator, toggleTextInput, toggleFabButton }) => (
                         }}
                     />
                 }
+                outerContainerStyles={{
+                    height: 56,
+                    paddingBottom: 10
+                }}
             />
             <ChatContainer navigator={navigator} />
             <Icon

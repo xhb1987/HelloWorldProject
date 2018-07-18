@@ -36,6 +36,7 @@ class Container extends Component {
 
     componentDidMount() {
         SplashScreen.hide();
+        console.log('Im home did mount');
         this.props.socketInit();
     }
 
@@ -62,6 +63,7 @@ class Container extends Component {
             <View>
                 <View
                     style={{
+                        marginTop: 10,
                         height: 25,
                         flexDirection: 'row',
                         alignItems: 'center',

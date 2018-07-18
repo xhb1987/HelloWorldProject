@@ -59,9 +59,9 @@ const userLogoutRequestAction = () => ({
     meta: {}
 });
 
-const userLogoutSuccessAction = () => ({
+const userLogoutSuccessAction = res => ({
     type: USER_LOGOUT_SUCCESS,
-    payload: {},
+    payload: res,
     meta: {}
 });
 
@@ -151,7 +151,6 @@ export const userLogin = user => {
         return result
             .then(response => {
                 dispatch(userLoginSuccessAction(response));
-                dispatch(socketAuthAction());
             })
             .catch(e => dispatch(userLoginFailureAction(e)));
     };
