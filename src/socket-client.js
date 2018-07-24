@@ -14,6 +14,11 @@ export default class socketAPI {
             messageCallback(e.data);
         };
 
+        this.socket.onclose = () => {
+            console.log('Im close function');
+            disconnectCallback();
+        };
+
         return new Promise((resolve, reject) => {
             this.socket.onopen = () => {
                 return resolve();

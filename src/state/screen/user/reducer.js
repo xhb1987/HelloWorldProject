@@ -10,12 +10,15 @@ import {
     USER_REGISTER_CODE_SUCCESS,
     USER_REGISTER_CODE_FAILURE,
     USER_INPUT_CHANGE,
+    USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
+    USER_LOGOUT_FAILURE,
     REGISTER_VALIDATE,
     USER_INFO_CLEAR,
     INVOLVE_PUBLISH,
     RESET_NOTIFICATION,
-    PASSWORD_SECURED_TOGGLE
+    PASSWORD_SECURED_TOGGLE,
+    USER_KEEPING_LOGIN
 } from './actions';
 import getReturnCodeMessage from '../../../util/return-code';
 
@@ -45,7 +48,8 @@ const initialState = {
     passwordSecured: true,
     sessionToken: '',
     myInvolvePulish: '',
-    notification: ''
+    notification: '',
+    logoutLoading: false
 };
 
 const phoneRegex = /^1(3|4|5|7|8)\d{9}$/;
@@ -54,6 +58,17 @@ const smsCodeReges = /^\d{6}$/;
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case USER_KEEPING_LOGIN: {
+            if (action.payload.funCode === 2 && action.payload.retCode === 0) {
+                return Object.assign({}, state, { isLogin: true });
+            }
+
+            if (action.payload.funCode === 2 && action.payload.retCode === 10005) {
+                return Object.assign({}, state, { sessionToken: '', isLogin: false });
+            }
+            console.log(action.payload);
+            return state;
+        }
         case PASSWORD_SECURED_TOGGLE:
             return Object.assign({}, state, { passwordSecured: !action.payload });
         case RESET_NOTIFICATION:
@@ -182,21 +197,24 @@ const userReducer = (state = initialState, action) => {
                 },
                 notification: ''
             });
+        case USER_LOGOUT_REQUEST:
+            return Object.assign({}, state, {
+                isLogin: false,
+                sessionToken: '',
+                logoutLoading: true
+            });
         case USER_LOGOUT_SUCCESS: {
             const result = action.payload;
             if (result.retCode === 0) {
                 return Object.assign({}, state, {
-                    loading: false,
+                    logoutLoading: false,
                     error: false,
-                    isLogin: false
+                    isLogin: false,
+                    sessionToken: ''
                 });
             }
 
-            return Object.assign({}, state, {
-                loading: false,
-                error: true,
-                isLogin: false
-            });
+            return state;
         }
         case REGISTER_VALIDATE: {
             const { userInput, validationType } = action.payload;

@@ -31,7 +31,7 @@ const persistProductConfig = {
 const persistUserConfig = {
     key: 'user',
     storage: AsyncStorage,
-    whitelist: ['userInfo']
+    whitelist: ['userInfo', 'sessionToken']
 };
 
 const persistMessageConfig = {

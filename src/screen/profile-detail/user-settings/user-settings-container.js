@@ -23,6 +23,11 @@ const stateToProps = (state, ownProps) => ({
 const dispatchToProps = (dispatch, ownProps) => ({
     goBack: () => {
         ownProps.navigator.pop();
+    },
+    goToResetPassword: () => {
+        ownProps.navigator.push({
+            screen: 'screen.Profile.Settings.ResetPassword'
+        });
     }
 });
 

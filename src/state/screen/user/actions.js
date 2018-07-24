@@ -29,6 +29,14 @@ export const RESET_NOTIFICATION = 'RESET_NOTIFICATION';
 
 export const PASSWORD_SECURED_TOGGLE = 'PASSWORD_SECURED_TOGGLE';
 
+export const USER_KEEPING_LOGIN = 'USER_KEEPING_LOGIN';
+
+export const userKeepingLogin = msg => ({
+    type: USER_KEEPING_LOGIN,
+    payload: msg,
+    meta: {}
+});
+
 export const passwordSecuredToggleAction = value => ({
     type: PASSWORD_SECURED_TOGGLE,
     payload: value,

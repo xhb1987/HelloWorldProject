@@ -43,11 +43,15 @@ const styles = StyleSheet.create({
     },
     containerStyle: {
         borderTopWidth: 0,
-        marginTop: 5,
-        marginBottom: 5,
-        bottom: 5,
+        height: 46,
+        bottom: 0,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        transform: [
+            {
+                translateX: 375
+            }
+        ]
     }
 });
 

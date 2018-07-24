@@ -29,17 +29,6 @@ class Container extends Component {
 
     componentDidMount() {
         AppState.addEventListener('change', this.handleAppStateChange);
-        const pollFunc = () => {
-            if (this.pollId) {
-                clearTimeout(this.pollId);
-            }
-
-            this.pollId = setTimeout(() => {
-                this.props.socketConnectionDetect();
-                pollFunc();
-            }, 60000);
-        };
-        pollFunc();
     }
 
     componentDidUpdate(prevProps) {
@@ -47,13 +36,24 @@ class Container extends Component {
             console.log('Im did update');
             this.props.socketInit();
         }
+
         if (
-            this.props.isLogin &&
+            this.props.isLogin === false &&
+            this.props.sessionToken !== '' &&
+            (prevProps.socketClosed === true && this.props.socketClosed === false)
+        ) {
+            console.log('im socket auth');
+            this.props.socketAuth(this.props.sessionToken);
+        }
+
+        if (
+            this.props.isLogoutLoading === false &&
+            this.props.isLogin === true &&
             this.props.socketAuthed === false &&
-            this.props.socketClosed === false
+            (prevProps.socketClosed === true && this.props.socketClosed === false)
         ) {
             console.log('test auth');
-            this.props.socketAuth();
+            this.props.socketAuth(this.props.sessionToken);
         }
     }
 
@@ -107,7 +107,9 @@ const stateToProps = state => ({
     toggleActionSheet: state.square.toggleActionSheet,
     socketConnect: state.chatMessage.socketConnect,
     socketAuthed: state.chatMessage.authorized,
-    socketClosed: state.chatMessage.socketClosed
+    socketClosed: state.chatMessage.socketClosed,
+    sessionToken: state.user.sessionToken,
+    isLogoutLoading: state.user.logoutLoading
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
@@ -118,7 +120,7 @@ const dispatchToProps = (dispatch, ownProps) => ({
     loadOldMessageSuccess: messages => dispatch(loadOldMessageSuccessAction(messages)),
     togglePicsActionSheet: () => dispatch(toggleActionSheetAction()),
     socketInit: () => dispatch(socketInitAction()),
-    socketAuth: () => dispatch(socketAuthAction()),
+    socketAuth: token => dispatch(socketAuthAction(token)),
     socketConnectionDetect: () => dispatch(socketConnectionDetect()),
     goToLoginPage: () =>
         ownProps.navigator.showModal({

@@ -31,7 +31,13 @@ const dispatchToProps = dispatch => ({
     selectOption: (type, option) => {
         dispatch(productOptionSelectAction(type, option));
         Navigation.dismissLightBox({
-            animationType: 'slide-down'
+            animationType: 'none',
+            screenBackgroundColor: 'transparent'
+        });
+    },
+    cancel: () => {
+        Navigation.dismissLightBox({
+            animationType: 'none'
         });
     }
 });

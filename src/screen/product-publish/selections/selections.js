@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Dimensions, Text, View, StyleSheet } from 'react-native';
+import {
+    TouchableOpacity,
+    Dimensions,
+    Text,
+    View,
+    StyleSheet,
+    Animated,
+    Easing
+} from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('screen').height,
+        height: Dimensions.get('screen').height + 200,
         width: Dimensions.get('screen').width,
         backgroundColor: '#3a3a3a7a',
         flexDirection: 'column',
@@ -53,6 +61,48 @@ const styles = StyleSheet.create({
 });
 
 class Selections extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            backgroundFade: new Animated.Value(0),
+            menuPosition: new Animated.Value(150)
+        };
+        this.dismissLayout = this.dismissLayout.bind(this);
+    }
+
+    componentDidMount() {
+        Animated.sequence([
+            Animated.timing(this.state.backgroundFade, {
+                toValue: 1,
+                duration: 10
+            }).start(),
+
+            Animated.timing(this.state.menuPosition, {
+                toValue: 0,
+                duration: 50,
+                delay: 100,
+                easing: Easing.linear
+            }).start()
+        ]);
+    }
+
+    dismissLayout() {
+        Animated.sequence([
+            Animated.timing(this.state.menuPosition, {
+                toValue: 150,
+                duration: 50,
+                easing: Easing.linear
+            }).start(),
+
+            Animated.timing(this.state.backgroundFade, {
+                toValue: 0,
+                duration: 20,
+                delay: 100
+            }).stop(this.props.cancel())
+        ]);
+        // this.props.cancel();
+    }
+
     render() {
         const {
             openCategory,
@@ -61,7 +111,8 @@ class Selections extends Component {
             productOptionActive,
             productCategoryOption,
             productUsageOption,
-            productDistrictOption
+            productDistrictOption,
+            cancel
         } = this.props;
 
         let option = productCategoryOption;
@@ -72,36 +123,67 @@ class Selections extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                <View style={styles.menuContainer}>
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.title}>{option.title}</Text>
-                    </View>
-                    <View style={styles.optionContainer}>
-                        {option.options.map((opt, i) => (
-                            <TouchableOpacity
-                                style={
-                                    option.options.length - 1 === i
-                                        ? [styles.option, styles.optionLast]
-                                        : styles.option
+            <TouchableOpacity onPress={this.dismissLayout} accessible={false}>
+                <Animated.View
+                    style={[
+                        styles.container,
+                        {
+                            opacity: this.state.backgroundFade.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0, 1]
+                            }),
+                            transform: [
+                                {
+                                    translateY: -100
                                 }
-                                key={opt}
-                                onPress={() => selectOption(productOptionActive, opt)}
-                            >
-                                <Text
-                                    style={
-                                        opt === productToPublish[productOptionActive]
-                                            ? [styles.optionTitle, styles.optionTitleSelected]
-                                            : styles.optionTitle
+                            ]
+                        }
+                    ]}
+                >
+                    <Animated.View
+                        style={[
+                            styles.menuContainer,
+                            {
+                                transform: [
+                                    {
+                                        translateY: this.state.menuPosition.interpolate({
+                                            inputRange: [0, 1],
+                                            outputRange: [0, 150]
+                                        })
                                     }
+                                ]
+                            }
+                        ]}
+                    >
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>{option.title}</Text>
+                        </View>
+                        <View style={styles.optionContainer}>
+                            {option.options.map((opt, i) => (
+                                <TouchableOpacity
+                                    style={
+                                        option.options.length - 1 === i
+                                            ? [styles.option, styles.optionLast]
+                                            : styles.option
+                                    }
+                                    key={opt}
+                                    onPress={() => selectOption(productOptionActive, opt)}
                                 >
-                                    {opt}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </View>
-            </View>
+                                    <Text
+                                        style={
+                                            opt === productToPublish[productOptionActive]
+                                                ? [styles.optionTitle, styles.optionTitleSelected]
+                                                : styles.optionTitle
+                                        }
+                                    >
+                                        {opt}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </Animated.View>
+                </Animated.View>
+            </TouchableOpacity>
         );
     }
 }

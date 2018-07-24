@@ -49,6 +49,7 @@ import UserCertContainer from './profile-detail/user-cert/user-cert-container';
 import UserCertAddContainer from './profile-detail/user-cert-add/user-cert-add-container';
 import UserPublishContainer from './profile-detail/user-publish/user-publish-container';
 import UserInvolveContainer from './profile-detail/user-involve/user-involve-container';
+import ResetPasswordContainer from './profile-detail/user-settings/reset-password/reset-password-container';
 
 // notification
 import AppNotificationContainer from './components/notification/app-notification-container';
@@ -77,6 +78,12 @@ export const registerScreens = (store, provider) => {
     Navigation.registerComponent(
         'screen.Profile.Involve',
         () => UserInvolveContainer,
+        store,
+        provider
+    );
+    Navigation.registerComponent(
+        'screen.Profile.Settings.ResetPassword',
+        () => ResetPasswordContainer,
         store,
         provider
     );

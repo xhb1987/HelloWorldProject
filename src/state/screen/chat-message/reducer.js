@@ -14,6 +14,7 @@ import {
     SOCKET_CLOSE_REQUEST,
     SOCKET_CLOSE_SUCCESS,
     SOCKET_CLOSE_FAILURE,
+    SOCKET_CLOSED,
     SOCKET_CONNECTION_DETECT,
     SOCKET_CONNECTION_SUCCESS,
     SOCKET_CONNECTION_FAILURE
@@ -58,9 +59,11 @@ const initialState = {
 
 const chatMessageReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SOCKET_CLOSED:
+            return Object.assign({}, state, { socketClosed: true, authorized: false });
         case SOCKET_REQUEST:
             return Object.assign({}, state, {
-                socketClosed: false,
+                socketClosed: true,
                 authorized: false
             });
         case SOCKET_SUCCESS:

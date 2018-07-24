@@ -1,3 +1,5 @@
+import { userKeepingLogin } from '../user/actions';
+
 export const SOCKET_REQUEST = 'SOCKET_REQUEST';
 export const SOCKET_SUCCESS = 'SOCKET_SUCCESS';
 export const SOCKET_FAILURE = 'SOCKET_FAILURE';
@@ -20,11 +22,13 @@ export const SOCKET_CONNECTION_DETECT = 'SOCKET_CONNECTION_DETECT';
 export const SOCKET_CONNECTION_SUCCESS = 'SOCKET_CONNECTION_SUCCESS';
 export const SOCKET_CONNECTION_FAILURE = 'SOCKET_CONNECTION_FAILURE';
 
-// export const socketCloseAction = () => ({
-//     type: SOCKET_CLOSE,
-//     payload: {},
-//     meta: {}
-// });
+export const SOCKET_CLOSED = 'SOCKET_CLOSED';
+
+const socketClosed = () => ({
+    type: SOCKET_CLOSED,
+    payload: {},
+    meta: {}
+});
 
 export function socketCloseAction() {
     return {
@@ -55,9 +59,20 @@ export function socketInitAction() {
         type: 'socket',
         types: [SOCKET_REQUEST, SOCKET_SUCCESS, SOCKET_FAILURE],
         promise: (socket, dispatch) =>
-            socket.init(msg => {
-                dispatch(socketMessageReceive(msg));
-            })
+            socket.init(
+                msg => {
+                    const message = JSON.parse(msg);
+
+                    if (message.funCode === 2) {
+                        dispatch(userKeepingLogin(message));
+                    }
+
+                    dispatch(socketMessageReceive(msg));
+                },
+                () => {
+                    dispatch(socketClosed());
+                }
+            )
     };
 }
 export function sendMessageAction(dataValue, village, userInfo) {
@@ -77,18 +92,18 @@ export function sendMessageAction(dataValue, village, userInfo) {
             })
     };
 }
-export function socketAuthAction() {
+export function socketAuthAction(token) {
     return {
         type: 'socket',
         types: [SOCKET_AUTH_REQUEST, SOCKET_AUTH_SUCCESS, SOCKET_AUTH_FAILURE],
         payload: {
             funCode: 1,
-            sessionToken: global.token
+            sessionToken: global.token || token
         },
         promise: socket =>
             socket.emit({
                 funCode: 1,
-                sessionToken: global.token
+                sessionToken: global.token || token
             })
     };
 }

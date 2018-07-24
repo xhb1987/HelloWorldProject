@@ -102,6 +102,10 @@ const squareReducer = (state = initialState, action) => {
                 messages: GiftedChat.append(state.messages, action.payload.messages)
             });
         case SEND_MESSAGE: {
+            if (action.payload.msgContent === '') {
+                return state;
+            }
+
             const messageObj = generateMessage(action.payload.msgContent);
             return Object.assign({}, state, {
                 messages: GiftedChat.append(state.messages, messageObj)

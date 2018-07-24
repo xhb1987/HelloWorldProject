@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const UserSettings = ({ navigator, userLogout, isLogin, goBack }) => (
+const UserSettings = ({ navigator, userLogout, isLogin, goBack, goToResetPassword }) => (
     <View style={styles.viewContainer}>
         <Header
             outerContainerStyles={{
@@ -94,7 +94,11 @@ const UserSettings = ({ navigator, userLogout, isLogin, goBack }) => (
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.itemContainer, styles.item]}>
+            <TouchableOpacity
+                style={[styles.itemContainer, styles.item]}
+                onPress={goToResetPassword}
+                activeOpacity={0.8}
+            >
                 <Text style={styles.text}>修改账号密码</Text>
                 <View style={styles.iconContainer}>
                     <Icon type="entypo" size={18} name="chevron-thin-right" color="#dddddd" />

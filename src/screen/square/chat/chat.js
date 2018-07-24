@@ -174,7 +174,7 @@ export default class Chat extends Component {
                 listViewProps={
                     this.props.toggleTextInput
                         ? {
-                              style: { marginBottom: 10, backgroundColor: '#f0f0f0' }
+                              style: { marginBottom: 0, backgroundColor: '#f0f0f0' }
                           }
                         : {
                               style: { marginBottom: -45, backgroundColor: '#f0f0f0' }

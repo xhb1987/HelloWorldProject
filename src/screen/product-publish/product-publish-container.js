@@ -43,9 +43,10 @@ const dispatchToProps = (dispatch, ownProps) => ({
         dispatch(productOptionAction(type));
         Navigation.showLightBox({
             screen: 'lightBox.ProductPublish.Selections',
-            backgroundBlur: 'light',
-            backgroundColor: '#ff000080',
-            apBackgroundToDismiss: true
+            navigatorStyle: {
+                screenBackgroundColor: '#3a3a3a7a'
+            },
+            animationType: 'none'
         });
     },
     openCategory: () => {

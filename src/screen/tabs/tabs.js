@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Image,
@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Dimensions,
     StyleSheet,
-    PixelRatio
+    PixelRatio,
+    Animated
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -101,72 +102,109 @@ const styles = StyleSheet.create({
     }
 });
 
-const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, activeTab }) => (
-    <View style={styles.tabContainer}>
-        <TouchableOpacity
-            style={[styles.tabButtonContainer, styles.tabButtonSmall]}
-            onPress={() => goToIndex()}
-        >
-            <Image
-                style={styles.tabImage}
-                source={
-                    activeTab === 'index'
-                        ? require('../../asset/icon/index-selected.png')
-                        : require('../../asset/icon/index.png')
-                }
-            />
-            <Text style={styles.tabTitle}>首页</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-            style={[styles.tabButtonContainer, styles.tabButtonSideLeft]}
-            onPress={() => goToSquare()}
-        >
-            <Image
-                style={styles.tabImage}
-                source={
-                    activeTab === 'square'
-                        ? require('../../asset/icon/square-selected.png')
-                        : require('../../asset/icon/square.png')
-                }
-            />
-            <Text style={styles.tabTitle}>广场</Text>
-        </TouchableOpacity>
-        <TouchableHighlight
-            underlayColor={'white'}
-            style={styles.tabPublishContainer}
-            onPress={() => goToPublish()}
-        >
-            <Image style={[styles.imageBig]} source={require('../../asset/icon/publish.png')} />
-        </TouchableHighlight>
-        <TouchableOpacity
-            style={[styles.tabButtonContainer, styles.tabButtonSideRight]}
-            onPress={() => goToMessage()}
-        >
-            <Image
-                style={styles.tabImage}
-                source={
-                    activeTab === 'message'
-                        ? require('../../asset/icon/message-selected.png')
-                        : require('../../asset/icon/message.png')
-                }
-            />
-            <Text style={styles.tabTitle}>消息</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-            style={[styles.tabButtonContainer, styles.tabButtonSmall]}
-            onPress={() => goToProfile()}
-        >
-            <Image
-                style={styles.tabImage}
-                source={
-                    activeTab === 'profile'
-                        ? require('../../asset/icon/profile-selected.png')
-                        : require('../../asset/icon/profile.png')
-                }
-            />
-            <Text style={styles.tabTitle}>我的</Text>
-        </TouchableOpacity>
-    </View>
-);
+class Tab extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            positionTranslate: new Animated.Value(0)
+        };
+    }
+
+    render() {
+        const {
+            goToIndex,
+            goToSquare,
+            goToPublish,
+            goToMessage,
+            goToProfile,
+            activeTab
+        } = this.props;
+        return (
+            <Animated.View
+                style={[
+                    styles.tabContainer,
+                    {
+                        transform: [
+                            {
+                                translateX: -200
+                            }
+                        ]
+                    }
+                ]}
+            >
+                <TouchableOpacity
+                    style={[styles.tabButtonContainer, styles.tabButtonSmall]}
+                    onPress={() => goToIndex()}
+                >
+                    <Image
+                        style={styles.tabImage}
+                        source={
+                            activeTab === 'index'
+                                ? require('../../asset/icon/index-selected.png')
+                                : require('../../asset/icon/index.png')
+                        }
+                    />
+                    <Text style={styles.tabTitle}>首页</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.tabButtonContainer, styles.tabButtonSideLeft]}
+                    onPress={() => goToSquare()}
+                >
+                    <Image
+                        style={styles.tabImage}
+                        source={
+                            activeTab === 'square'
+                                ? require('../../asset/icon/square-selected.png')
+                                : require('../../asset/icon/square.png')
+                        }
+                    />
+                    <Text style={styles.tabTitle}>广场</Text>
+                </TouchableOpacity>
+                <TouchableHighlight
+                    underlayColor={'white'}
+                    style={styles.tabPublishContainer}
+                    onPress={() => goToPublish()}
+                >
+                    <Image
+                        style={[styles.imageBig]}
+                        source={require('../../asset/icon/publish.png')}
+                    />
+                </TouchableHighlight>
+                <TouchableOpacity
+                    style={[styles.tabButtonContainer, styles.tabButtonSideRight]}
+                    onPress={() => goToMessage()}
+                >
+                    <Image
+                        style={styles.tabImage}
+                        source={
+                            activeTab === 'message'
+                                ? require('../../asset/icon/message-selected.png')
+                                : require('../../asset/icon/message.png')
+                        }
+                    />
+                    <Text style={styles.tabTitle}>消息</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.tabButtonContainer, styles.tabButtonSmall]}
+                    onPress={() => goToProfile()}
+                >
+                    <Image
+                        style={styles.tabImage}
+                        source={
+                            activeTab === 'profile'
+                                ? require('../../asset/icon/profile-selected.png')
+                                : require('../../asset/icon/profile.png')
+                        }
+                    />
+                    <Text style={styles.tabTitle}>我的</Text>
+                </TouchableOpacity>
+            </Animated.View>
+        );
+    }
+}
+
+// const Tab = ({ goToIndex, goToSquare, goToPublish, goToMessage, goToProfile, activeTab }) => (
+
+// );
 
 export default Tab;
