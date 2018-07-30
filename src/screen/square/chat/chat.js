@@ -137,14 +137,14 @@ export default class Chat extends Component {
     }
 
     renderInputToolbar(props) {
-        return this.props.toggleTextInput ? (
+        return (
             <CustomInputToolBar
                 {...props}
                 onSend={this.onSend}
                 isLogin={this.props.isLogin}
                 goToLoginPage={this.props.goToLoginPage}
             />
-        ) : null;
+        );
     }
 
     renderAvatar(props) {
@@ -174,7 +174,7 @@ export default class Chat extends Component {
                 listViewProps={
                     this.props.toggleTextInput
                         ? {
-                              style: { marginBottom: 0, backgroundColor: '#f0f0f0' }
+                              style: { marginBottom: -45, backgroundColor: '#f0f0f0' }
                           }
                         : {
                               style: { marginBottom: -45, backgroundColor: '#f0f0f0' }

@@ -17,7 +17,10 @@ import {
     SOCKET_CLOSED,
     SOCKET_CONNECTION_DETECT,
     SOCKET_CONNECTION_SUCCESS,
-    SOCKET_CONNECTION_FAILURE
+    SOCKET_CONNECTION_FAILURE,
+    SOCKET_HEARTBEAT,
+    SOCKET_HEARTBEAT_SUCCESS,
+    SOCKET_HEARTBEAT_FAILURE
 } from './actions';
 import { generateMessage } from '../../../util/utils';
 
@@ -184,6 +187,12 @@ const chatMessageReducer = (state = initialState, action) => {
             return Object.assign({}, state, { socketClosed: false });
         case SOCKET_CONNECTION_FAILURE:
             return Object.assign({}, state, { socketClosed: true, authorized: false });
+        case SOCKET_HEARTBEAT:
+            return state;
+        case SOCKET_HEARTBEAT_SUCCESS:
+        case SOCKET_HEARTBEAT_FAILURE:
+            console.log(action);
+            return state;
         default:
             return state;
     }

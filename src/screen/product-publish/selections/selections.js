@@ -74,13 +74,15 @@ class Selections extends Component {
         Animated.sequence([
             Animated.timing(this.state.backgroundFade, {
                 toValue: 1,
-                duration: 10
+                duration: 10,
+                useNativeDriver: true
             }).start(),
 
             Animated.timing(this.state.menuPosition, {
                 toValue: 0,
                 duration: 50,
                 delay: 100,
+                useNativeDriver: true,
                 easing: Easing.linear
             }).start()
         ]);
@@ -91,13 +93,15 @@ class Selections extends Component {
             Animated.timing(this.state.menuPosition, {
                 toValue: 150,
                 duration: 50,
+                useNativeDriver: true,
                 easing: Easing.linear
             }).start(),
 
             Animated.timing(this.state.backgroundFade, {
                 toValue: 0,
                 duration: 20,
-                delay: 100
+                delay: 150,
+                useNativeDriver: true
             }).stop(this.props.cancel())
         ]);
         // this.props.cancel();

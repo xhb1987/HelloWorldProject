@@ -22,7 +22,25 @@ export const SOCKET_CONNECTION_DETECT = 'SOCKET_CONNECTION_DETECT';
 export const SOCKET_CONNECTION_SUCCESS = 'SOCKET_CONNECTION_SUCCESS';
 export const SOCKET_CONNECTION_FAILURE = 'SOCKET_CONNECTION_FAILURE';
 
+export const SOCKET_HEARTBEAT = 'SOCKET_HEARTBEAT';
+export const SOCKET_HEARTBEAT_SUCCESS = 'SOCKET_HEARTBEAT_SUCCESS';
+export const SOCKET_HEARTBEAT_FAILURE = 'SOCKET_HEARTBEAT_FAILURE';
+
 export const SOCKET_CLOSED = 'SOCKET_CLOSED';
+
+export function socketHeartBeatAction() {
+    return {
+        type: 'socket',
+        types: [SOCKET_HEARTBEAT, SOCKET_HEARTBEAT_SUCCESS, SOCKET_HEARTBEAT_FAILURE],
+        payload: {
+            funCode: 1005
+        },
+        promise: socket =>
+            socket.emit({
+                funCode: 1005
+            })
+    };
+}
 
 const socketClosed = () => ({
     type: SOCKET_CLOSED,
@@ -65,6 +83,10 @@ export function socketInitAction() {
 
                     if (message.funCode === 2) {
                         dispatch(userKeepingLogin(message));
+                    }
+
+                    if (message.funCode === 1005) {
+                        dispatch(socketHeartBeatAction());
                     }
 
                     dispatch(socketMessageReceive(msg));

@@ -120,18 +120,7 @@ class Tab extends Component {
             activeTab
         } = this.props;
         return (
-            <Animated.View
-                style={[
-                    styles.tabContainer,
-                    {
-                        transform: [
-                            {
-                                translateX: -200
-                            }
-                        ]
-                    }
-                ]}
-            >
+            <Animated.View style={styles.tabContainer}>
                 <TouchableOpacity
                     style={[styles.tabButtonContainer, styles.tabButtonSmall]}
                     onPress={() => goToIndex()}

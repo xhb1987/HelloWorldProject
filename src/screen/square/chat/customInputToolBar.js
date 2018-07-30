@@ -49,7 +49,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         transform: [
             {
-                translateX: 375
+                translateX: 0
+            },
+            {
+                translateY: 46
             }
         ]
     }

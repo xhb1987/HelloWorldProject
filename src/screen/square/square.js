@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Header from '../components/header/header';
 import HomeTabBarContainer from '../components/tab-bar/tab-bar-container';
@@ -12,23 +12,29 @@ const styles = StyleSheet.create({
         flex: 1,
         height: Dimensions.get('window').height
     },
-    fabButtonHeight: {
-        bottom: 80
-    },
     fabButton: {
         position: 'absolute',
         bottom: 30,
         right: 5,
-        backgroundColor: '#606060',
+        backgroundColor: '#ffffffdb',
         padding: 2,
         paddingTop: 5,
         paddingLeft: 3,
-        borderRadius: 20,
-        height: 40,
-        width: 40
+        borderRadius: 250,
+        height: 45,
+        width: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 0
+        },
+        shadowRadius: 2.5,
+        shadowOpacity: 0.5
     },
     fabIcon: {
-        color: 'white'
+        color: '#888'
     }
 });
 
@@ -56,17 +62,18 @@ const Square = ({ navigator, toggleTextInput, toggleFabButton }) => (
                 }}
             />
             <ChatContainer navigator={navigator} />
-            <Icon
-                type="entypo"
-                name="arrow-with-circle-right"
-                color="#888888"
-                size={30}
-                iconStyle={styles.fabIcon}
-                containerStyle={
-                    toggleTextInput ? [styles.fabButton, styles.fabButtonHeight] : styles.fabButton
-                }
+            <TouchableOpacity
+                style={styles.fabButton}
+                activeOpacity={0.9}
                 onPress={() => toggleFabButton(toggleTextInput)}
-            />
+            >
+                <Icon
+                    type="feather"
+                    name={toggleTextInput ? 'navigation' : 'edit'}
+                    size={25}
+                    iconStyle={styles.fabIcon}
+                />
+            </TouchableOpacity>
         </View>
     </TabWrapper>
 );
