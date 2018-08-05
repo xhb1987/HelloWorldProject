@@ -37,7 +37,10 @@ const INVALID_TELEPHONE = 11012; // 无效电话
 const INVALID_AMOUNT = 11013; // 无效资金
 const INVALID_LOGINTYPE = 11014; // 无效的登录类型
 const VILLAGEID_NOT_NULLABLE = 11015; // 区域ID不能为空
-const INVALID_VILLAGEID = 11015; // 无效的区域ID
+const INVALID_VILLAGEID = 11016; // 无效的区域ID
+const INVALID_SMSTYPE = 11017; // 无效的短信类型
+const VILLAGE_NOT_EXISTS = 11018; // 区域不存在
+const USER_VILLAGE_RELATION_ALREADY_EXISTS = 11019; // 用户-区域关系已经存在
 
 // 订单错误
 const INVALID_INPUT = 20000; // 无效输入
@@ -136,6 +139,9 @@ const getReturnCodeMessage = code => {
     if (code === INVALID_LOGINTYPE) return ' 无效的登录类型';
     if (code === VILLAGEID_NOT_NULLABLE) return ' 区域ID不能为空';
     if (code === INVALID_VILLAGEID) return ' 无效的区域ID';
+    if (code === INVALID_SMSTYPE) return '无效的短信类型';
+    if (code === VILLAGE_NOT_EXISTS) return '区域不存在';
+    if (code === USER_VILLAGE_RELATION_ALREADY_EXISTS) return '用户-区域关系已经存在';
 
     // 订单错误
     if (code === INVALID_INPUT) return ' 无效输入';

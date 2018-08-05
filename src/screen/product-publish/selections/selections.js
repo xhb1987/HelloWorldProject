@@ -120,9 +120,9 @@ class Selections extends Component {
         } = this.props;
 
         let option = productCategoryOption;
-        if (productOptionActive === 'usage') {
+        if (productOptionActive === 'oldOrNew') {
             option = productUsageOption;
-        } else if (productOptionActive === 'district') {
+        } else if (productOptionActive === 'placeID') {
             option = productDistrictOption;
         }
 

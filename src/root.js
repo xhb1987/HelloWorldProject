@@ -84,7 +84,8 @@ export class App {
                 appStyle: {
                     tabBarHidden: true,
                     tabBarTranslucent: true,
-                    initialTabIndex: 4
+                    initialTabIndex: 4,
+                    navBarHidden: true
                 },
                 animationType: 'slide-down'
             });

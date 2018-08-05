@@ -6,8 +6,11 @@ import {
     productInputChangeAction,
     productOptionAction,
     productPublishClearAction,
-    productPublishImageDeleteAction
+    productPublishImageDeleteAction,
+    productPriceInputAction,
+    productPublishAction
 } from '../../state/screen/product/actions';
+import * as selectors from '../../state/selectors';
 
 class Container extends Component {
     static get navigatorStyle() {
@@ -24,10 +27,13 @@ class Container extends Component {
 }
 
 const stateToProps = state => ({
-    product: state.product.productToPublish
+    product: state.product.productToPublish,
+    productValidation: selectors.getProductToPublishInfo(state)
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
+    productPublish: () => dispatch(productPublishAction()),
+    productPriceInput: price => dispatch(productPriceInputAction(price)),
     imageDelete: image => dispatch(productPublishImageDeleteAction(image)),
     productInputChange: (value, type) => dispatch(productInputChangeAction(value, type)),
     goToPhotoScreen: () => {

@@ -18,7 +18,10 @@ import {
     INVOLVE_PUBLISH,
     RESET_NOTIFICATION,
     PASSWORD_SECURED_TOGGLE,
-    USER_KEEPING_LOGIN
+    USER_KEEPING_LOGIN,
+    USER_ADD_CERT_REQUEST,
+    USER_ADD_CERT_SUCCESS,
+    USER_ADD_CERT_FAILURE
 } from './actions';
 import getReturnCodeMessage from '../../../util/return-code';
 
@@ -45,6 +48,7 @@ const initialState = {
         data: '',
         validate: false
     },
+    certUploading: false,
     passwordSecured: true,
     sessionToken: '',
     myInvolvePulish: '',
@@ -58,6 +62,26 @@ const smsCodeReges = /^\d{6}$/;
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case USER_ADD_CERT_REQUEST:
+            return Object.assign({}, state, { error: false, loading: true });
+        case USER_ADD_CERT_SUCCESS:
+            if (action.payload.retCode === 0) {
+                return Object.assign({}, state, {
+                    loading: false,
+                    error: false,
+                    notification: '认证资料提交成功',
+                    certUploading: true
+                });
+            }
+
+            return Object.assign({}, state, {
+                loading: false,
+                error: false,
+                certUploading: false,
+                notification: getReturnCodeMessage(action.payload.retCode)
+            });
+        case USER_ADD_CERT_FAILURE:
+            return Object.assign({}, state, { error: true, loading: false });
         case USER_KEEPING_LOGIN: {
             if (action.payload.funCode === 2 && action.payload.retCode === 0) {
                 return Object.assign({}, state, { isLogin: true });

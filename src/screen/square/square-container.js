@@ -4,19 +4,7 @@ import PropTypes from 'prop-types';
 import { toggleFabButtonAction } from '../../state/screen/square/actions';
 import Square from './square';
 
-class Container extends Component {
-    static get navigatorStyle() {
-        return {
-            navBarHidden: true,
-            tabBarHidden: true,
-            tabBarTranslucent: true
-        };
-    }
-
-    render() {
-        return <Square {...this.props} />;
-    }
-}
+const Container = props => <Square {...props} />;
 
 Container.propTypes = {
     homeTitle: PropTypes.string,
@@ -31,12 +19,22 @@ Container.defaultProps = {
 const stateToProps = (state, ownProps) => ({
     homeTitle: state.home.homeTitle,
     navigator: ownProps.navigator,
-    toggleTextInput: state.square.toggleTextInput
+    toggleTextInput: state.square.toggleTextInput,
+    socketAuthed: state.chatMessage.authorized,
+    isLogin: state.user.isLogin
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
-    toggleFabButton: toggleValue => {
-        dispatch(toggleFabButtonAction(toggleValue));
+    toggleFabButton: (toggleValue, isLogin) => {
+        if (isLogin === false) {
+            ownProps.navigator.showModal({
+                screen: 'screen.User.Login',
+                animated: true,
+                animationType: 'slide-up'
+            });
+        } else {
+            dispatch(toggleFabButtonAction(toggleValue));
+        }
     }
 });
 

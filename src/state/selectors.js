@@ -65,3 +65,30 @@ export const getNotification = createSelector(
         squareNotification ||
         userNotification
 );
+
+// product selector
+export const getProductTitle = state => productSelector.getProductTitle(state.product);
+export const getProductDiscription = state => productSelector.getProductDiscription(state.product);
+export const getProductImages = state => productSelector.getProductImages(state.product);
+export const getProductUsage = state => productSelector.getProductUsage(state.product);
+export const getProductPlace = state => productSelector.getProductPlace(state.product);
+export const getProductPrice = state => productSelector.getProductPrice(state.product);
+
+export const getProductToPublishInfo = createSelector(
+    getProductTitle,
+    getProductDiscription,
+    getProductImages,
+    getProductUsage,
+    getProductPlace,
+    getProductPrice,
+    (title, discription, images, usage, place, price) => {
+        return (
+            title === '' ||
+            discription === '' ||
+            images.length === 0 ||
+            usage === '' ||
+            place === '' ||
+            price === ''
+        );
+    }
+);

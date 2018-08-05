@@ -77,8 +77,8 @@ const PhotoScreen = ({ product, goToTakePicature, goBack, cancel, selectImage })
         </View>
         <View style={styles.footer}>
             <ScrollView horizontal style={styles.imageContainer}>
-                {product.images.length
-                    ? product.images.map(img => (
+                {product.fileName.length
+                    ? product.fileName.map(img => (
                           <Image key={img.uri} source={{ uri: img.uri }} style={styles.image} />
                       ))
                     : null}

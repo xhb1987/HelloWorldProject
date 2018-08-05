@@ -126,7 +126,10 @@ const ProductPublish = ({
     goToPhotoScreen,
     cancel,
     showSelections,
-    imageDelete
+    imageDelete,
+    productPriceInput,
+    productPublish,
+    productValidation
 }) => (
     <KeyboardAwareScrollView
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -136,9 +139,9 @@ const ProductPublish = ({
     >
         <Header title="发布宝贝" leftButtonPress={cancel} leftButtonType="cancel" />
         <ScrollView style={styles.scrollContainer}>
-            {product.images.length ? (
+            {product.fileName.length ? (
                 <ScrollView contentContainerStyle={styles.imageContainer} horizontal>
-                    {product.images.map(img => (
+                    {product.fileName.map(img => (
                         <ImageContent key={img.uri} image={img} deleteImage={imageDelete} />
                     ))}
                 </ScrollView>
@@ -156,9 +159,7 @@ const ProductPublish = ({
                 placeholderTextColor="#000"
                 inputStyle={styles.titleInput}
                 multiline={false}
-                onEndEditing={e => {
-                    productInputChange(e.nativeEvent.text, 'title');
-                }}
+                onChangeText={text => productInputChange(text, 'title')}
             />
             <FormInput
                 containerStyle={styles.descriptionInputContainer}
@@ -166,33 +167,37 @@ const ProductPublish = ({
                 placeholderTextColor="#c0c0c0"
                 inputStyle={styles.descriptionInput}
                 numberOfLines={6}
+                blurOnSubmit
                 multiline
-                onEndEditing={e => {
-                    productInputChange(e.nativeEvent.text, 'description');
-                }}
+                onChangeText={text => productInputChange(text, 'description')}
             />
             <Divider style={{ height: 13, backgroundColor: '#f0f0f0' }} />
             <TouchableOpacity style={styles.listContainer} onPress={() => openCategory()}>
                 <Text style={styles.listTitle}>分类</Text>
                 <View style={styles.listChoice}>
-                    <Text style={styles.listChoiceTitle}>{product.category || '选择分类'}</Text>
-                    <Icon type="entypo" name="chevron-small-right" color="#c0c0c0" size={30} />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.listContainer} onPress={() => showSelections('usage')}>
-                <Text style={styles.listTitle}>新旧程度</Text>
-                <View style={styles.listChoice}>
-                    <Text style={styles.listChoiceTitle}>{product.usage || '选择新旧程度'}</Text>
+                    <Text style={styles.listChoiceTitle}>
+                        {product.varietiesType || '选择分类'}
+                    </Text>
                     <Icon type="entypo" name="chevron-small-right" color="#c0c0c0" size={30} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.listContainer}
-                onPress={() => showSelections('district')}
+                onPress={() => showSelections('oldOrNew')}
+            >
+                <Text style={styles.listTitle}>新旧程度</Text>
+                <View style={styles.listChoice}>
+                    <Text style={styles.listChoiceTitle}>{product.oldOrNew || '选择新旧程度'}</Text>
+                    <Icon type="entypo" name="chevron-small-right" color="#c0c0c0" size={30} />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.listContainer}
+                onPress={() => showSelections('placeID')}
             >
                 <Text style={styles.listTitle}>购买地点</Text>
                 <View style={styles.listChoice}>
-                    <Text style={styles.listChoiceTitle}>{product.district || '选择地点'}</Text>
+                    <Text style={styles.listChoiceTitle}>{product.placeID || '选择地点'}</Text>
                     <Icon type="entypo" name="chevron-small-right" color="#c0c0c0" size={30} />
                 </View>
             </TouchableOpacity>
@@ -203,6 +208,8 @@ const ProductPublish = ({
                         style={styles.price}
                         placeholder="开个价吧"
                         placeholderTextColor="#c0c0c0"
+                        onChangeText={text => productPriceInput(text)}
+                        keyboardType="numeric"
                     />
                 </View>
             </View>
@@ -212,9 +219,10 @@ const ProductPublish = ({
             title="发布"
             color="#fff"
             backgroundColor="#ed3349"
-            onPress={() => goToPhotoScreen()}
+            onPress={() => productPublish()}
             buttonStyle={styles.footerBotton}
             containerViewStyle={styles.footerBottonContainer}
+            disabled={productValidation}
         />
     </KeyboardAwareScrollView>
 );

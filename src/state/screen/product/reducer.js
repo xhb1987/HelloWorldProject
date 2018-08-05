@@ -12,7 +12,8 @@ import {
     PRODUCT_OPTION_SELECT,
     PRODUCT_PUBLISH_CLEAR,
     PRODUCT_PUBLISH_IMAGE_CLEAR,
-    PRODUCT_PUBLISH_IMAGE_DELETE
+    PRODUCT_PUBLISH_IMAGE_DELETE,
+    PRODUCT_PRICE_INPUT
 } from './actions';
 const date = new Date();
 
@@ -24,15 +25,16 @@ const initialState = {
     totalCount: 0,
     imageVersion: date.getTime(),
     productToPublish: {
-        title: '',
-        discreption: '',
-        images: [],
-        category: '',
-        usage: '',
-        district: ''
+        commodityTitle: '', // product title
+        discriptionInfos: '', // product description
+        fileName: [], // product pics
+        varietiesType: '', // product category
+        oldOrNew: '', // usage
+        placeID: '', //place id
+        nowPrice: '' // product price
     },
     productOptionActive: '',
-    productCategoryOption: ['手机', '婴儿用品'],
+    productCategoryOption: ['家电'],
     productUsageOption: {
         title: '选择新旧程度',
         options: ['全新', '95新', '9成新', '8成新', '7成新', '7成一下']
@@ -48,6 +50,13 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PRODUCT_PRICE_INPUT:
+            return Object.assign({}, state, {
+                productToPublish: {
+                    ...state.productToPublish,
+                    nowPrice: parseFloat(action.payload)
+                }
+            });
         case PRODUCT_PUBLISH_IMAGE_DELETE: {
             const image = action.payload;
             const currentImages = state.productToPublish.images.slice();
@@ -98,7 +107,7 @@ const productReducer = (state = initialState, action) => {
         case PRODUCT_PULL_FAILURE:
             return Object.assign({}, state, { loading: false, error: false });
         case PRODUCT_IMAGE_SELECT: {
-            const stateImages = state.productToPublish.images.slice();
+            const stateImages = state.productToPublish.fileName.slice();
             const image = { uri: action.payload.current.uri };
             let isContained = false;
             if (stateImages.length < 10) {
@@ -117,24 +126,27 @@ const productReducer = (state = initialState, action) => {
             }
 
             return Object.assign({}, state, {
-                productToPublish: { ...state.productToPublish, images: stateImages }
+                productToPublish: { ...state.productToPublish, fileName: stateImages }
             });
         }
         case PRODUCT_TAKE_IMAGE: {
-            const stateImages = state.productToPublish.images.slice();
+            const stateImages = state.productToPublish.fileName.slice();
             if (stateImages.length < 10) {
                 stateImages.push({ uri: action.payload.uri });
             }
 
             return Object.assign({}, state, {
-                productToPublish: { ...state.productToPublish, images: stateImages }
+                productToPublish: { ...state.productToPublish, fileName: stateImages }
             });
         }
         case PRODUCT_INPUT_CHANGE: {
             const inputType = action.payload.type;
             if (inputType === 'title') {
                 return Object.assign({}, state, {
-                    productToPublish: { ...state.productToPublish, title: action.payload.value }
+                    productToPublish: {
+                        ...state.productToPublish,
+                        commodityTitle: action.payload.value
+                    }
                 });
             }
 
@@ -142,7 +154,7 @@ const productReducer = (state = initialState, action) => {
                 return Object.assign({}, state, {
                     productToPublish: {
                         ...state.productToPublish,
-                        discreption: action.payload.value
+                        discriptionInfos: action.payload.value
                     }
                 });
             }

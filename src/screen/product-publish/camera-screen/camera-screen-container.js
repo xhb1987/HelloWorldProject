@@ -24,9 +24,12 @@ const stateToProps = state => ({
     product: state.product.productToPublish
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch, ownProps) => ({
     storeImage: imageData => dispatch(productTakeImageAction(imageData)),
-    imageDelete: image => dispatch(productPublishImageDeleteAction(image))
+    imageDelete: image => dispatch(productPublishImageDeleteAction(image)),
+    goBack: () => {
+        ownProps.navigator.pop();
+    }
 });
 
 const CameraScreenContainer = connect(stateToProps, dispatchToProps)(Container);

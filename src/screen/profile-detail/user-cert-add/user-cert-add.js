@@ -3,6 +3,7 @@ import { ScrollView, View, StyleSheet, Dimensions, Text, TouchableOpacity } from
 import { Icon, Divider } from 'react-native-elements';
 import Header from '../../components/header/header';
 import Button from '../../components/button/button';
+import HomeTabBarContainer from '../../components/tab-bar/tab-bar-container';
 
 const styles = StyleSheet.create({
     viewContainer: {
@@ -56,9 +57,25 @@ const styles = StyleSheet.create({
     }
 });
 
-const UserCertAdd = ({ navigator, userLogout, isLogin, goBack }) => (
+const UserCertAdd = ({ navigator, userLogout, isLogin, goBack, addCert }) => (
     <View style={styles.viewContainer}>
-        <Header title="添加认证" leftButtonType="back" leftButtonPress={goBack} />
+        <Header
+            centerComponent={
+                <HomeTabBarContainer
+                    navigator={navigator}
+                    textStyle={{
+                        color: 'white',
+                        fontSize: 15
+                    }}
+                    iconStyle={{
+                        color: 'white',
+                        size: 16
+                    }}
+                />
+            }
+            leftButtonType="back"
+            leftButtonPress={goBack}
+        />
         <View style={styles.titleContainer}>
             <Text style={styles.title}>请拍摄本人身份证和手持身份证正面照</Text>
         </View>
@@ -71,11 +88,13 @@ const UserCertAdd = ({ navigator, userLogout, isLogin, goBack }) => (
                 <Icon type="entypo" name="plus" color="white" size={40} />
             </TouchableOpacity>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>温馨提示：区选江尽快进行人工身份审核，并保证不会泄露你任何 个人信息</Text>
+                <Text style={styles.title}>
+                    温馨提示：区选将尽快进行人工身份审核，并保证不会泄露你任何 个人信息
+                </Text>
             </View>
         </View>
         <View style={styles.buttonContainer}>
-            <Button title="添加认证" buttonPress={() => {}} />
+            <Button title="添加认证" buttonPress={() => addCert()} />
         </View>
     </View>
 );

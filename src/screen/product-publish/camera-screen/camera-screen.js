@@ -27,7 +27,11 @@ const styles = StyleSheet.create({
     captureContainer: {
         position: 'absolute',
         bottom: 50,
-        left: Dimensions.get('screen').width / 2 - 40
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 0,
+        right: 0
     },
     capture: {
         backgroundColor: '#fff',
@@ -35,7 +39,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: 80,
         width: 80,
-        borderRadius: 80
+        borderRadius: 80,
+        margin: 20
     }
 });
 
@@ -70,7 +75,7 @@ class CameraScreen extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView contentContainerStyle={styles.imageContainer} horizontal>
-                    {this.props.product.images.map(img => (
+                    {this.props.product.fileName.map(img => (
                         <ImageContent
                             key={img.uri}
                             image={img}
@@ -92,6 +97,9 @@ class CameraScreen extends Component {
                 <View style={styles.captureContainer}>
                     <TouchableOpacity onPress={() => this.takePicture()} style={styles.capture}>
                         <Text style={{ fontSize: 14 }}> 拍照 </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.goBack()} style={styles.capture}>
+                        <Text style={{ fontSize: 14 }}> 确定 </Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -17,6 +17,36 @@ export const PRODUCT_PUBLISH_CLEAR = 'PRODUCT_PUBLISH_CLEAR';
 export const PRODUCT_PUBLISH_IMAGE_CLEAR = 'PRODUCT_PUBLISH_IMAGE_CLEAR';
 export const PRODUCT_PUBLISH_IMAGE_DELETE = 'PRODUCT_PUBLISH_IMAGE_DELETE';
 
+export const PRODUCT_PUBLISH_REQUEST = 'PRODUCT_PUBLISH_REQUEST';
+export const PRODUCT_PUBLISH_SUCCESS = 'PRODUCT_PUBLISH_SUCCESS';
+export const PRODUCT_PUBLISH_FAILURE = 'PRODUCT_PUBLISH_FAILURE';
+
+export const PRODUCT_PRICE_INPUT = 'PRODUCT_PRICE_INPUT';
+
+const productPublishRequestAction = () => ({
+    type: PRODUCT_PUBLISH_REQUEST,
+    payload: {},
+    meta: {}
+});
+
+const productPublishSuccessAction = res => ({
+    type: PRODUCT_PUBLISH_SUCCESS,
+    payload: res,
+    meta: {}
+});
+
+const productPublishFailureAciton = e => ({
+    type: PRODUCT_PUBLISH_FAILURE,
+    payload: e,
+    meta: {}
+});
+
+export const productPriceInputAction = price => ({
+    type: PRODUCT_PRICE_INPUT,
+    payload: price,
+    meta: {}
+});
+
 export const productPublishImageDeleteAction = image => ({
     type: PRODUCT_PUBLISH_IMAGE_DELETE,
     payload: image,
@@ -97,6 +127,12 @@ export const productPublishStoreAction = product => ({
     meta: {}
 });
 
+export const productPublishAction = () => (dispatch, getState) => {
+    const { productToPublish } = getState().product;
+    console.log(productToPublish);
+    dispatch(productPublishRequestAction());
+};
+
 export const productPull = () => (dispatch, getState) => {
     const state = getState();
     const isLoading = state.product.loading;
@@ -104,13 +140,14 @@ export const productPull = () => (dispatch, getState) => {
     if (isLoading) {
         return;
     }
+
     console.log(isLoading);
-    const selectedVillage = state.home.selectedVillage;
+    const { selectedVillage } = state.home;
     const url = 'userservice/getcommodity';
     dispatch(productPullRequestAction());
     const villageID = selectedVillage.villageID || 1;
     const result = fetchPost(url, {
-        queryParams: { villageID: villageID, pageSize: 20, pageNo: 1 }
+        queryParams: { villageID, pageSize: 20, pageNo: 1 }
     });
     return result
         .then(json => dispatch(productPullSuccess(json)))

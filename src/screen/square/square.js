@@ -35,47 +35,81 @@ const styles = StyleSheet.create({
     },
     fabIcon: {
         color: '#888'
+    },
+    networkIconContainer: {
+        // width: 30,
+        // height: 30,
+        marginRight: -5,
+        marginTop: -15,
+        marginBottom: -15,
+        marginLeft: -15
+    },
+    networkIcon: {
+        fontSize: 35
+    },
+
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
-const Square = ({ navigator, toggleTextInput, toggleFabButton }) => (
-    <TabWrapper navigator={navigator} hideTab={toggleTextInput}>
-        <View style={styles.container}>
-            <Header
-                leftButtonType="none"
-                centerComponent={
-                    <HomeTabBarContainer
-                        navigator={navigator}
-                        textStyle={{
-                            color: 'white',
-                            fontSize: 15
-                        }}
-                        iconStyle={{
-                            color: 'white',
-                            size: 16
-                        }}
-                    />
-                }
-                outerContainerStyles={{
-                    height: 56,
-                    paddingBottom: 10
-                }}
-            />
-            <ChatContainer navigator={navigator} />
-            <TouchableOpacity
-                style={styles.fabButton}
-                activeOpacity={0.9}
-                onPress={() => toggleFabButton(toggleTextInput)}
-            >
+const Square = ({ navigator, toggleTextInput, toggleFabButton, socketAuthed, isLogin }) => {
+    const headerCenterComponent = () => {
+        return (
+            <View style={styles.headerContainer}>
                 <Icon
-                    type="feather"
-                    name={toggleTextInput ? 'navigation' : 'edit'}
-                    size={25}
-                    iconStyle={styles.fabIcon}
+                    type="entypo"
+                    name="dot-single"
+                    containerStyle={styles.networkIconContainer}
+                    iconStyle={[
+                        styles.networkIcon,
+                        { color: socketAuthed ? '#40f940ab' : 'black' }
+                    ]}
                 />
-            </TouchableOpacity>
-        </View>
-    </TabWrapper>
-);
+                <HomeTabBarContainer
+                    navigator={navigator}
+                    textStyle={{
+                        color: 'white',
+                        fontSize: 15
+                    }}
+                    iconStyle={{
+                        color: 'white',
+                        size: 16
+                    }}
+                />
+            </View>
+        );
+    };
+
+    return (
+        <TabWrapper navigator={navigator} hideTab={toggleTextInput}>
+            <View style={styles.container}>
+                <Header
+                    leftButtonType="none"
+                    centerComponent={headerCenterComponent()}
+                    outerContainerStyles={{
+                        height: 56,
+                        paddingBottom: 10
+                    }}
+                />
+                <ChatContainer navigator={navigator} />
+                <TouchableOpacity
+                    style={styles.fabButton}
+                    activeOpacity={0.9}
+                    onPress={() => toggleFabButton(toggleTextInput, isLogin)}
+                >
+                    <Icon
+                        type="feather"
+                        name={toggleTextInput ? 'navigation' : 'edit'}
+                        size={25}
+                        iconStyle={styles.fabIcon}
+                    />
+                </TouchableOpacity>
+            </View>
+        </TabWrapper>
+    );
+};
 
 export default Square;

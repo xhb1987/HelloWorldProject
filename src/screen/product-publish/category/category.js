@@ -41,7 +41,7 @@ const Category = ({ product, cancel, selectOption, productCategoryOption }) => (
                     hideChevron
                     key={option}
                     title={option}
-                    onPress={() => selectOption('category', option)}
+                    onPress={() => selectOption('varietiesType', option)}
                 />
             ))}
         </List>

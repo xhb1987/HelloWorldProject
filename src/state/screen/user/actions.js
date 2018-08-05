@@ -31,6 +31,46 @@ export const PASSWORD_SECURED_TOGGLE = 'PASSWORD_SECURED_TOGGLE';
 
 export const USER_KEEPING_LOGIN = 'USER_KEEPING_LOGIN';
 
+export const USER_ADD_CERT_REQUEST = 'USER_ADD_CERT_REQUEST';
+export const USER_ADD_CERT_SUCCESS = 'USER_ADD_CERT_SUCCESS';
+export const USER_ADD_CERT_FAILURE = 'USER_ADD_CERT_FAILURE';
+
+const userAddCertRequestAction = () => ({
+    type: USER_ADD_CERT_REQUEST,
+    payload: {},
+    meta: {}
+});
+
+const userAddCertSuccessAction = res => ({
+    type: USER_ADD_CERT_SUCCESS,
+    payload: res,
+    meta: {}
+});
+
+const userAddCertFailureAction = e => ({
+    type: USER_ADD_CERT_FAILURE,
+    payload: e,
+    meta: {}
+});
+
+export function userAddCertAction() {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        const { selectedVillage } = state.home;
+
+        dispatch(userAddCertRequestAction());
+        const result = fetchPost('userservice/addVillageRelation', {
+            villageID: selectedVillage.villageID
+        });
+        return result
+            .then(response => {
+                dispatch(userAddCertSuccessAction(response));
+            })
+            .catch(e => dispatch(userAddCertFailureAction(e)));
+    };
+}
+
 export const userKeepingLogin = msg => ({
     type: USER_KEEPING_LOGIN,
     payload: msg,

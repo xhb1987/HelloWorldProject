@@ -25,7 +25,7 @@ const persistSquareConfig = {
 const persistProductConfig = {
     key: 'product',
     storage: AsyncStorage,
-    blacklist: ['productToPublish']
+    whitelist: ['loading']
 };
 
 const persistUserConfig = {
